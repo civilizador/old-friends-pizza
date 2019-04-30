@@ -30,7 +30,7 @@ module.exports = (app) => {
         }
     });
 // FACEBOOK AUTH ROUTES
-    app.get("/api/auth/facebook", passport.authenticate('facebook', { 
+    app.get("/api/facebook/login", passport.authenticate('facebook', { 
         scope : ['email'] }));
  
     app.get('/api/auth/facebook/callback',passport.authenticate('facebook', { 
@@ -50,7 +50,7 @@ module.exports = (app) => {
 		res.redirect("/login");
 	});
 // Endpoint to get current user
-	app.get('/testNode', (req,res) => {
+	app.get('/api/current_user', (req,res) => {
         res.send('Test Success')
     })
     
