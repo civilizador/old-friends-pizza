@@ -42,7 +42,8 @@ module.exports = (app) => {
 	app.post('/api/login',
 	  passport.authenticate('local'),
 	  function(req, res) {
-	    res.send(req.user);
+	      console.log(req.user)
+	     res.redirect("/") 
 	  }
 	);
     app.get("/api/logout", function(req, res) {
@@ -51,7 +52,8 @@ module.exports = (app) => {
 	});
 // Endpoint to get current user
 	app.get('/api/current_user', (req,res) => {
-        res.send('Test Success')
+        if(req.user) {res.send(req.user)}
+        else{res.send('failed')}
     })
     
 }

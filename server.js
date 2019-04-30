@@ -23,17 +23,17 @@
     app.use(bodyParser.json());
     app.use(cookieParser());
     
-// //  Express.js configuration
-//     app.use(require("express-session")({
-//         secret: process.env.XPRESS_SEC ,
-//         resave: true,
-//         saveUninitialized: true
-//     }));
-//  Setting up cookie session
-    app.use(cookieSession({
-        maxAge: 15 * 24 * 60 * 60 * 1000,
-        keys: [process.env.COOKIE_SECRET]
+//  Express.js configuration
+    app.use(require("express-session")({
+        secret: process.env.XPRESS_SEC ,
+        resave: true,
+        saveUninitialized: true
     }));
+// //  Setting up cookie session
+//     app.use(cookieSession({
+//         maxAge: 15 * 24 * 60 * 60 * 1000,
+//         keys: [process.env.COOKIE_SECRET]
+//     }));
     
 //  Calling Passport to initializa and create a session. 
     app.use(passport.initialize());
