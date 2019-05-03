@@ -6,22 +6,19 @@ const flash     = require("connect-flash");
 // Passing express to our routes function
 
 module.exports = (app) => {
-    
-    app.post('/api/register', function(req, res){
+
+    app.post('/api/register', async (req, res)=>{
 	    const password = req.body.password;
 	    const password2 = req.body.password2;
         if (password == password2){
-            var newUser = new User({
-          		name: req.body.name,
-          		email: req.body.email,
-          		username: req.body.username,
-          		password: req.body.password,
-          		address: req.body.addr,
-          		phone: req.body.phone
+            const newUser = await new User({
+          		name: req.body.name, email: req.body.email,
+          		username: req.body.username,password: req.body.password,
+          		address: req.body.addr,phone: req.body.phone
           	});
-      	    User.createUser(newUser, function(err, user){
+      	    await User.createUser(newUser, function(err, user){
           		if(err) throw err;
-          		res.send(user)
+          		res.redirect('/')
           		console.log(user);
           	})
         } else{
@@ -30,22 +27,22 @@ module.exports = (app) => {
         }
     });
 // FACEBOOK AUTH ROUTES
-    app.get("/api/facebook/login", passport.authenticate('facebook', { 
+    app.get("/api/facebook/login", passport.authenticate('facebook', {
         scope : ['email'] }));
- 
-    app.get('/api/auth/facebook/callback',passport.authenticate('facebook', { 
+
+    app.get('/api/auth/facebook/callback',passport.authenticate('facebook', {
         successRedirect: '/',
-        failureRedirect: '/login' 
+        failureRedirect: '/login'
     }));
 
-// Endpoint to login
 	app.post('/api/login',
 	  passport.authenticate('local'),
 	  function(req, res) {
 	      console.log(req.user)
-	     res.redirect("/") 
+	     res.redirect("/")
 	  }
 	);
+
     app.get("/api/logout", function(req, res) {
 		req.logout();
 		res.redirect("/login");
@@ -53,7 +50,7 @@ module.exports = (app) => {
 // Endpoint to get current user
 	app.get('/api/current_user', (req,res) => {
         if(req.user) {res.send(req.user)}
-        else{res.send('failed')}
+        else{res.send('no_user_logged_in')}
     })
-    
+
 }

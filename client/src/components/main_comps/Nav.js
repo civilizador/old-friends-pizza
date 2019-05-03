@@ -1,11 +1,17 @@
 import React from 'react';
 import {Link}  from 'react-router-dom';
+import {connect} from 'react-redux';
+import {getCurrentUser} from '../../actions'
 import LocalAuth from '../user_comps/LocalAuth';
 import $ from "jquery";
 
 class Nav extends React.Component {
   onSearchSubmit=(e)=>{
     e.preventDefault();
+  }
+  componentDidMount(){
+       this.props.getCurrentUser()
+       console.log(this.props);
   }
 
   render(){
@@ -17,7 +23,6 @@ class Nav extends React.Component {
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-  
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
@@ -35,10 +40,8 @@ class Nav extends React.Component {
                   <Link className="dropdown-item" to="/menu">Steaks</Link>
                   <div className="dropdown-divider"></div>
                  <Link className="dropdown-item" to="/menu">Drinks</Link>
-             
                 </div>
               </li>
-        
             </ul>
             <form className="form-inline my-2 my-lg-0" onSubmit={this.onSearchSubmit}>
               <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
@@ -52,4 +55,6 @@ class Nav extends React.Component {
   )
 }
 }
-export default Nav;
+const mapStateToProps = (state) => ({state})
+
+export default connect(mapStateToProps,{getCurrentUser})(Nav);
