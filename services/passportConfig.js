@@ -3,6 +3,7 @@
     const   User =             require("../models/User");
     const   FacebookStrategy = require('passport-facebook').Strategy;
 
+// PASSPORT LOCAL Strategy configuration.
 
        passport.serializeUser((user, done)=>{
           done(null, user.id);

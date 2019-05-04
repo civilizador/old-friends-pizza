@@ -2,27 +2,25 @@ import React,{ Component } from 'react';
 import {Link} from 'react-router-dom';
 
 class LocalAuth extends Component {
-  state={isSigned:null}
 
-    renderAuthItems=()=>{
-    switch(this.state.isSigned){
-      case true:
-        return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link to='/profile'  className="dropdown-item">Profile </Link>
-                  <Link to='/signOut'  className="dropdown-item">SignOut </Link>
-                </div>  )
-      case false:
-        return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link to='/login'  className="dropdown-item">Login </Link>
-                    <Link to='/register'  className="dropdown-item">Register </Link>
-                </div>  )
-      default:
-        return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <Link to='/login'  className="dropdown-item">Login </Link>
-                    <Link to='/register'  className="dropdown-item">Register </Link>
-                </div>  )
-    }
-
+  renderAuthItems=()=>{
+        switch(this.props.userState ){
+          case true:
+            return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <Link to='/profile'  className="dropdown-item">Profile </Link>
+                      <Link to='/signOut'  className="dropdown-item">SignOut </Link>
+                    </div>  )
+          case false:
+            return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <Link to='/login'  className="dropdown-item">Login </Link>
+                        <Link to='/register'  className="dropdown-item">Register </Link>
+                    </div>  )
+          default:
+            return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <Link to='/login'  className="dropdown-item">Login </Link>
+                        <Link to='/register'  className="dropdown-item">Register </Link>
+                    </div>  )
+        }
   }
 
   render() {

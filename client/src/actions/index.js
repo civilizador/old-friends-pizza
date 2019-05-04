@@ -10,6 +10,6 @@ export const getCurrentUser = () => {
         const data = await getProfileData();
               if (data!=='no_user_logged_in') ( console.log('Data from Action ',data) )
               else ( console.log('no user_logged_in') )
-         dispatch({ type: 'GET_USER_DATA',  payload: data })
+         dispatch({ type: 'GET_USER_DATA',  payload: data.data })
     }
 }

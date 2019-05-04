@@ -2,19 +2,34 @@ import React from 'react';
 import {Link}  from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getCurrentUser} from '../../actions'
-import LocalAuth from '../user_comps/LocalAuth';
-import $ from "jquery";
 
 class Nav extends React.Component {
+
+  renderAuthItems=()=>{
+      switch(this.props.auth.auth ){
+        case null:
+          return
+        case false:
+          return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <Link to='/login'  className="dropdown-item">Login </Link>
+                        <Link to='/register'  className="dropdown-item">Register </Link>
+                  </div>  )
+        default:
+          return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <Link to='/profile'  className="dropdown-item">Profile </Link>
+                        <Link to='/api/logout'  className="dropdown-item">SignOut </Link>
+                  </div>  )
+      }
+  }
+
   onSearchSubmit=(e)=>{
     e.preventDefault();
   }
   componentDidMount(){
-       this.props.getCurrentUser()
-       console.log(this.props);
+        this.renderAuthItems()
   }
-
   render(){
+         console.log('NAV COMPONENT ',this.props.auth)
     return (
       <nav className="navbar navbar-expand-lg navbar-light">
           <Link  className="navbar-brand" to="/">
@@ -48,13 +63,18 @@ class Nav extends React.Component {
               <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
             </form>
             <ul className="navbar-nav authBUttons">
-            <LocalAuth />
+                <li className="nav-item dropdown">
+                      <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i className="fas fa-utensils"></i>
+                      </a>
+                      {this.renderAuthItems()}
+                </li>
             </ul>
           </div>
       </nav>
   )
 }
 }
-const mapStateToProps = (state) => ({state})
 
+const mapStateToProps = (auth) => ({auth})
 export default connect(mapStateToProps,{getCurrentUser})(Nav);

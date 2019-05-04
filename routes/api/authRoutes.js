@@ -7,6 +7,7 @@ const flash     = require("connect-flash");
 
 module.exports = (app) => {
 
+// When submitting a form on register page we create a new entry in DB.
     app.post('/api/register', async (req, res)=>{
 	    const password = req.body.password;
 	    const password2 = req.body.password2;
@@ -19,7 +20,6 @@ module.exports = (app) => {
       	    await User.createUser(newUser, function(err, user){
           		if(err) throw err;
           		res.redirect('/')
-          		console.log(user);
           	})
         } else{
           	console.log("Passwords don't match");
@@ -35,22 +35,24 @@ module.exports = (app) => {
         failureRedirect: '/login'
     }));
 
+// When submitting a form on Login page , we pass values from inputs to passport local strategy.
 	app.post('/api/login',
 	  passport.authenticate('local'),
-	  function(req, res) {
-	      console.log(req.user)
-	     res.redirect("/")
-	  }
+  	  function(req, res) {
+  	      console.log(req.user)
+  	     res.redirect("/")
+  	  }
 	);
 
-    app.get("/api/logout", function(req, res) {
-		req.logout();
+  app.get("/api/logout", function(req, res) {
+		    req.logout();
 		res.redirect("/login");
 	});
 // Endpoint to get current user
 	app.get('/api/current_user', (req,res) => {
+    console.log('api/current_user called')
         if(req.user) {res.send(req.user)}
-        else{res.send('no_user_logged_in')}
+        else{res.send(false)}
     })
 
 }
