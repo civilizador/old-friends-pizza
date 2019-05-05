@@ -44,9 +44,9 @@ module.exports = (app) => {
   	  }
 	);
 
-  app.get("/api/logout", function(req, res) {
+  app.get('/api/logout', (req, res) => {
 		    req.logout();
-		res.redirect("/login");
+		      res.redirect("/");
 	});
 // Endpoint to get current user
 	app.get('/api/current_user', (req,res) => {

@@ -1,43 +1,39 @@
 import React ,{ Component } from "react";
-import { Link } from "react-router-dom";
-import axios from 'axios';
+import {connect} from 'react-redux';
+import { Link,Redirect } from "react-router-dom";
+import {login} from "../../actions";
+
 
 class Login extends Component {
-  constructor() {
-    super();
+
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       password: "",
     };
   }
-  componentDidMount() {
-    // If logged in and user navigates to Login page, should redirect them to dashboard
-  }
   onChange = e => {
       this.setState({ [e.target.id]: e.target.value });
     };
-  onSubmit = e => {
+  onSubmit = async e => {
       e.preventDefault();
-      const userData = {
-          username: this.state.username,
-          password: this.state.password
-        };
-      console.log(userData);
-      axios({
-        method:"post",
-        url:"/api/login",
-        data: userData
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-  
+      // Trigering login action and passing input data from the login form.
+      this.props.login(this.state)
+    }
+    getResult = () =>{
+      switch(this.props.auth.auth){
+        case false:
+          return "Please Log In using your e-mail and password."
+        case 'no_user_logged_in':
+          return "Please Log In using your e-mail and password."
+        default:
+             return <Redirect to='/'/>;;
+      }
+    }
   render() {
     return (
+
         <div className="container col-7 mx-auto" style={{ marginTop: "20vh" }}>
           <div style={{ marginTop: "4rem" }} className="row">
             <div className="col s8 offset-s2">
@@ -51,7 +47,7 @@ class Login extends Component {
               </div>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
-                  <input 
+                  <input
                     className="form-control"
                     onChange={this.onChange}
                     value={this.state.username}
@@ -87,18 +83,36 @@ class Login extends Component {
               </form>
             </div>
           </div>
-          
+<h2> {this.getResult()} </h2>
           <div className="google-btn">
             <div className="google-icon-wrapper">
-              <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+              <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt=''/>
             </div>
             <p className="btn-text"><b>Sign in with google</b></p>
           </div>
-          
+
         </div>
     );
   }
 }
-   
-  
-  export default  Login;
+const mapStateToProps = (auth) => ({auth})
+export default connect(mapStateToProps, { login })(Login)
+
+
+//     const userData = {
+//         username: this.state.username,
+//         password: this.state.password
+//       };
+//     console.log(userData);
+//     axios({
+//       method:"post",
+//       url:"/api/login",
+//       data: userData
+//     })
+//     .then(function (response) {
+//       console.log(response);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// };

@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link}  from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getCurrentUser} from '../../actions'
-
+import {getCurrentUser} from '../../actions';
+import {logout} from '../../actions';
+import {bindActionCreators} from 'redux';
 class Nav extends React.Component {
 
   renderAuthItems=()=>{
@@ -17,7 +18,7 @@ class Nav extends React.Component {
         default:
           return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <Link to='/profile'  className="dropdown-item">Profile </Link>
-                        <Link to='/api/logout'  className="dropdown-item">SignOut </Link>
+                        <p onClick={()=>{this.props.logout()}}  className="dropdown-item"> SignOut </p>
                   </div>  )
       }
   }
@@ -26,7 +27,8 @@ class Nav extends React.Component {
     e.preventDefault();
   }
   componentDidMount(){
-        this.renderAuthItems()
+        this.renderAuthItems();
+        console.log(this.props.logout)
   }
   render(){
          console.log('NAV COMPONENT ',this.props.auth)
@@ -47,9 +49,9 @@ class Nav extends React.Component {
                   <Link className="nav-link" to="/about">Why Our Pizza</Link>
               </li>
               <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="/current_user" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   By Category
-                </a>
+                </Link>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <Link className="dropdown-item" to="/menu">Pizza</Link>
                   <Link className="dropdown-item" to="/menu">Steaks</Link>
@@ -64,9 +66,9 @@ class Nav extends React.Component {
             </form>
             <ul className="navbar-nav authBUttons">
                 <li className="nav-item dropdown">
-                      <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i className="fas fa-utensils"></i>
-                      </a>
+                      </Link>
                       {this.renderAuthItems()}
                 </li>
             </ul>
@@ -77,4 +79,6 @@ class Nav extends React.Component {
 }
 
 const mapStateToProps = (auth) => ({auth})
-export default connect(mapStateToProps,{getCurrentUser})(Nav);
+
+
+export default connect(mapStateToProps,{logout})(Nav);

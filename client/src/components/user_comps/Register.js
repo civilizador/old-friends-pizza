@@ -14,7 +14,7 @@ class Register extends Component {
       this.email = React.createRef(); this.password = React.createRef(); this.submit = React.createRef();
   }
     componentDidMount() {
-    
+
   }
   onChange = e => {
       this.setState({ [e.target.id]: e.target.value });
@@ -31,7 +31,7 @@ class Register extends Component {
             phone:      this.state.phone
       };
       console.log(newUser)
-   
+
   axios({
       method: 'post',
       url: 'api/register',
@@ -41,9 +41,10 @@ class Register extends Component {
     console.log(response);
   })
   .catch(function (error) {
+    this.setState({errors:error})
     console.log(error);
   });
-  
+
   }
   onKeyUp = (e,target) => {
     if(e.keyCode === 13){
@@ -69,17 +70,19 @@ class Register extends Component {
         case 'password2' :
           this.submit.current.focus();
           break;
+        default :
+          this.submit.current.focus();
+          break;
       }
-      
+
     }
   }
   render() {
-      const { errors } = this.state;
   return (
       <div className="container col-7 mx-auto" style={{ marginTop: "20vh" }}>
         <div className="row">
           <div className="col s8 offset-s2">
-             
+
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4>
                 <b>Register</b> below
@@ -89,23 +92,23 @@ class Register extends Component {
               </p>
             </div>
             <form onSubmit={this.onSubmit}>
-              
+
               <div className="form-group">
                 <label htmlFor="username">User Name</label>
                 <input
                   className='form-control'
                   ref={this.username}
-                  onKeyUp={(e)=>{this.onKeyUp(e,'username')}} 
+                  onKeyUp={(e)=>{this.onKeyUp(e,'username')}}
                   onChange={this.onChange}
                   value={this.state.username}
                   id="username"
                   type="text"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="name">Name</label>
-                <input 
+                <input
                   className='form-control'
                   ref={this.name}
                   onKeyUp={(e)=>{this.onKeyUp(e,'name')}}
@@ -132,7 +135,7 @@ class Register extends Component {
                 <input
                   className='form-control'
                   ref={this.phone}
-                  onKeyUp={(e)=>{this.onKeyUp(e,'phone')}} 
+                  onKeyUp={(e)=>{this.onKeyUp(e,'phone')}}
                   onChange={this.onChange}
                   value={this.state.phone}
                   id="phone"
@@ -144,7 +147,7 @@ class Register extends Component {
                 <input
                   className='form-control'
                   ref={this.email}
-                  onKeyUp={(e)=>{this.onKeyUp(e,'email')}} 
+                  onKeyUp={(e)=>{this.onKeyUp(e,'email')}}
                   onChange={this.onChange}
                   value={this.state.email}
                   id="email"
@@ -156,7 +159,7 @@ class Register extends Component {
                 <input
                 className='form-control'
                   ref={this.password }
-                  onKeyUp={(e)=>{this.onKeyUp(e,'password')}} 
+                  onKeyUp={(e)=>{this.onKeyUp(e,'password')}}
                   onChange={this.onChange}
                   value={this.state.password}
                   id="password"
@@ -167,7 +170,7 @@ class Register extends Component {
                 <label htmlFor="password2">Confirm Password</label>
                 <input
                 className='form-control'
-                onKeyUp={(e)=>{this.onKeyUp(e,'password2')}} 
+                onKeyUp={(e)=>{this.onKeyUp(e,'password2')}}
                   ref={ this.password2 }
                   onChange={this.onChange}
                   value={this.state.password2}
