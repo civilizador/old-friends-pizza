@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link}  from 'react-router-dom';
+import {Link,Redirect}  from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getCurrentUser} from '../../actions';
 import {logout} from '../../actions';
@@ -18,7 +18,7 @@ class Nav extends React.Component {
         default:
           return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <Link to='/profile'  className="dropdown-item">Profile </Link>
-                        <p onClick={()=>{this.props.logout()}}  className="dropdown-item"> SignOut </p>
+                        <p onClick={ ()=>{this.props.logout()} }  className="dropdown-item"> SignOut </p>
                   </div>  )
       }
   }
@@ -26,6 +26,7 @@ class Nav extends React.Component {
   onSearchSubmit=(e)=>{
     e.preventDefault();
   }
+
   componentDidMount(){
         this.renderAuthItems();
         console.log(this.props.logout)

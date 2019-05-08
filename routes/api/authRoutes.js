@@ -36,23 +36,28 @@ module.exports = (app) => {
     }));
 
 // When submitting a form on Login page , we pass values from inputs to passport local strategy.
-	app.post('/api/login',
-	  passport.authenticate('local'),
-  	  function(req, res) {
-  	      console.log(req.user)
-  	     res.redirect("/")
-  	  }
-	);
+  	app.post('/api/login',
+  	  passport.authenticate('local'),
+    	  function(req, res, err){
+    	      console.log(req.user)
+            if(err){res.send(err)}
+            else{ res.send("success")}
+    	  }
+  	);
 
-  app.get('/api/logout', (req, res) => {
-		    req.logout();
-		      res.redirect("/");
-	});
+    app.get('/api/logout',
+        function(req, res){
+            req.logout(),
+            console.log('log Out')
+  		     res.redirect("/")
+  	    }
+    );
+
 // Endpoint to get current user
-	app.get('/api/current_user', (req,res) => {
-    console.log('api/current_user called')
-        if(req.user) {res.send(req.user)}
-        else{res.send(false)}
-    })
+  	app.get('/api/current_user', (req,res) => {
+      console.log('api/current_user called')
+          if(req.user) {res.send(req.user)}
+          else{res.send(false)}
+      })
 
 }
