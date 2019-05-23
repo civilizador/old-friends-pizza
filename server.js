@@ -51,8 +51,9 @@
           next();
       });
 
-//RESTFULL ROUTES
+//CRUD ROUTES
     require('./routes/api/authRoutes')(app);
+    require('./routes/api/itemsRoutes')(app);
 
 //  PASSPORT.js CONFIGURATION IMPORT
     require("./services/passportConfig")
