@@ -1,8 +1,6 @@
 import axios from 'axios'
 let wrongPass = false;
 
-
-
 // ACTIONS
 
 // USER LOGIN ACTIONS
