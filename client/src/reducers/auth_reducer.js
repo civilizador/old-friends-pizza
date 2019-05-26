@@ -3,7 +3,7 @@ export default (activeUser=null, action)=>{
     case 'GET_USER_DATA':
           return action.payload || false
     case 'WRONG_PASSWORD':
-          return action.payload 
+          return action.payload
     default:
       return activeUser;
   }

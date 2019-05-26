@@ -2,12 +2,12 @@ import React from 'react';
 import {Link,Redirect}  from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getCurrentUser} from '../../actions';
-import {logout} from '../../actions';
+import {logoutAction} from '../../actions';
 import {bindActionCreators} from 'redux';
 class Nav extends React.Component {
 
   renderAuthItems=()=>{
-      switch(this.props.auth.auth ){
+      switch(this.props.auth.logedIN ){
         case null:
           return
         case false:
@@ -18,7 +18,7 @@ class Nav extends React.Component {
         default:
           return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <Link to='/profile'  className="dropdown-item">Profile </Link>
-                        <p onClick={ ()=>{this.props.logout()} }  className="dropdown-item"> SignOut </p>
+                        <p onClick={ ()=>{this.props.logoutAction()} }  className="dropdown-item"> SignOut </p>
                   </div>  )
       }
   }
@@ -29,7 +29,7 @@ class Nav extends React.Component {
 
   componentDidMount(){
         this.renderAuthItems();
-        console.log(this.props.logout)
+        console.log(this.props.logoutAction)
   }
   render(){
          console.log('NAV COMPONENT ',this.props.auth)
@@ -82,4 +82,4 @@ class Nav extends React.Component {
 const mapStateToProps = (auth) => ({auth})
 
 
-export default connect(mapStateToProps,{logout})(Nav);
+export default connect(mapStateToProps,{logoutAction})(Nav);

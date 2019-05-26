@@ -2,6 +2,7 @@ const passport  = require("passport");
 const mongoose  = require("mongoose");
 const User      = require("../../models/User");
 const flash     = require("connect-flash");
+const middleware = require("../middleware.js");
 
 // Passing express to our routes function
 

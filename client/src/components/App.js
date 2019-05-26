@@ -31,7 +31,6 @@ class App extends React.Component {
           <Route path='/profile' exact component={Profile} />
           <Route path='/login' exact component={Login} />
           <Route path='/register' exact component={Register} />
-          <Route path='/profile' exact component={HomePage} />
           <Route path='/create' exact component={Create} />
           <Route path='/edit' exact component={Edit} />
           <Route path='/show' exact component={Show} />
