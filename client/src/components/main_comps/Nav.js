@@ -32,7 +32,6 @@ class Nav extends React.Component {
         console.log(this.props.logoutAction)
   }
   render(){
-         console.log('NAV COMPONENT ',this.props.auth)
     return (
       <nav className="navbar navbar-expand-lg navbar-light">
           <Link  className="navbar-brand" to="/">
@@ -44,7 +43,7 @@ class Nav extends React.Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <Link className="nav-link" to="/menu"> Menu <span className="sr-only">(current)</span></Link>
+                <a className="nav-link" href="/#menu"> Menu <span className="sr-only">(current)</span></a>
               </li>
               <li className="nav-item">
                   <Link className="nav-link" to="/about">Why Our Pizza</Link>
@@ -54,8 +53,8 @@ class Nav extends React.Component {
                   By Category
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link className="dropdown-item" to="/menu">Pizza</Link>
-                  <Link className="dropdown-item" to="/menu">Steaks</Link>
+                  <Link className="dropdown-item" to="/#menu">Pizza</Link>
+                  <Link className="dropdown-item" to="/#steaks">Steaks</Link>
                   <div className="dropdown-divider"></div>
                  <Link className="dropdown-item" to="/menu">Drinks</Link>
                 </div>

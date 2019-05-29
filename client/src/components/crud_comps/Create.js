@@ -1,31 +1,27 @@
 import React ,{ Component } from "react";
-import {connect} from 'react-redux';
-import { Link,Redirect } from "react-router-dom";
-import { createItemAction } from "../../actions";
-
+import { Field, reduxForm } from 'redux-form'
+ 
 
 class Create extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      price: "",
-      description: "",
-      category: "",
-      timeToCook: "",
-      featured: ""
-    };
+  
+  renderInput(formProps){
+     return( 
+        <div className="form-group">
+          <label>{formProps.label}</label>
+          <input
+            type      = {formProps.input.type}
+            onChange  = {formProps.input.onChange}
+            value     = {formProps.input.value}
+            className = "form-control"
+          /> 
+          <div>{formProps.meta.error}</div>
+        </div>
+      )
+  } 
+  
+  onSubmit = async values => {
+      console.log(values);
   }
-  onChange = e => {
-    // on input change this function sets component level state to the input value
-      this.setState({ [e.target.id]: e.target.value });
-    };
-  onSubmit = async e => {
-      e.preventDefault();
-      // Trigering login action and passing input data from the login form.
-      this.props.createItemAction(this.state)
-    }
 
   render() {
     return (
@@ -37,42 +33,15 @@ class Create extends Component {
                 <h4> <b>Add a New Item</b> </h4>
               </div>
 
-              <form noValidate onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input className="form-control"
-                    onChange={this.onChange} value={this.state.name}
-                    id="name" type="username"
-                  />
-                  <label htmlFor="name">Name</label>
-                </div>
-                <div className="form-group">
-                  <input className="form-control"
-                   onChange={this.onChange} value={this.state.price}
-                   id="price" type="number"
-                  />
-                  <label htmlFor="price">Price</label>
-                </div>
-                <div className="form-group">
-                  <textarea className="form-control"
-                   onChange={this.onChange} value={this.state.description}
-                   id="description" type="text"
-                  />
-                  <label htmlFor="description">Description</label>
-                </div>
-                <div className="form-group">
-                  <input className="form-control"
-                   onChange={this.onChange} value={this.state.category}
-                   id="category" type="text"
-                  />
-                  <label htmlFor="category">Category</label>
-                </div>
-                <div className="form-group">
-                  <input className="form-control"
-                   onChange={this.onChange} value={this.state.timeToCook}
-                   id="timeToCook" type="number"
-                  />
-                  <label htmlFor="timeToCook">Time to Cook</label>
-                </div>
+              <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+                
+                  <Field name='name' component={this.renderInput} label="Enter Name"  />
+                  <Field name='price' component={this.renderInput} label="Enter price" />
+                  <Field name='description' component={this.renderInput} label="Enter description" />
+                  <Field name='timeToCook' component={this.renderInput} label="Enter timeToCook" />
+                  <Field name='featured' component={this.renderInput} label="Is it featured?" />
+                  <Field name='category' component={this.renderInput} label="Enter category" />
+                  <Field name='image' component={this.renderInput} label="Image URL" />
 
                 <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                     <button
@@ -91,6 +60,22 @@ class Create extends Component {
     );
   }
 }
-const mapStateToProps = (allItems) => ({allItems})
-
-export default connect(mapStateToProps, { createItemAction })(Create)
+ const validate = (values)=>{
+   const errors = {};
+   
+   if(!values.name ){errors.name = 'Please Enter Name for the Item'}
+   
+   if(!values.timeToCook || isNaN(values.timeToCook) ){errors.timeToCook = 'Please Enter a Valid Time To Cook in minutes'}
+   
+   if(!values.category ){errors.category = 'Please Enter a Category for the Item'}
+   
+   if(!values.image  ){errors.image = 'Please Enter Image URL'}
+   
+   if(!values.price || isNaN(values.price)  ){errors.price = 'Please Enter a Valid Price'}
+   
+        return errors
+ }
+  export default reduxForm({
+    form: "create_Item",
+    validate: validate
+  })(Create)

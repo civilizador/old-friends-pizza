@@ -2,7 +2,7 @@ const passport  = require("passport");
 const mongoose  = require("mongoose");
 const User      = require("../../models/User");
 const flash     = require("connect-flash");
-const middleware = require("../middleware.js");
+const middleware = require("./middleware.js");
 
 // Passing express to our routes function
 
@@ -28,13 +28,13 @@ module.exports = (app) => {
         }
     });
 // FACEBOOK AUTH ROUTES
-    app.get("/api/facebook/login", passport.authenticate('facebook', {
-        scope : ['email'] }));
+    // app.get("/api/facebook/login", passport.authenticate('facebook', {
+    //     scope : ['email'] }));
 
-    app.get('/api/auth/facebook/callback',passport.authenticate('facebook', {
-        successRedirect: '/',
-        failureRedirect: '/login'
-    }));
+    // app.get('/api/auth/facebook/callback',passport.authenticate('facebook', {
+    //     successRedirect: '/',
+    //     failureRedirect: '/login'
+    // }));
 
 // When submitting a form on Login page , we pass values from inputs to passport local strategy.
   	app.post('/api/login',

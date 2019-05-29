@@ -1,4 +1,5 @@
 import React  from 'react';
+import ScrollableAnchor from 'react-scrollable-anchor'
 
 class HomePage extends React.Component {
  
@@ -30,6 +31,18 @@ class HomePage extends React.Component {
                   <span className="carousel-control-next-icon"></span>
                 </a>
           </div>
+          <ScrollableAnchor id={'menu'}>
+            <div id='homePage_sec2' className='text-center'>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button id='Pizza' type="button" class="btn btn-secondary">Pizza</button>
+                  <button id='Steaks' type="button" class="btn btn-secondary">Steaks</button>
+                  <button id='Hoaggies' type="button" class="btn btn-secondary">Hoaggies</button>
+                  <button id='Pasta' type="button" class="btn btn-secondary">Pasta</button>
+                  <button id='Sides' type="button" class="btn btn-secondary">Sides</button>
+                  <button id='Drinks' type="button" class="btn btn-secondary">Drinks</button>
+                </div>
+            </div>
+          </ScrollableAnchor>
       </div>
     );
   }

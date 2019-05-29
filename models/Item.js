@@ -11,7 +11,7 @@ const ItemSchema = new mongoose.Schema({
   },
   description: {
       type: String,
-      required: true
+      required: false
   },
   category: {
       type: String,
@@ -22,6 +22,10 @@ const ItemSchema = new mongoose.Schema({
       default: Date.now
   },
   timeToCook: Number,
+  image: {
+    type: String,
+    required: true
+  },
   featured: {
       type: Boolean,
       default: false

@@ -27,7 +27,7 @@
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid old_friends@1.0.0
 16 verbose cwd /home/ubuntu/workspace/old_friends
-17 error Linux 4.9.120-c9
+17 error Linux 4.9.176-c9
 18 error argv "/home/ubuntu/.nvm/versions/node/v6.11.2/bin/node" "/home/ubuntu/.nvm/versions/node/v6.11.2/bin/npm" "run" "client"
 19 error node v6.11.2
 20 error npm  v3.10.10

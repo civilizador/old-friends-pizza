@@ -101,21 +101,3 @@ class Login extends Component {
 const mapStateToProps = (auth) => ({auth})
 export default connect(mapStateToProps, { login })(Login)
 
-
-//     const userData = {
-//         username: this.state.username,
-//         password: this.state.password
-//       };
-//     console.log(userData);
-//     axios({
-//       method:"post",
-//       url:"/api/login",
-//       data: userData
-//     })
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// };

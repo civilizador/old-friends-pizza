@@ -44,7 +44,7 @@ img.carousel_pizza{
   position: relative;
   top: -100
 }
-#demo{
+#mainBanner{
   overflow: hidden;
   height: 100vh!important;
 }
@@ -87,3 +87,11 @@ img.carousel_pizza{
 .google-btn:active {
   background: #1669F2;
 }
+
+/* Home Page */
+#homePage_sec2{
+  height: 100vh;
+  width: 100%;
+  margin-top: 5vh;
+}
+ 
