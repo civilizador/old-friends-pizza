@@ -3,8 +3,13 @@ const Item      = require("../../models/Item");
 
 module.exports = (app) => {
 
-   app.get('/api/getAll', async (req, res)=>{
-      res.send('Add Item Route')
+   app.get('/api/getAll', (req, res)=>{
+        Item.find({}, (err, items)=>{
+            if(err) {throw err}
+            else{ res.send(items)
+                console.log('Itemes Route console.log: ', items)
+            } 
+        }) 
    });
 
    app.post("/api/addItem", async (req,res)=>{
@@ -23,7 +28,7 @@ module.exports = (app) => {
      //redirect back
             else {
               console.log('Item Created: ', item)
-              res.send("/");}
+              res.redirect("/");}
          });
    });
 

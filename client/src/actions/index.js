@@ -2,6 +2,10 @@ import axios from 'axios'
 let wrongPass = false;
 
 // ACTIONS
+export const fetchAllItems = () => async (dispatch,getState) => {
+     const res = await axios.get("/api/getAll")
+      dispatch( {type: "GET_ALL_ITEMS", payload: res.data} )
+}
 
 // USER LOGIN ACTIONS
 
@@ -23,7 +27,8 @@ let wrongPass = false;
           dispatch({ type: 'USER_LOGED_IN',  payload: true })
        }
   }
-  // LOGIN STATUS ACTION
+  
+  // LOGOUT  ACTION
   export const logoutAction = () => {
        return async function(dispatch,getState) {
          await axios.get("/api/logout")
@@ -42,16 +47,7 @@ let wrongPass = false;
 
 // ITEMS ACTIONS
 
-  // Get all items ACTION
-    export  const getAllItemsAction = () => {
-      return async function(dispatch,getState) {
-          const data = await getAllItems();
-                if (data) {
-                    dispatch({ type: 'GET_ALL_ITEMS',  payload: data })
-                }
-       }
-    }
-
+  
 // HELPERS
 
   // USER LOGIN HELPERS
@@ -81,35 +77,25 @@ let wrongPass = false;
            return data
         }
 
-  // ITEMS HELPERS
+// ITEMS HELPERS
 
-      // Creating and Displaying Items helper function
-
-        export const getAllItems = async () => {
-          await axios({
-            method:"get",
-            url:"/api/getAll",
+  
+      //  Create Item helper will send Axios call to backend api and add new item into DB. If scuccessful it will dispatch action and update store.
+      
+      export const createItem = (itemObject) => async (dispatch) => {
+        try {
+          const response = await axios({
+            method:"post",
+            url:"/api/addItem",
+            data: itemObject
           })
-            .then( (response) => {
-                console.log(response);
-                return response
-              })
-            .catch( (err) => {
-                console.log(err);
-            } )
+          if (response.status === 200) {
+              console.log("Success");
+              dispatch(fetchAllItems())
+          }
+        }
+        catch (e) {
+          console.error(e);
         }
 
-      export const createItemAction = (itemObject) => async (dispatch) => {
-        await axios({
-          method:"post",
-          url:"/api/addItem",
-          data: itemObject
-        })
-          .then( (response) => {
-              console.log(response.status);
-              dispatch( getAllItemsAction() );
-            })
-          .catch( (err) => {
-              console.log(err);
-          })
       }

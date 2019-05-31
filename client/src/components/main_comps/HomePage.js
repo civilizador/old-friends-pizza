@@ -1,9 +1,16 @@
 import React  from 'react';
 import ScrollableAnchor from 'react-scrollable-anchor'
-
+import {connect} from 'react-redux'
+import {fetchAllItems} from '../../actions'
 class HomePage extends React.Component {
+ componentDidMount(){
+    this.props.fetchAllItems() 
+  }
+ 
  
   render() {
+        console.log(this.props)
+
     return (
       <div className="HomePage">
           <div id="mainBanner" className="carousel slide" data-ride="carousel">
@@ -33,20 +40,24 @@ class HomePage extends React.Component {
           </div>
           <ScrollableAnchor id={'menu'}>
             <div id='homePage_sec2' className='text-center'>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                  <button id='Pizza' type="button" class="btn btn-secondary">Pizza</button>
-                  <button id='Steaks' type="button" class="btn btn-secondary">Steaks</button>
-                  <button id='Hoaggies' type="button" class="btn btn-secondary">Hoaggies</button>
-                  <button id='Pasta' type="button" class="btn btn-secondary">Pasta</button>
-                  <button id='Sides' type="button" class="btn btn-secondary">Sides</button>
-                  <button id='Drinks' type="button" class="btn btn-secondary">Drinks</button>
+                <div className="btn-group" role="group" aria-label="Basic example">
+                  <button id='Pizza' type="button" className="btn btn-secondary">Pizza</button>
+                  <button id='Steaks' type="button" className="btn btn-secondary">Steaks</button>
+                  <button id='Hoaggies' type="button" className="btn btn-secondary">Hoaggies</button>
+                  <button id='Pasta' type="button" className="btn btn-secondary">Pasta</button>
+                  <button id='Sides' type="button" className="btn btn-secondary">Sides</button>
+                  <button id='Drinks' type="button" className="btn btn-secondary">Drinks</button>
                 </div>
-            </div>
+             </div>
           </ScrollableAnchor>
+          
+           <button type="button" className="btn btn-secondary"></button>
       </div>
     );
   }
 }
+
+const mapStateToProps = (items) => ({items})
  
-export default HomePage;
+export default connect(mapStateToProps, {fetchAllItems})(HomePage)
  

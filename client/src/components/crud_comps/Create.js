@@ -1,7 +1,8 @@
 import React ,{ Component } from "react";
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
- 
-
+import {createItem} from '../../actions'
+import { Redirect } from "react-router-dom";
 class Create extends Component {
   
   renderInput(formProps){
@@ -19,8 +20,9 @@ class Create extends Component {
       )
   } 
   
-  onSubmit = async values => {
+  onSubmit = values => {
       console.log(values);
+      this.props.createItem(values)
   }
 
   render() {
@@ -78,4 +80,4 @@ class Create extends Component {
   export default reduxForm({
     form: "create_Item",
     validate: validate
-  })(Create)
+  })(connect(null, { createItem })(Create))
