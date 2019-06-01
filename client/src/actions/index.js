@@ -1,11 +1,6 @@
 import axios from 'axios'
 let wrongPass = false;
 
-// ACTIONS
-export const fetchAllItems = () => async (dispatch,getState) => {
-     const res = await axios.get("/api/getAll")
-      dispatch( {type: "GET_ALL_ITEMS", payload: res.data} )
-}
 
 // USER LOGIN ACTIONS
 
@@ -44,15 +39,8 @@ export const fetchAllItems = () => async (dispatch,getState) => {
           dispatch({ type: 'WRONG_PASSWORD',  payload: 'wrong_password' }) }
       }
     }
-
-// ITEMS ACTIONS
-
-  
-// HELPERS
-
-  // USER LOGIN HELPERS
-
-      export const login = ({ username, password }) => async (dispatch) => {
+    
+     export const login = ({ username, password }) => async (dispatch) => {
         await axios({
           method:"post",
           url:"/api/login",
@@ -77,9 +65,20 @@ export const fetchAllItems = () => async (dispatch,getState) => {
            return data
         }
 
-// ITEMS HELPERS
+// ITEMS ACTIONS
 
-  
+    export const fetchAllItems = () => async (dispatch,getState) => {
+       const res = await axios.get("/api/getAll")
+        dispatch( {type: "GET_ALL_ITEMS", payload: res.data} )
+    }
+    
+     export const fetchItemsByCat = (category) => async (dispatch,getState) => {
+       const res = await axios.get("/api/getAll")
+         const categorySelected = res.data.filter((items)=>{return items.category==category}) 
+        dispatch( {type: "GET_ITEMS_BY_CAT", payload: categorySelected} )
+    }
+
+      
       //  Create Item helper will send Axios call to backend api and add new item into DB. If scuccessful it will dispatch action and update store.
       
       export const createItem = (itemObject) => async (dispatch) => {
@@ -91,7 +90,7 @@ export const fetchAllItems = () => async (dispatch,getState) => {
           })
           if (response.status === 200) {
               console.log("Success");
-              dispatch(fetchAllItems())
+              dispatch(fetchItemsByCat('Pizza'))
           }
         }
         catch (e) {
@@ -99,3 +98,7 @@ export const fetchAllItems = () => async (dispatch,getState) => {
         }
 
       }
+      
+      
+      
+      
