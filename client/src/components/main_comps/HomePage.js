@@ -1,24 +1,14 @@
 import React  from 'react';
 import ScrollableAnchor from 'react-scrollable-anchor'
 import {connect} from 'react-redux'
-import {fetchAllItems,fetchItemsByCat} from '../../actions'
-
-
-const SingleItem = () => {
-  return (
-      <ul> 
-      
-      </ul>
-    )
-}
+import {fetchItemsByCat} from '../../actions'
 
 class HomePage extends React.Component {
-  
+
   componentDidMount(){
           this.props.fetchItemsByCat('Pizza')
     }
-  
-  
+
   render() {
    console.log(this.props.items.items)
     return (
@@ -29,7 +19,7 @@ class HomePage extends React.Component {
                   <li data-target="#mainBanner" data-slide-to="1"></li>
                   <li data-target="#mainBanner" data-slide-to="2"></li>
                 </ul>
-              
+
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                       <img className='carousel_pizza' src="https://images.unsplash.com/photo-1506354666786-959d6d497f1a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="" />
@@ -58,18 +48,32 @@ class HomePage extends React.Component {
                   <button onClick={()=>{  this.props.fetchItemsByCat('Sides')}}     id='Sides' type="button" className="btn btn-secondary">Sides</button>
                   <button onClick={()=>{  this.props.fetchItemsByCat('Beverage')}}  id='Beverage' type="button" className="btn btn-secondary">Beverage</button>
                 </div>
+                <div id='menuItems' className='row'>
+                  {this.props.items.items.map(items => {
+                        return (
+                          <div style={{ width: '25%' }} class="card" >
+                              <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="..." />
+                              <div class="card-body">
+                                <h5 class="card-title">{items.name}</h5>
+                                <p class="card-text">
+                                  {items.description}
+                                </p>
+                                <a href="#" class="btn btn-warning">Details</a>
+                                <a href="#" class="btn btn-danger">Add</a>
+                              </div>
+                            </div>
+                         )
+                        })}
+                </div>
              </div>
+
           </ScrollableAnchor>
-          <div  className='row container'>
-           
-          
-          </div>
+
        </div>
     );
   }
 }
 
 const mapStateToProps = (items) => ({items})
- 
+
 export default connect(mapStateToProps, {fetchItemsByCat})(HomePage)
- 

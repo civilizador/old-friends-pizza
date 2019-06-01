@@ -22,7 +22,7 @@ let wrongPass = false;
           dispatch({ type: 'USER_LOGED_IN',  payload: true })
        }
   }
-  
+
   // LOGOUT  ACTION
   export const logoutAction = () => {
        return async function(dispatch,getState) {
@@ -39,7 +39,7 @@ let wrongPass = false;
           dispatch({ type: 'WRONG_PASSWORD',  payload: 'wrong_password' }) }
       }
     }
-    
+
      export const login = ({ username, password }) => async (dispatch) => {
         await axios({
           method:"post",
@@ -67,20 +67,15 @@ let wrongPass = false;
 
 // ITEMS ACTIONS
 
-    export const fetchAllItems = () => async (dispatch,getState) => {
-       const res = await axios.get("/api/getAll")
-        dispatch( {type: "GET_ALL_ITEMS", payload: res.data} )
-    }
-    
      export const fetchItemsByCat = (category) => async (dispatch,getState) => {
        const res = await axios.get("/api/getAll")
-         const categorySelected = res.data.filter((items)=>{return items.category==category}) 
+         const categorySelected = res.data.filter((items)=>{return items.category==category})
         dispatch( {type: "GET_ITEMS_BY_CAT", payload: categorySelected} )
     }
+    
+      //  This helper will send Axios call to backend api and add new item into DB. \
+      //  If scuccessful it will dispatch action and update store.
 
-      
-      //  Create Item helper will send Axios call to backend api and add new item into DB. If scuccessful it will dispatch action and update store.
-      
       export const createItem = (itemObject) => async (dispatch) => {
         try {
           const response = await axios({
@@ -98,7 +93,3 @@ let wrongPass = false;
         }
 
       }
-      
-      
-      
-      

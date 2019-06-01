@@ -1,7 +1,10 @@
-export default (allItems=null, action)=>{
+
+
+
+export default (allItems=[], action)=>{
   switch (action.type) {
     case 'GET_ALL_ITEMS':
-          return action.payload 
+          return action.payload
     case 'GET_ITEMS_BY_CAT':
           return action.payload
     default:

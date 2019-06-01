@@ -21,7 +21,7 @@ nav.navbar.navbar-expand-lg.navbar-light{
 }
 nav.navbar {
   height: 100px !important;
- 
+
 }
 a.nav-link{
     color:white!important;
@@ -94,4 +94,27 @@ img.carousel_pizza{
   width: 100%;
   margin-top: 5vh;
 }
- 
+
+
+#menuItems{
+  margin-top: 5vh;
+  margin-left: 5%;
+  margin-right: 6%;
+}
+
+
+
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 720px) {
+
+  a.btn{
+      font-size: 1vw!important;
+  }
+}
+@media screen and (max-width: 480px) {
+
+    a.btn{
+        font-size: 3vw!important;
+    }
+}

@@ -4,9 +4,22 @@ import { Field, reduxForm } from 'redux-form'
 import {createItem} from '../../actions'
 import { Redirect } from "react-router-dom";
 class Create extends Component {
-  
+
+  getResult = () =>{
+    switch('response'){
+      case 'response':
+        return "Add New Item"
+      case 'no_user_logged_in':
+        return "Please Log In using your e-mail and password."
+      case 'wrong_password':
+        return 'Wrong Password'
+      default:
+           return <Redirect to='/'/>;
+    }
+  }
+
   renderInput(formProps){
-     return( 
+     return(
         <div className="form-group">
           <label>{formProps.label}</label>
           <input
@@ -14,12 +27,12 @@ class Create extends Component {
             onChange  = {formProps.input.onChange}
             value     = {formProps.input.value}
             className = "form-control"
-          /> 
+          />
           <div>{formProps.meta.error}</div>
         </div>
       )
-  } 
-  
+  }
+
   onSubmit = values => {
       console.log(values);
       this.props.createItem(values)
@@ -32,11 +45,11 @@ class Create extends Component {
           <div style={{ marginTop: "4rem" }} className="row">
             <div className="col s8 offset-s2">
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                <h4> <b>Add a New Item</b> </h4>
+                <h4> <b><h2> {this.getResult()} </h2></b> </h4>
               </div>
 
               <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                
+
                   <Field name='name' component={this.renderInput} label="Enter Name"  />
                   <Field name='price' component={this.renderInput} label="Enter price" />
                   <Field name='description' component={this.renderInput} label="Enter description" />
@@ -62,19 +75,21 @@ class Create extends Component {
     );
   }
 }
+
+
  const validate = (values)=>{
    const errors = {};
-   
+
    if(!values.name ){errors.name = 'Please Enter Name for the Item'}
-   
+
    if(!values.timeToCook || isNaN(values.timeToCook) ){errors.timeToCook = 'Please Enter a Valid Time To Cook in minutes'}
-   
+
    if(!values.category ){errors.category = 'Please Enter a Category for the Item'}
-   
+
    if(!values.image  ){errors.image = 'Please Enter Image URL'}
-   
+
    if(!values.price || isNaN(values.price)  ){errors.price = 'Please Enter a Valid Price'}
-   
+
         return errors
  }
   export default reduxForm({
