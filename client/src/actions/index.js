@@ -14,7 +14,11 @@ let wrongPass = false;
                 else dispatch({ type: 'GET_USER_DATA',  payload: 'no user_logged_in' })
        }
   }
-
+  // Get current User DATA helper function
+  async function getProfileData() {
+       const data =  await axios.get(`/api/current_user`)
+     return data
+  }
   // LOGIN STATUS ACTION
   export const loginAction = () => {
       return async function(dispatch,getState) {
@@ -59,20 +63,24 @@ let wrongPass = false;
       }
 
 
-        // Get current User DATA helper function
-        async function getProfileData() {
-             const data =  await axios.get(`/api/current_user`)
-           return data
-        }
 
 // ITEMS ACTIONS
 
      export const fetchItemsByCat = (category) => async (dispatch,getState) => {
        const res = await axios.get("/api/getAll")
-         const categorySelected = res.data.filter((items)=>{return items.category==category})
+         const categorySelected = res.data.filter((items)=>{return items.category===category})
         dispatch( {type: "GET_ITEMS_BY_CAT", payload: categorySelected} )
     }
-    
+
+    export const fetchById = (id) => async (dispatch,getState) => {
+      const res = await axios.get("/api/getAll")
+        const idSelected = res.data.filter((items)=>{return items._id===id})
+       dispatch( {type: "GET_ITEMS_BY_ID", payload: idSelected} )
+   }
+
+    export const addToCart = (item) => async (dispatch,getState) => {
+      dispatch( {type: "ADD_TO_CART", payload:item} )
+    }
       //  This helper will send Axios call to backend api and add new item into DB. \
       //  If scuccessful it will dispatch action and update store.
 

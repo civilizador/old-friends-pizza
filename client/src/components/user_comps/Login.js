@@ -5,7 +5,7 @@ import {login} from "../../actions";
 
 
 class Login extends Component {
-
+state={submitted:false}
   constructor(props) {
     super(props);
     this.state = {
@@ -100,4 +100,3 @@ class Login extends Component {
 }
 const mapStateToProps = (auth) => ({auth})
 export default connect(mapStateToProps, { login })(Login)
-

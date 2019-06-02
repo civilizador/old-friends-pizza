@@ -5,7 +5,6 @@ import {getCurrentUser} from '../actions'
 
 import Nav from './main_comps/Nav';
 import HomePage from './main_comps/HomePage';
-import Menu from './main_comps/Menu';
 import Profile from './user_comps/Profile';
 import Login from './user_comps/Login';
 import Register from './user_comps/Register';
@@ -26,7 +25,6 @@ class App extends React.Component {
         <BrowserRouter>
         <Nav />
           <Route path='/' exact component={HomePage} />
-          <Route path='/menu' exact component={Menu} />
           <Route path='/about' exact component={About} />
           <Route path='/profile' exact component={Profile} />
           <Route path='/login' exact component={Login} />

@@ -8,13 +8,13 @@ module.exports = (app) => {
             if(err) {throw err}
             else{ res.send(items)
                 console.log('Itemes Route console.log: ', items)
-            } 
-        }) 
+            }
+        })
    });
 
    app.post("/api/addItem", async (req,res)=>{
      const newItem = await new Item({
-       name:        req.body.name, 
+       name:        req.body.name,
        price:       req.body.price,
        description: req.body.description,
        timeToCook:  req.body.timeToCook,
@@ -28,7 +28,7 @@ module.exports = (app) => {
      //redirect back
             else {
               console.log('Item Created: ', item)
-              res.redirect("/");}
+              res.send("created");}
          });
    });
 

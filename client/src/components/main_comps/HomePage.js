@@ -2,15 +2,18 @@ import React  from 'react';
 import ScrollableAnchor from 'react-scrollable-anchor'
 import {connect} from 'react-redux'
 import {fetchItemsByCat} from '../../actions'
+import {fetchById} from '../../actions'
+import ItemsList from './ItemsList'
+
 
 class HomePage extends React.Component {
 
   componentDidMount(){
-          this.props.fetchItemsByCat('Pizza')
+        this.props.fetchItemsByCat('Pizza')
     }
 
   render() {
-   console.log(this.props.items.items)
+   console.log(this.props.store.items)
     return (
       <div className="HomePage">
           <div id="mainBanner" className="carousel slide" data-ride="carousel">
@@ -49,21 +52,7 @@ class HomePage extends React.Component {
                   <button onClick={()=>{  this.props.fetchItemsByCat('Beverage')}}  id='Beverage' type="button" className="btn btn-secondary">Beverage</button>
                 </div>
                 <div id='menuItems' className='row'>
-                  {this.props.items.items.map(items => {
-                        return (
-                          <div style={{ width: '25%' }} class="card" >
-                              <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="..." />
-                              <div class="card-body">
-                                <h5 class="card-title">{items.name}</h5>
-                                <p class="card-text">
-                                  {items.description}
-                                </p>
-                                <a href="#" class="btn btn-warning">Details</a>
-                                <a href="#" class="btn btn-danger">Add</a>
-                              </div>
-                            </div>
-                         )
-                        })}
+                  <ItemsList />
                 </div>
              </div>
 
@@ -74,6 +63,6 @@ class HomePage extends React.Component {
   }
 }
 
-const mapStateToProps = (items) => ({items})
+const mapStateToProps = (store) => ({store})
 
 export default connect(mapStateToProps, {fetchItemsByCat})(HomePage)

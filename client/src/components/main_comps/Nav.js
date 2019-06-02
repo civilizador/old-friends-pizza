@@ -1,13 +1,11 @@
 import React from 'react';
-import {Link,Redirect}  from 'react-router-dom';
+import {Link}  from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getCurrentUser} from '../../actions';
 import {logoutAction} from '../../actions';
-import {bindActionCreators} from 'redux';
-class Nav extends React.Component {
+ class Nav extends React.Component {
 
   renderAuthItems=()=>{
-      switch(this.props.auth.logedIN ){
+      switch(this.props.store.logedIN ){
         case null:
           return
         case false:
@@ -48,22 +46,15 @@ class Nav extends React.Component {
               <li className="nav-item">
                   <Link className="nav-link" to="/about">Why Our Pizza</Link>
               </li>
-              <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  By Category
-                </Link>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <Link className="dropdown-item" to="/#menu">Pizza</Link>
-                  <Link className="dropdown-item" to="/#steaks">Steaks</Link>
-                  <div className="dropdown-divider"></div>
-                 <Link className="dropdown-item" to="/menu">Drinks</Link>
-                </div>
-              </li>
             </ul>
+            <div id='address' className='mx-auto'>
+              (215) 638-8082 <br/> 3665 Hulmeville Rd, Bensalem, PA 19020
+            </div>
             <form className="form-inline my-2 my-lg-0" onSubmit={this.onSearchSubmit}>
               <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
               <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
             </form>
+
             <ul className="navbar-nav authBUttons">
                 <li className="nav-item dropdown">
                       <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,14 +62,21 @@ class Nav extends React.Component {
                       </Link>
                       {this.renderAuthItems()}
                 </li>
+                <li className="nav-item dropdown ">
+                      <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i className="fas fa-shopping-cart"></i> <span className="badge badge-light">{this.props.store.addToCart.length}</span>
+                      </Link>
+                      {this.renderAuthItems()}
+                </li>
             </ul>
+
           </div>
       </nav>
   )
 }
 }
 
-const mapStateToProps = (auth) => ({auth})
+const mapStateToProps = (store) => ({store})
 
 
 export default connect(mapStateToProps,{logoutAction})(Nav);

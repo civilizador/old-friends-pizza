@@ -4,15 +4,14 @@ import { Field, reduxForm } from 'redux-form'
 import {createItem} from '../../actions'
 import { Redirect } from "react-router-dom";
 class Create extends Component {
-
+state={submitted:false}
   getResult = () =>{
-    switch('response'){
-      case 'response':
+    switch(this.state.submitted){
+      case false:
         return "Add New Item"
-      case 'no_user_logged_in':
-        return "Please Log In using your e-mail and password."
-      case 'wrong_password':
-        return 'Wrong Password'
+      case true:
+       return <Redirect to='/'/>;
+     
       default:
            return <Redirect to='/'/>;
     }
@@ -35,7 +34,9 @@ class Create extends Component {
 
   onSubmit = values => {
       console.log(values);
-      this.props.createItem(values)
+      this.props.createItem(values);
+      this.setState({submitted:true});
+      console.log(this.state.submitted)
   }
 
   render() {

@@ -87,6 +87,13 @@ img.carousel_pizza{
 .google-btn:active {
   background: #1669F2;
 }
+/* NavBar */
+div#address{
+  color: white!important;
+  text-align: center;
+  padding-right: 5%;
+}
+
 
 /* Home Page */
 #homePage_sec2{
@@ -94,27 +101,32 @@ img.carousel_pizza{
   width: 100%;
   margin-top: 5vh;
 }
-
-
 #menuItems{
   margin-top: 5vh;
   margin-left: 5%;
   margin-right: 6%;
 }
 
-
-
+i.fa-shopping-cart {
+  font-size: 38px;
+}
 
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 720px) {
 
   a.btn{
-      font-size: 1vw!important;
+      font-size: 1.2vw!important;
+  }
+  a.nav-link{
+      font-size: 1.6vw!important;
   }
 }
 @media screen and (max-width: 480px) {
 
     a.btn{
-        font-size: 3vw!important;
+        font-size: 1vw!important;
+    }
+    a.nav-link{
+        font-size: 1.4vw!important;
     }
 }
