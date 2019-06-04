@@ -12,7 +12,7 @@ module.exports = (app) => {
         })
    });
  
-      // Update user Cart
+      // Add Items to Cart
     app.post('/api/addToCart', async(req,res)=>{
         console.log('Some One is trying to add to Cart ', req.body)
        User.findByIdAndUpdate(req.user._id,
@@ -22,17 +22,19 @@ module.exports = (app) => {
             console.log( "updated n docs: %s" );
         });
     })
+       // Remove Items from Cart
+    app.post('/api/removeFromCart', async(req,res)=>{
+        console.log('Some One is trying to remove from Cart ', req.body.index)
+        const cart = req.user.cart.filter(function(elem, _index){return req.body.index != _index})
+           User.findByIdAndUpdate(req.user._id,
+            { "$set": { "cart": cart } },
+            function(err) {
+                if (err) throw err;
+                console.log( "updated n docs: %s" );
+            });
+        })
     
-    // app.get('/api/getCartItems', async(req,res)=>{
-    //     if(req.user)
-    //     User.findById(req.user, (err, items)=>{
-    //         if(err) {throw err}
-    //         else{ 
-    //             console.log('current USER', items.cart)
-    //             res.send(items.cart)
-    //         }
-    //     })
-    // })
+  
     
    app.post("/api/addItem", async (req,res)=>{
      const newItem = await new Item({

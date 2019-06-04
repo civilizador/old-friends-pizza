@@ -95,6 +95,21 @@ let wrongPass = false;
         }
     }
     
+    export const removeFromCart = (index) => async (dispatch) => {
+      console.log('remove action dispatched for ID ', index)
+        axios.post('/api/removeFromCart', {
+          index: index,
+         })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    
+    
+   
     
     
       //  This helper will send Axios call to backend api and add new item into DB. \

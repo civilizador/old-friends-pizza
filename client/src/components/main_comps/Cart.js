@@ -1,6 +1,7 @@
 import React  from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {removeFromCart} from '../../actions';
 
 class Cart extends React.Component {
 
@@ -12,17 +13,18 @@ class Cart extends React.Component {
   renderCartItems(){
     if(this.props.store.auth)
         return(
-            this.props.store.auth.cart.map((cartItem)=>{
+            this.props.store.auth.cart.map((cartItem, index)=>{
                 return (
-                    <li className="list-group-item">{cartItem.name}
-                        <span className='float-right'><i onClick={()=>{this.removeCartItem(cartItem._id)}} className="far fa-times-circle"></i></span>
+                    <li key={index} className="list-group-item">{cartItem.name}
+                        <span className='float-right'><i onClick={()=>{this.removeCartItem(index)}} className="far fa-times-circle"></i></span>
                     </li>)
             })
     )
   }
   
-  removeCartItem(itemId){
-        console.log(itemId)
+  removeCartItem(itemIndex){
+      console.log('Cart.js line 26', itemIndex)
+    this.props.removeFromCart(itemIndex)
   }
   
   render(){
@@ -46,4 +48,4 @@ class Cart extends React.Component {
 const mapStateToProps = (store) => ({store})
 
 
-export default connect(mapStateToProps,null)(Cart);
+export default connect(mapStateToProps,{removeFromCart})(Cart);
