@@ -8,16 +8,22 @@ class Cart extends React.Component {
     if(this.props.store.auth)
     return this.props.store.auth.cart.length
   }
+  
   renderCartItems(){
     if(this.props.store.auth)
-    
-    return(
-        this.props.store.auth.cart.map((cartItem)=>{
-            return <li class="list-group-item">{cartItem.name}</li>
-        })
+        return(
+            this.props.store.auth.cart.map((cartItem)=>{
+                return (
+                    <li className="list-group-item">{cartItem.name}
+                        <span className='float-right'><i onClick={()=>{this.removeCartItem(cartItem._id)}} className="far fa-times-circle"></i></span>
+                    </li>)
+            })
     )
   }
   
+  removeCartItem(itemId){
+        console.log(itemId)
+  }
   
   render(){
       return(
@@ -26,7 +32,7 @@ class Cart extends React.Component {
                     <i className="fas fa-shopping-cart"></i> <span className="badge badge-light">{this.countItemsInCart()}</span>
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <ul class="list-group">
+                    <ul className="list-group">
                         {this.renderCartItems()}
                     </ul>
                 </div>

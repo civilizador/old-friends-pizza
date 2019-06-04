@@ -79,15 +79,8 @@ let wrongPass = false;
        dispatch( {type: "GET_ITEMS_BY_ID", payload: idSelected} )
    }
     
-    // export const fetchCartItems = () => async (dispatch) => {
-    //   const cartItems = await axios.get('/api/getCartItems')
-    //   console.log('Items in the cart ', cartItems)
-    //   dispatch( {type: "GET_CART_ITEMS", payload: cartItems} )
-    // }
-    
     export const addToCart = (item) => async (dispatch) => {
-      console.log('addTo Cart Action triggered with following argument: ', item)
-      try {
+       try {
           const response = await axios({
             method:"post",
             url:"/api/addToCart",
