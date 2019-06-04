@@ -10,6 +10,7 @@ class HomePage extends React.Component {
 
   componentDidMount(){
         this.props.fetchItemsByCat('Pizza')
+        console.log(this.props.store)
     }
 
   render() {

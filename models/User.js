@@ -26,6 +26,10 @@ const UserSchema = new mongoose.Schema({
     joined: {
         type: Date,
         default: Date.now
+    },
+    cart:   {
+        type: Array,
+        default: []
     }
 })
 // Connecting passport plugin to work with Local Strategy. This step is REQUIRED!

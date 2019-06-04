@@ -111,6 +111,13 @@ i.fa-shopping-cart {
   font-size: 38px;
 }
 
+div.card{
+  border:none;
+}
+div.card img {
+  border-radius: 20%;
+  padding: 15px;
+}
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 720px) {
 

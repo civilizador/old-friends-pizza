@@ -27,6 +27,10 @@ module.exports = (app) => {
             res.send("Passwords don't match")
         }
     });
+    
+     
+  
+        
 // FACEBOOK AUTH ROUTES
     // app.get("/api/facebook/login", passport.authenticate('facebook', {
     //     scope : ['email'] }));

@@ -2,8 +2,25 @@ import React from 'react';
 import {Link}  from 'react-router-dom';
 import {connect} from 'react-redux';
 import {logoutAction} from '../../actions';
- class Nav extends React.Component {
+import Cart from './Cart'
 
+
+ class Nav extends React.Component {
+   
+  // countItemsInCart(){
+  //   if(this.props.store.auth)
+  //   return this.props.store.auth.cart.length
+  // }
+  // renderCartItems(){
+  //   if(this.props.store.auth)
+  //   return(
+  //         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+  //             <Link to='/'  className="dropdown-item">My Cart </Link>
+  //         </div>
+  //     )
+  // }
+  
+  
   renderAuthItems=()=>{
       switch(this.props.store.logedIN ){
         case null:
@@ -62,12 +79,7 @@ import {logoutAction} from '../../actions';
                       </Link>
                       {this.renderAuthItems()}
                 </li>
-                <li className="nav-item dropdown ">
-                      <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i className="fas fa-shopping-cart"></i> <span className="badge badge-light">{this.props.store.addToCart.length}</span>
-                      </Link>
-                      {this.renderAuthItems()}
-                </li>
+                <Cart />
             </ul>
 
           </div>

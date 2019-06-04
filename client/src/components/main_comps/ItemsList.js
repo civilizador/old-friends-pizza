@@ -3,12 +3,23 @@
 
 import React  from 'react';
 import {connect} from 'react-redux';
+// import {addToCart} from '../../actions';
 import {addToCart} from '../../actions';
+import {Link} from 'react-router-dom';
 
 class ItemsList extends React.Component {
+  
+  renderButton(item){
+      if(this.props.store.auth){
+        return  <button  className="btn btn-danger" onClick={()=>{this.props.addToCart(item)}} > Add </button>
+      }else{
+        return  <Link to='/login' className="btn btn-danger"> Add </Link>
+      }
+  }
+  
   render(){
-    console.log('ItemsList component:' , this.props.store.addToCart)
-    return(
+    console.log(this.props.store.auth)
+     return(
       this.props.store.items.map(item => {
             return (
               <div key={item._id} style={{ width: '25%' }} className="card" >
@@ -19,7 +30,7 @@ class ItemsList extends React.Component {
                       {item.description}
                     </p> 
                     <button  data-toggle="modal" data-target="#exampleModal" className="btn btn-warning" >Details</button>
-                    <button  className="btn btn-danger"  onClick={()=>{  this.props.addToCart(item)} }> Add </button>
+                    {this.renderButton(item)} 
                   </div>
                 </div>
              )
