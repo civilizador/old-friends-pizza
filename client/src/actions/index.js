@@ -67,7 +67,7 @@ let wrongPass = false;
 
 // ITEMS ACTIONS
 
-     export const fetchItemsByCat = (category) => async (dispatch,getState) => {
+    export const fetchItemsByCat = (category) => async (dispatch,getState) => {
        const res = await axios.get("/api/getAll")
          const categorySelected = res.data.filter((items)=>{return items.category===category})
             dispatch( {type: "GET_ITEMS_BY_CAT", payload: categorySelected} )
@@ -79,6 +79,34 @@ let wrongPass = false;
        dispatch( {type: "GET_ITEMS_BY_ID", payload: idSelected} )
    }
     
+    export const selectedItem = (item) =>  async (dispatch) => {
+      console.log('selectedItem action triggered, FOLOWING ITEM WAS SELECTED FOR DETAILS: ',item)
+      await dispatch( {type: "ITEM_SELECTED", payload: item} )
+    } 
+    
+    export const retrieveItemToEdit = (item_id) => async (dispatch) => {
+      const res = await axios.get("/api/edit/"+item_id);
+      await dispatch({type: 'ITEM_TO_EDIT',payload: res.data})
+    }
+    
+    export const updateItem = (item) => async (dispatch) => {
+          console.error(item);
+          try {
+          const response = await axios({
+            method:"put",
+            url:"/api/edit/:id",
+            data: item
+          })
+          if (response.status === 200) {
+               console.log("Success");
+          }
+        }
+        catch (e) {
+          console.error(e);
+        }
+    }  
+    
+     
     export const addToCart = (item) => async (dispatch) => {
        try {
           const response = await axios({
@@ -108,15 +136,11 @@ let wrongPass = false;
         });
     }
     
-    
-   
-    
-    
       //  This helper will send Axios call to backend api and add new item into DB. \
       //  If scuccessful it will dispatch action and update store.
 
       export const createItem = (itemObject) => async (dispatch) => {
-        try {
+         
           const response = await axios({
             method:"post",
             url:"/api/addItem",
@@ -126,9 +150,7 @@ let wrongPass = false;
               console.log("Success");
               dispatch(fetchItemsByCat('Pizza'))
           }
-        }
-        catch (e) {
-          console.error(e);
-        }
-
       }
+
+
+    

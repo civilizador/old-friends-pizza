@@ -87,13 +87,36 @@ img.carousel_pizza{
 .google-btn:active {
   background: #1669F2;
 }
-/* NavBar */
+
+/*///// NavBar //////*/
+
 div#address{
   color: white!important;
   text-align: center;
   padding-right: 5%;
 }
 
+.cartItemImage{
+  width: 5rem;
+  height: 3rem;
+}
+
+i.far.fa-times-circle {
+    font-size: 2rem;
+    color: orange;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.eachCartItemDiv{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dropdown-menu.show {
+    width: 20rem;
+}
 
 /* Home Page */
 #homePage_sec2{

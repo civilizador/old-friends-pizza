@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {fetchItemsByCat} from '../../actions'
 import {fetchById} from '../../actions'
 import ItemsList from './ItemsList'
-
+import Details from './Details';
 
 class HomePage extends React.Component {
 
@@ -54,6 +54,7 @@ class HomePage extends React.Component {
                 </div>
                 <div id='menuItems' className='row'>
                   <ItemsList />
+                  <Details />
                 </div>
              </div>
 

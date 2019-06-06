@@ -3,8 +3,9 @@ import authReducer from  './auth_reducer' ;
 import itemsReducer from './displayAll.js';
 import loginStatus from  './user_loged_in.js' ;
 import addToCart from './addToCart.js';
-import cartItems from './cartItems.js'
-
+import cartItems from './cartItems.js';
+import selectedItem from './selectedItem.js';
+import itemToEdit from './itemToEdit.js';
 // importing redux-form library and use name formReducer for reference
 import {reducer as formReducer} from 'redux-form';
 
@@ -15,6 +16,8 @@ export default combineReducers({
   items:  itemsReducer,
   addToCart: addToCart,
   cartItems: cartItems,
+  selectedItem: selectedItem,
+  itemToEdit: itemToEdit,
   // adding additional state - form to our store. SO we can manage form data through redux.
   form: formReducer
 })

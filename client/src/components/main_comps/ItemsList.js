@@ -6,9 +6,17 @@ import {connect} from 'react-redux';
 // import {addToCart} from '../../actions';
 import {addToCart} from '../../actions';
 import {Link} from 'react-router-dom';
+import {selectedItem} from '../../actions'
+import {retrieveItemToEdit} from '../../actions'
 
 class ItemsList extends React.Component {
   
+   editButtonRender(itemId){
+      if(this.props.store.auth && this.props.store.auth.admin){
+       return(<Link to={'edit/'+itemId} className="btn btn-warning" >Edit Item</Link>)
+      }
+    }
+
   renderButton(item){
       if(this.props.store.auth){
         return  <button  className="btn btn-danger" onClick={()=>{this.props.addToCart(item)}} > Add </button>
@@ -19,27 +27,45 @@ class ItemsList extends React.Component {
   
   render(){
     console.log(this.props.store.auth)
-     return(
-      this.props.store.items.map(item => {
-            return (
-              <div key={item._id} style={{ width: '25%' }} className="card" >
-                  <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" className="card-img-top" alt="..." />
-                  <div className="card-body">
-                    <h5 className="card-title">{item.name}</h5>
-                    <p className="card-text">
-                      {item.description}
-                    </p> 
-                    <button  data-toggle="modal" data-target="#exampleModal" className="btn btn-warning" >Details</button>
-                    {this.renderButton(item)} 
-                  </div>
-                </div>
-             )
-      })
-    )
+      return(
+            this.props.store.items.map(item => {
+                  return (
+                    <div key={item._id} style={{ width: '25%' }} className="card" >
+                        <img src={item.image} className="card-img-top" alt="..." />
+                        <div className="card-body">
+                          <h5 className="card-title">{item.name}</h5>
+                          <p className="card-text">
+                            {item.description}
+                          </p> 
+                          <button onClick={ ()=>{this.props.selectedItem(item)} }  data-toggle="modal" data-target="#exampleModalLong" className="btn btn-warning" >Details</button>
+                          {this.renderButton(item)} 
+                          {this.editButtonRender(item._id)}
+                        </div>
+                      </div>
+                   )
+            })
+      )
 
   }
 }
 
+
+const mapDispatchToProps = (dispatch)=>{ 
+  return {
+     selectedItem: (item) => {
+        dispatch(selectedItem(item))
+      },
+    //   passing zipcode value to zipcode action
+     addToCart: (item)=> {
+       dispatch(addToCart(item) )
+     },
+     retrieveItemToEdit: (item)=> {
+       dispatch(retrieveItemToEdit(item) )
+     },
+     
+  } 
+}
+
       const mapStateToProps = (store) => ({store})
 
-      export default connect(mapStateToProps, {addToCart})(ItemsList)
+      export default connect(mapStateToProps,mapDispatchToProps)(ItemsList)

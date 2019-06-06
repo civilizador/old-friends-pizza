@@ -11,15 +11,28 @@ class Cart extends React.Component {
   }
   
   renderCartItems(){
-    if(this.props.store.auth)
+    if(this.props.store.auth){
         return(
             this.props.store.auth.cart.map((cartItem, index)=>{
                 return (
-                    <li key={index} className="list-group-item">{cartItem.name}
-                        <span className='float-right'><i onClick={()=>{this.removeCartItem(index)}} className="far fa-times-circle"></i></span>
+                    <li key={index} className="list-group-item">
+                        <div className='eachCartItemDiv'>
+                            <img src={cartItem.image} className='cartItemImage' />
+                            {cartItem.name}
+                            <span className='float-right'><i onClick={()=>{this.removeCartItem(index)}} className="far fa-times-circle"></i></span>
+                        </div>
                     </li>)
             })
-    )
+            
+        )
+    }else{
+       return(
+          <div className='mx-auto'> 
+            <hr />
+            <p>Your Cart is Empty</p>
+        </div>    
+        ) 
+    }
   }
   
   removeCartItem(itemIndex){

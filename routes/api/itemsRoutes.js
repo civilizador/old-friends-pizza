@@ -34,7 +34,22 @@ module.exports = (app) => {
             });
         })
     
+  app.get('/api/edit/:id',async(req,res)=>{
+     const items = await Item.findById(req.params.id, (err, items)=>{
+            if(err) {throw err}
+            else{ res.send(items)
+            }
+        })
+      console.log('item WITH ID of',req.params.id,'  is going to be edited')
+  })
   
+  app.put('/api/edit/:id',async(req,res)=>{
+     const items = await Item.findByIdAndUpdate(req.params.id, req.body, (err, items)=>{
+            if(err) {throw err}
+            else{ res.send('Updated') }
+        })
+      console.log('item WITH ID of',req.params.id,'  is going to be updated')
+  })
     
    app.post("/api/addItem", async (req,res)=>{
      const newItem = await new Item({
