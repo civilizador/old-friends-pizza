@@ -31,29 +31,46 @@ import Show from './crud_comps/Show';
 
 class App extends React.Component {
 
-
-
-
-  componentDidMount(){
-       this.props.getCurrentUser()
-  }
-
-  render() {
-     return (
-      <div className="App">
-        <BrowserRouter>
+renderEditRoutes(){
+  if(this.props.store.auth && this.props.store.auth.admin){
+    return(
+      <BrowserRouter>
         <Nav />
           <Route path='/' exact component={HomePage} />
           <Route path='/about' exact component={About} />
           <Route path='/profile' exact component={Profile} />
           <Route path='/login' exact component={Login} />
           <Route path='/register' exact component={Register} />
-          
-          <Route path='/create'exact component={Create}          />
-          
+          <Route path='/create'exact component={Create} />
           <Route path='/edit/:id'   exact component={Edit} />
           <Route path='/show' exact component={Show} />
         </BrowserRouter>
+          )
+  }else{
+    return(
+      <BrowserRouter>
+        <Nav />
+          <Route path='/' exact component={HomePage} />
+          <Route path='/about' exact component={About} />
+           <Route path='/login' exact component={Login} />
+          <Route path='/register' exact component={Register} />
+           <Route path='/show' exact component={Show} />
+        </BrowserRouter>
+          )
+  }
+}
+
+
+
+  componentDidMount(){
+       this.props.getCurrentUser()
+       
+  }
+
+  render() {
+     return (
+      <div className="App">
+        {this.renderEditRoutes()}
        </div>
     );
   }

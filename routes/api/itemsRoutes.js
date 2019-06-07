@@ -44,7 +44,7 @@ module.exports = (app) => {
   })
   
   app.put('/api/edit/:id',async(req,res)=>{
-     const items = await Item.findByIdAndUpdate(req.params.id, req.body, (err, items)=>{
+     await Item.findByIdAndUpdate(req.params.id, req.body, (err, items)=>{
             if(err) {throw err}
             else{ res.send('Updated') }
         })
