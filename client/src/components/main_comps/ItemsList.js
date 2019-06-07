@@ -26,7 +26,6 @@ class ItemsList extends React.Component {
   }
   
   render(){
-    console.log(this.props.store.auth)
       return(
             this.props.store.items.map(item => {
                   return (

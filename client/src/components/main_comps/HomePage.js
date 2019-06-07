@@ -2,7 +2,6 @@ import React  from 'react';
 import ScrollableAnchor from 'react-scrollable-anchor'
 import {connect} from 'react-redux'
 import {fetchItemsByCat} from '../../actions'
-import {fetchById} from '../../actions'
 import ItemsList from './ItemsList'
 import Details from './Details';
 
@@ -14,7 +13,6 @@ class HomePage extends React.Component {
     }
 
   render() {
-   console.log(this.props.store.items)
     return (
       <div className="HomePage">
           <div id="mainBanner" className="carousel slide" data-ride="carousel">

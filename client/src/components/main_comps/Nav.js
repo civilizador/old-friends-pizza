@@ -44,7 +44,6 @@ import Cart from './Cart'
 
   componentDidMount(){
         this.renderAuthItems();
-        console.log(this.props.logoutAction)
   }
   render(){
     return (

@@ -1,7 +1,6 @@
 import React ,{ Component } from "react";
  import { Field, reduxForm } from 'redux-form'
- import { Redirect } from "react-router-dom";
-
+ 
 class FormEditCreate extends Component {
 state={submitted:false}
 
@@ -23,10 +22,9 @@ state={submitted:false}
   }
 
   render() {
-    
     return (
 
-              <form onSubmit={this.props.handleSubmit(this.props.onSubmit)}>
+              <form key={Math.random()}  onSubmit={this.props.handleSubmit(this.props.onSubmit)}>
 
                   <Field name='name' component={this.renderInput} label="Enter Name"  />
                   <Field name='price' component={this.renderInput} label="Enter price" />
@@ -71,5 +69,6 @@ state={submitted:false}
  
   export default reduxForm({
     form: "create_edit_form",
+     enableReinitialize : true,
     validate
   })(FormEditCreate);

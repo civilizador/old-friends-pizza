@@ -22,10 +22,11 @@ state={submitted:false}
     }
   }
   
-  onSubmit = values => {
-      console.log(values);
-       this.setState({submitted:true});
-       this.props.updateItem(values)
+  onSubmit = async values => {
+      console.log('Edit: ' ,values);
+       await this.props.updateItem(values);
+               this.setState({submitted:true});
+
    }
 
   render() {
@@ -38,7 +39,7 @@ state={submitted:false}
                 <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                   <h4> <b><h2> {this.getResult()} </h2></b> </h4>
                 </div>
-                 <Form onSubmit={this.onSubmit} initialValues = { {name: this.props.store.itemToEdit.name} }/>
+                 <Form  onSubmit={this.onSubmit} initialValues = {  this.props.store.itemToEdit  }/>
               </div>
           </div>
         </div>

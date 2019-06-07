@@ -90,20 +90,15 @@ let wrongPass = false;
     }
     
     export const updateItem = (item) => async (dispatch) => {
-          console.error(item);
-          try {
-          const response = await axios({
-            method:"put",
-            url:"/api/edit/:id",
-            data: item
-          })
-          if (response.status === 200) {
-               console.log("Success");
-          }
-        }
-        catch (e) {
-          console.error(e);
-        }
+          axios.post("/api/edit/"+item._id, {
+          item: item,
+         })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }  
     
      

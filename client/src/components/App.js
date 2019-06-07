@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route }  from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getCurrentUser} from '../actions';
-import {Redirect} from 'react-router-dom';
 import Nav from './main_comps/Nav';
 import HomePage from './main_comps/HomePage';
 import Profile from './user_comps/Profile';

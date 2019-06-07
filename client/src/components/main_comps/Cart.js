@@ -17,7 +17,7 @@ class Cart extends React.Component {
                 return (
                     <li key={index} className="list-group-item">
                         <div className='eachCartItemDiv'>
-                            <img src={cartItem.image} className='cartItemImage' />
+                            <img src={cartItem.image} className='cartItemImage' alt="" />
                             {cartItem.name}
                             <span className='float-right'><i onClick={()=>{this.removeCartItem(index)}} className="far fa-times-circle"></i></span>
                         </div>
