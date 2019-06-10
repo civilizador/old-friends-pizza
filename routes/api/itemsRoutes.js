@@ -14,41 +14,58 @@ module.exports = (app) => {
  
       // Add Items to Cart
     app.post('/api/addToCart', async(req,res)=>{
-        console.log('Some One is trying to add to Cart ', req.body)
-       User.findByIdAndUpdate(req.user._id,
-        { "$set": { "cart": [...req.user.cart,req.body] } },
-        function(err) {
-            if (err) throw err;
-            console.log( "updated n docs: %s" );
-        });
+        if(req.user){
+            console.log('Some One is trying to add to Cart ', req.body)
+               User.findByIdAndUpdate(req.user._id,
+                { "$set": { "cart": [...req.user.cart,req.body] } },
+                function(err) {
+                    if (err) throw err;
+                    console.log( "updated n docs: %s" );
+                });
+        }else{
+            res.send('noUserLoggedIn')
+        }
+        
     })
        // Remove Items from Cart
     app.post('/api/removeFromCart', async(req,res)=>{
-        console.log('Some One is trying to remove from Cart ', req.body.index)
-        const cart = req.user.cart.filter(function(elem, _index){return req.body.index != _index})
-           User.findByIdAndUpdate(req.user._id,
-            { "$set": { "cart": cart } },
-            function(err) {
-                if (err) throw err;
-                console.log( "updated n docs: %s" );
-            });
-        })
+        if(req.user){
+            console.log('Some One is trying to remove from Cart ', req.body.index)
+            const cart = req.user.cart.filter(function(elem, _index){return req.body.index != _index})
+               User.findByIdAndUpdate(req.user._id,
+                { "$set": { "cart": cart } },
+                function(err) {
+                    if (err) throw err;
+                    console.log( "updated n docs: %s" );
+                });
+        }else{
+            res.send('noUserLoggedIn')
+        }
+    })
     
   app.get('/api/edit/:id',async(req,res)=>{
-     const items = await Item.findById(req.params.id, (err, items)=>{
-            if(err) {throw err}
-            else{ res.send(items)
-            }
-        })
-      console.log('item WITH ID of',req.params.id,'  is going to be edited')
+    if(req.user && req.user.admin){
+        const items = await Item.findById(req.params.id, (err, items)=>{
+                if(err) {throw err}
+                else{ res.send(items)
+                }
+            })
+        console.log('item WITH ID of',req.params.id,'  is going to be edited')
+    }else{
+            res.send('noUserLoggedIn')
+        }
   })
   
   app.post('/api/edit/:id',async(req,res)=>{
+    if(req.user && req.user.admin){  
      await Item.findByIdAndUpdate(req.params.id, req.body.item, (err, items)=>{
             if(err) {throw err}
             else{ res.send('Updated') }
         })
       console.log('item WITH ID of',req.params.id,'  is going to be updated')
+    }else{
+            res.send('noUserLoggedIn')
+        }
   })
     
    app.post("/api/addItem", async (req,res)=>{
