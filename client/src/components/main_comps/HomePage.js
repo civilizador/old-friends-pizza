@@ -46,6 +46,7 @@ class HomePage extends React.Component {
                   <button onClick={()=>{  this.props.fetchItemsByCat('Pizza')}}     id='Pizza' type="button" className="btn btn-secondary">Pizza</button>
                   <button onClick={()=>{  this.props.fetchItemsByCat('Steaks')}}    id='Steaks' type="button" className="btn btn-secondary">Steaks</button>
                   <button onClick={()=>{  this.props.fetchItemsByCat('Hoaggies')}}  id='Hoaggies' type="button" className="btn btn-secondary">Hoaggies</button>
+                  <button onClick={()=>{  this.props.fetchItemsByCat('Sandwich')}}  id='Sandwich' type="button" className="btn btn-secondary">Sandwiches</button>
                   <button onClick={()=>{  this.props.fetchItemsByCat('Pasta')}}     id='Pasta' type="button" className="btn btn-secondary">Pasta</button>
                   <button onClick={()=>{  this.props.fetchItemsByCat('Sides')}}     id='Sides' type="button" className="btn btn-secondary">Sides</button>
                   <button onClick={()=>{  this.props.fetchItemsByCat('Beverage')}}  id='Beverage' type="button" className="btn btn-secondary">Beverage</button>

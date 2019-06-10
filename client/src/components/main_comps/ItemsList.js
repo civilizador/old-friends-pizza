@@ -4,16 +4,20 @@
 import React  from 'react';
 import {connect} from 'react-redux';
 // import {addToCart} from '../../actions';
-import {addToCart} from '../../actions';
-import {Link} from 'react-router-dom';
-import {selectedItem} from '../../actions'
-import {retrieveItemToEdit} from '../../actions'
-
+ import {Link} from 'react-router-dom';
+import {selectedItem,deleteItem,retrieveItemToEdit,addToCart} from '../../actions'
+ 
 class ItemsList extends React.Component {
   
-   editButtonRender(itemId){
+     
+    editButtonRender(itemId){
       if(this.props.store.auth && this.props.store.auth.admin){
-       return(<Link to={'edit/'+itemId} className="btn btn-warning" >Edit Item</Link>)
+       return(
+           <div>
+           <Link to={'edit/'+itemId} className="btn btn-warning" >Edit Item</Link>
+           <button onClick={()=>{this.props.deleteItem(itemId); }}  className="btn btn-danger" >Delete Item</button>
+           </div>
+           )
       }
     }
 
@@ -55,12 +59,15 @@ const mapDispatchToProps = (dispatch)=>{
         dispatch(selectedItem(item))
       },
     //   passing zipcode value to zipcode action
-     addToCart: (item)=> {
+     addToCart: (item) => {
        dispatch(addToCart(item) )
      },
      retrieveItemToEdit: (item)=> {
        dispatch(retrieveItemToEdit(item) )
      },
+     deleteItem: (itemId)=>{
+         dispatch(deleteItem(itemId) )
+     }
      
   } 
 }

@@ -4,29 +4,15 @@ import {connect} from 'react-redux';
 import {getCurrentUser} from '../actions';
 import Nav from './main_comps/Nav';
 import HomePage from './main_comps/HomePage';
+import CartPage from './main_comps/CartPage'
+import About from './main_comps/About';
 import Profile from './user_comps/Profile';
 import Login from './user_comps/Login';
 import Register from './user_comps/Register';
-import About from './main_comps/About';
 import Create from './crud_comps/Create';
 import Edit from './crud_comps/Edit';
 import Show from './crud_comps/Show';
 
-// function  PrivateRoute ({component: Component, authenticated, ...rest}) {
-//   return (
-//     <Route
-//       render={ 
-//           (props) => {
-//             if(authenticated) {
-//               return <Component {...props} />
-//             }else{
-//               return <Redirect to='/login' />
-//             }
-//           }
-//       }
-//     />
-//   )
-// }
 
 class App extends React.Component {
 
@@ -39,22 +25,34 @@ renderEditRoutes(){
           <Route path='/about' exact component={About} />
           <Route path='/profile' exact component={Profile} />
           <Route path='/login' exact component={Login} />
-          <Route path='/register' exact component={Register} />
           <Route path='/create'exact component={Create} />
           <Route path='/edit/:id'   exact component={Edit} />
           <Route path='/show' exact component={Show} />
+          <Route path='/cart' exact component={CartPage} />
         </BrowserRouter>
           )
-  }else{
+  }else if(this.props.store.auth){
     return(
       <BrowserRouter>
         <Nav />
-          <Route path='/' exact component={HomePage} />
-          <Route path='/about' exact component={About} />
+           <Route path='/' exact component={HomePage} />
+           <Route path='/about' exact component={About} />
            <Route path='/login' exact component={Login} />
-          <Route path='/register' exact component={Register} />
            <Route path='/show' exact component={Show} />
+           <Route path='/cart' exact component={CartPage} />
+           <Route path='/profile' exact component={Profile} />
         </BrowserRouter>
+          )
+  }else{
+      return(
+      <BrowserRouter>
+        <Nav />
+           <Route path='/' exact component={HomePage} />
+           <Route path='/about' exact component={About} />
+           <Route path='/login' exact component={Login} />
+           <Route path='/register' exact component={Register} />
+           <Route path='/show' exact component={Show} />
+         </BrowserRouter>
           )
   }
 }

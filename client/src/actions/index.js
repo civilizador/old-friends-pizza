@@ -84,13 +84,15 @@ let wrongPass = false;
       await dispatch( {type: "ITEM_SELECTED", payload: item} )
     } 
     
+    
     export const retrieveItemToEdit = (item_id) => async (dispatch) => {
       const res = await axios.get("/api/edit/"+item_id);
       await dispatch({type: 'ITEM_TO_EDIT',payload: res.data})
     }
     
+    
     export const updateItem = (item) => async (dispatch) => {
-          axios.post("/api/edit/"+item._id, {
+        axios.post("/api/edit/"+item._id, {
           item: item,
          })
         .then(function (response) {
@@ -101,6 +103,16 @@ let wrongPass = false;
         });
     }  
     
+    export const deleteItem = (itemId) => async(dispatch) => {
+      axios.delete("/api/delete/"+itemId,{data:{itemId}})
+        .then(function async(response) {
+          console.log('deleted');
+         })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
+    }
      
     export const addToCart = (item) => async (dispatch) => {
        try {

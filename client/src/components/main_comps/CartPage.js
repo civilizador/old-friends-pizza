@@ -1,11 +1,12 @@
-import React  from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import React from 'react'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {removeFromCart} from '../../actions';
 
-class Cart extends React.Component {
 
-  countItemsInCart(){
+
+class CartPage extends React.Component{
+   countItemsInCart(){
     if(this.props.store.auth)
     return this.props.store.auth.cart.length
   }
@@ -16,7 +17,7 @@ class Cart extends React.Component {
             this.props.store.auth.cart.map((cartItem, index)=>{
                 return (
                     <li key={index} className="list-group-item">
-                        <div className='eachCartItemDiv'>
+                        <div>
                             <img src={cartItem.image} className='cartItemImage' alt="" />
                             {cartItem.name}
                             <span className='float-right'><i onClick={()=>{this.removeCartItem(index)}} className="far fa-times-circle"></i></span>
@@ -42,24 +43,16 @@ class Cart extends React.Component {
   
   render(){
       return(
-            <li className="nav-item dropdown dropleft ">
-                <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i className="fas fa-shopping-cart"></i> <span className="badge badge-light">{this.countItemsInCart()}</span>
-                </Link>
-                <div className="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+             
+                <div className="container" style={{marginTop: "15rem"}} aria-labelledby="navbarDropdown">
                     <ul className="list-group">
                         {this.renderCartItems()}
                     </ul><br/>
-                <Link to='/cart'  className='btn btn-lg btn-outline-info' > Go to Cart </Link>
-                </div>
-            </li>
+                 </div>
+           
           )
   }
-    
+ 
 }
-
-
-const mapStateToProps = (store) => ({store})
-
-
-export default connect(mapStateToProps,{removeFromCart})(Cart);
+const mapStateToProps = (store)=>({store})
+export default connect(mapStateToProps,{removeFromCart})(CartPage)

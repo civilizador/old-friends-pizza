@@ -1,12 +1,11 @@
 import React ,{ Component } from "react";
- import { Field, reduxForm } from 'redux-form'
- 
+import { Field, reduxForm } from 'redux-form'
+const category  = ['Pizza','Steaks','Hoaggies','Sandwich','Pasta','Sides','Beverage'] 
 class FormEditCreate extends Component {
 state={submitted:false}
 
   
   renderInput(formProps){
-    
      return(
         <div className="form-group">
           <label>{formProps.label}</label>
@@ -20,6 +19,27 @@ state={submitted:false}
         </div>
       )
   }
+   
+   
+    renderCategoryField(formProps){
+        
+         return(
+            <div className="form-group">
+              <label>{formProps.label}</label>
+              <select
+                type      = {formProps.input.type}
+                onChange  = {formProps.input.onChange}
+                value     = {formProps.input.value}
+                className = "form-control"
+              >
+              {category.map( (category)=>{ 
+                  return (<option key={category}>{category}</option>)
+                }) }
+              </select>
+              <div>{formProps.meta.error}</div>
+            </div>
+          )
+      }
 
   render() {
     return (
@@ -31,7 +51,7 @@ state={submitted:false}
                   <Field name='description' component={this.renderInput} label="Enter description" />
                   <Field name='timeToCook' component={this.renderInput} label="Enter timeToCook" />
                   <Field name='featured' component={this.renderInput} label="Is it featured?" />
-                  <Field name='category' component={this.renderInput} label="Enter category" />
+                  <Field name='category' component={this.renderCategoryField} label="Enter category" />
                   <Field name='image' component={this.renderInput} label="Image URL" />
 
                 <div className="col s12" style={{ paddingLeft: "11.250px" }}>
