@@ -1,8 +1,8 @@
-export default (added=[],action)=>{
+export default (allCartItems=[],action)=>{
   switch (action.type) {
     case 'ADD_TO_CART':
-      return [...added,action.payload]
+      return action.payload
     default:
-      return added
+      return allCartItems
   }
 }

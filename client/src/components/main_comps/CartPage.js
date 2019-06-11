@@ -22,7 +22,8 @@ class CartPage extends React.Component{
                          <p className='CartPageText'> {cartItem.name} </p>
                       </div>
                       <div class="col-xs-3 col-sm-3  col-md-3">
-                          <p className='CartPageText'> Extra </p>
+                          <p className='CartPageText'> Extra Extra Extra Extra Extra Extra Extra Extra Extra Extra Extra</p>
+                          <button className='btn btn-sm btn-outline-danger' onClick={()=>{console.log('AddOn Button clicked')}}> Addons </button>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2 ">
                         <p className='CartPageText'> Total </p>

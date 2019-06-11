@@ -1,7 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-class Details extends React.Component{
+const toppings1=['Steak','Cheese','Peperoni']
+
+
+class Toppings extends React.Component{
 
     render(){
         console.log('Deatails.js line 7 .Print STORE', this.props.store)
@@ -42,7 +45,3 @@ class Details extends React.Component{
             )
     }
 }  
-
-const mapStateToProps=(store)=>({store})
-
-export default connect(mapStateToProps,null)(Details)

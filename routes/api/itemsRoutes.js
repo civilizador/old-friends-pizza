@@ -15,6 +15,17 @@ module.exports = (app) => {
    });
 
 // CART
+
+// Get All Items in the User's Cart
+    app.get('/api/getCartItems',async(req,res)=>{
+        if(req.user){
+            console.log('Cart Items was requested', req.user.cart)
+                res.send(req.user.cart)
+        }else{
+            res.send('NotLoggedIn')
+        }
+    })
+
 // Add Items to Cart
     app.post('/api/addToCart', async(req,res)=>{
         if(req.user){

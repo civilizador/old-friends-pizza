@@ -2,9 +2,15 @@ import React  from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {removeFromCart} from '../../actions';
+import {getCurrentUser} from '../../actions';
 
 class Cart extends React.Component {
 
+    componentDidMount(){
+        this.props.getUser()
+        console.log(this.props)
+    }
+   
   countItemsInCart(){
     if(this.props.store.auth)
     return this.props.store.auth.cart.length
@@ -41,6 +47,7 @@ class Cart extends React.Component {
   }
   
   render(){
+      console.log(this.props.store)
       return(
             <li className="nav-item dropdown dropleft ">
                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,6 +67,17 @@ class Cart extends React.Component {
 
 
 const mapStateToProps = (store) => ({store})
+const mapDispatchToProps = (dispatch)=>{ 
+  return {
+     removeFromCart: (index) => {
+        dispatch(removeFromCart(index))
+      },
+    //   passing zipcode value to zipcode action
+     getUser: () => {
+       dispatch(getCurrentUser() )
+     } 
+  } 
+}
 
 
-export default connect(mapStateToProps,{removeFromCart})(Cart);
+export default connect(mapStateToProps,mapDispatchToProps)(Cart);

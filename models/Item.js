@@ -29,6 +29,10 @@ const ItemSchema = new mongoose.Schema({
   featured: {
       type: Boolean,
       default: false
+  },
+  toppings: {
+      type: Array,
+      default: []
   }
 })
 
