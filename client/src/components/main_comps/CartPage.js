@@ -1,9 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {removeFromCart} from '../../actions';
+import {removeFromCart,addingToppingToItem} from '../../actions';
+import Toppings from './Toppings'
 
 class CartPage extends React.Component{
+  
+  
   countItemsInCart(){
     if(this.props.store.auth)
     return this.props.store.auth.cart.length
@@ -23,7 +26,7 @@ class CartPage extends React.Component{
                       </div>
                       <div class="col-xs-3 col-sm-3  col-md-3">
                           <p className='CartPageText'> Extra Extra Extra Extra Extra Extra Extra Extra Extra Extra Extra</p>
-                          <button className='btn btn-sm btn-outline-danger' onClick={()=>{console.log('AddOn Button clicked')}}> Addons </button>
+                          <button className='btn btn-sm btn-outline-danger'  data-toggle="modal" data-target="#exampleModalLong"  onClick={() => {  this.props.addingToppingToItem(cartItem,index) } } > Addons </button>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2 ">
                         <p className='CartPageText'> Total </p>
@@ -76,10 +79,12 @@ class CartPage extends React.Component{
                     </li>
                         {this.renderCartItems()}
                     </ul><br/>
+                    <Toppings/>
                  </div>
+                 
           )
   }
 
 }
 const mapStateToProps = (store)=>({store})
-export default connect(mapStateToProps,{removeFromCart})(CartPage)
+export default connect(mapStateToProps,{removeFromCart,addingToppingToItem})(CartPage)

@@ -4,7 +4,7 @@
 import React  from 'react';
 import {connect} from 'react-redux';
 // import {addToCart} from '../../actions';
- import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {selectedItem,deleteItem,retrieveItemToEdit,addToCart} from '../../actions'
  
 class ItemsList extends React.Component {
@@ -23,7 +23,7 @@ class ItemsList extends React.Component {
 
   renderButton(item){
       if(this.props.store.auth){
-        return  <button  className="btn btn-danger" onClick={()=>{this.props.addToCart(item)}} > Add </button>
+        return  <button  className="btn btn-danger" onClick={()=>{this.props.addToCart(item);}} > Add </button>
       }else{
         return  <Link to='/login' className="btn btn-danger"> Add </Link>
       }
