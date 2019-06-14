@@ -1,7 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const toppings1=['Steak','Cheese','Peperoni']
+const toppings1=[
+  {name:'Steak',price:1.5,img:'https://images.pexels.com/photos/1881336/pexels-photo-1881336.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'},
+  {name:'Cheese',price:1.5,img:'https://images.pexels.com/photos/1435184/pexels-photo-1435184.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'},
+  {name:'Mushrooms',price:1.5,img:'https://images.pexels.com/photos/259648/pexels-photo-259648.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'},
+  {name:'Ham',price:1.5,img:'https://images.pexels.com/photos/533352/pexels-photo-533352.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'},
+  {name:'Onions',price:0,img:'https://images.unsplash.com/photo-1518977956812-cd3dbadaaf31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'},
+  {name:'Bacon',price:1.5,img:'https://images.pexels.com/photos/1930760/pexels-photo-1930760.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'},
+  {name:'Sausage',price:1.5,img:'https://images.pexels.com/photos/929137/pexels-photo-929137.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'},
+  {name:'Black Olives',price:1.5,img:'https://images.pexels.com/photos/415340/pexels-photo-415340.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'},
+  {name:'Green Peppers',price:1.5,img:'https://images.pexels.com/photos/1434254/pexels-photo-1434254.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'},
+]
 
 
 class Toppings extends React.Component{
@@ -10,29 +20,32 @@ class Toppings extends React.Component{
         // const addingToppingTo = this.props.store.selectedItem
         return(
             <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-              <div className="modal-dialog" role="document">
+              <div style={{width:'80rem!important' }} className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLongTitle"> Select additional Item to include to Your order</h5>
+                    <h5 className="modal-title" id="exampleModalLongTitle">
+                      Add extra to {this.props.store.addToppingItem.name}
+                    </h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+                      <span aria-hidden="true"></span>
                     </button>
                   </div>
                   <div className="modal-body">
-                    <div className='CardImageTop' className="card mb-3">
-                      <div className="row no-gutters">
-                        <div className="col-md-5">
-                          <img src='' className="card-img" alt="..."/>
-                          <p className='btn btn-danger'><b> </b></p>
-                        </div>
-                        <div className="col-md-7">
-                          <div className="card-body">
-                            <h5 className="card-title">Ingredients:</h5>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                     <div className='row'>
+                        { toppings1.map( (topping)=>{
+                            return (
+                              <div class="card" style={{width: '10rem'}}>
+                                <img src={topping.img} class="card-img-top" alt="..." />
+                                <div class="card-body">
+                                  <p class="card-text">
+                                   the bulk of the card's content.
+                                  </p>
+                                </div>
+                              </div>
+                             )
+                          } )
+                        }
+                     </div>
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -42,6 +55,6 @@ class Toppings extends React.Component{
             </div>
             )
     }
-}  
-
-export default Toppings
+}
+const mapStateToProps=(store)=>({store})
+export default connect(mapStateToProps,null)(Toppings)

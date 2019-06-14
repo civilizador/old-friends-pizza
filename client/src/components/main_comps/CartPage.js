@@ -5,8 +5,8 @@ import {removeFromCart,addingToppingToItem} from '../../actions';
 import Toppings from './Toppings'
 
 class CartPage extends React.Component{
-  
-  
+
+
   countItemsInCart(){
     if(this.props.store.auth)
     return this.props.store.auth.cart.length
@@ -79,9 +79,9 @@ class CartPage extends React.Component{
                     </li>
                         {this.renderCartItems()}
                     </ul><br/>
-                    <Toppings/>
+                    <Toppings />
                  </div>
-                 
+
           )
   }
 

@@ -141,6 +141,14 @@ div.card img {
   border-radius: 20%;
   padding: 15px;
 }
+
+.modal-dialog {
+    max-width: 70rem!important;
+    margin: 1.75rem auto;
+}
+.card-img-top {
+  cursor: pointer;
+}
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 720px) {
 
