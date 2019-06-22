@@ -10,6 +10,8 @@
     const   flash    =         require("connect-flash");
     const   cookieParser =     require('cookie-parser');
     const   cookieSession   =  require("cookie-session");
+    const   path =             require("path")
+
 //  Connecting to DB
     mongoose.connect(process.env.MONGO_URI)
         .then(() => console.log("MongoDB successfully connected"))
@@ -50,6 +52,7 @@
           res.locals.success = req.flash("success");
           next();
       });
+      app.use(express.static(path.join(__dirname, "client", "build")))
 
 //CRUD ROUTES
     require('./routes/api/authRoutes')(app);
@@ -58,7 +61,10 @@
 //  PASSPORT.js CONFIGURATION IMPORT
     require("./services/passportConfig")
 
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    });
 
-app.listen( 5000 || process.env.PORT, process.env.IP,function(){
-        console.log("Server had been started")
-});
+    app.listen( process.env.PORT || 5000, process.env.IP,function(){
+            console.log("Server had been started")
+    });
