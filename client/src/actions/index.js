@@ -10,7 +10,7 @@ let wrongPass = false;
           const data = await getProfileData();
                 if (data!=='no_user_logged_in') {
                     dispatch({ type: 'GET_USER_DATA',  payload: data.data })
-                    
+
                 }
                 else dispatch({ type: 'GET_USER_DATA',  payload: 'no user_logged_in' })
        }
@@ -72,7 +72,7 @@ let wrongPass = false;
          const categorySelected = res.data.filter((items)=>{return items.category===category})
             dispatch( {type: "GET_ITEMS_BY_CAT", payload: categorySelected} )
      }
-    
+
     export const fetchById = (id) => async (dispatch,getState) => {
       const res = await axios.get("/api/getAll")
         const idSelected = res.data.filter((items)=>{return items._id===id})
@@ -81,27 +81,41 @@ let wrongPass = false;
     export const fetchCartItems = () => async (dispatch,getState) => {
        const res = await axios.get("/api/getCartItems")
        console.log('fetch acart items ',res)
-             dispatch( {type: "GET_CART_ITEMS", payload: res} )
+          dispatch( {type: "GET_CART_ITEMS", payload: res} )
+     }
+    export const searchAction = (searchValue) => async (dispatch) => {
+      // console.log('This is Search Action speaking, You searching for : ' , searchValue)
+      const response = await axios.get("/api/search/"+searchValue)
+      // console.log(response.data)
+        if(response.data.length >0){
+          dispatch( {type: "SEARCH_RESULT", payload: response.data} )
+          console.log(response.status,response.data)
+        }
+        else{
+          dispatch( {type: "SEARCH_RESULT_FALSE", payload: 'NothingFound'} )
+          console.log('NothingFound')
+        }
+
      }
 
     export const selectedItem = (item) =>  async (dispatch) => {
       console.log('selectedItem action triggered, FOLOWING ITEM WAS SELECTED FOR DETAILS: ',item)
       await dispatch( {type: "ITEM_SELECTED", payload: item} )
-    } 
-    
+    }
+
     export const addingToppingToItem = (item,index) => async (dispatch) => {
-      const newItem = item 
+      const newItem = item
       newItem.index = index
       console.log('selectedItem action triggered, FOLOWING ITEM WAS SELECTED FOR DETAILS: ',item)
       await dispatch( {type: "ITEM_TO_ADD_TOPPINGS", payload: newItem} )
     }
-    
+
     export const retrieveItemToEdit = (item_id) => async (dispatch) => {
       const res = await axios.get("/api/edit/"+item_id);
       await dispatch({type: 'ITEM_TO_EDIT',payload: res.data})
     }
-    
-    
+
+
     export const updateItem = (item) => async (dispatch) => {
         axios.post("/api/edit/"+item._id, {
           item: item,
@@ -112,8 +126,8 @@ let wrongPass = false;
         .catch(function (error) {
           console.log(error);
         });
-    }  
-    
+    }
+
     export const deleteItem = (itemId) => async(dispatch) => {
       axios.delete("/api/delete/"+itemId,{data:{itemId}})
         .then(function async(response) {
@@ -122,9 +136,9 @@ let wrongPass = false;
         .catch(function (error) {
           console.log(error);
         });
-        
+
     }
-     
+
     export const addToCart = (item) => async (dispatch) => {
        try {
           const response = await axios({
@@ -140,8 +154,8 @@ let wrongPass = false;
           console.error(e);
         }
     }
-    
-  
+
+
     export const removeFromCart = (index) => async (dispatch) => {
       console.log('remove action dispatched for ID ', index)
         axios.post('/api/removeFromCart', {
@@ -154,12 +168,12 @@ let wrongPass = false;
           console.log(error);
         });
     }
-    
+
       //  This helper will send Axios call to backend api and add new item into DB. \
       //  If scuccessful it will dispatch action and update store.
 
       export const createItem = (itemObject) => async (dispatch) => {
-         
+
           const response = await axios({
             method:"post",
             url:"/api/addItem",
@@ -170,6 +184,3 @@ let wrongPass = false;
               dispatch(fetchItemsByCat('Pizza'))
           }
       }
-
-
-    

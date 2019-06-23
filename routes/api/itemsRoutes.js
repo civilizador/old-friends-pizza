@@ -14,6 +14,16 @@ module.exports = (app) => {
         })
    });
 
+   app.get('/api/search/:id', async (req, res)=>{
+      const searchTerm = req.params.id
+      const query = await Item.find(
+        { name: searchTerm }, (err, item)=>{
+            if(err) {res.send('NothingFound')}
+            else { res.send( item ) }
+        }
+      )
+
+   })
 // CART
 
 // Get All Items in the User's Cart
@@ -39,7 +49,7 @@ module.exports = (app) => {
         }else{
             res.send('noUserLoggedIn')
         }
-        
+
     })
 
 // Remove Items from Cart
@@ -57,7 +67,7 @@ module.exports = (app) => {
             res.send('noUserLoggedIn')
         }
     })
-// GET ITEM EDIT  
+// GET ITEM EDIT
   app.get('/api/edit/:id',async(req,res)=>{
     if(req.user && req.user.admin){
         const items = await Item.findById(req.params.id, (err, items)=>{
@@ -71,9 +81,9 @@ module.exports = (app) => {
         }
   })
 
-// POST ITEM EDIT  
+// POST ITEM EDIT
   app.post('/api/edit/:id',async(req,res)=>{
-    if(req.user && req.user.admin){  
+    if(req.user && req.user.admin){
      await Item.findByIdAndUpdate(req.params.id, req.body.item, (err, items)=>{
             if(err) {throw err}
             else{ res.send('Updated') }
@@ -84,7 +94,7 @@ module.exports = (app) => {
         }
   })
 
-// POST ADD NEW ITEM 
+// POST ADD NEW ITEM
    app.post("/api/addItem", async (req,res)=>{
      const newItem = await new Item({
        name:        req.body.name,
@@ -105,8 +115,8 @@ module.exports = (app) => {
               res.send("created");}
          });
    });
-   
-   // POST DELETE AN ITEM 
+
+   // POST DELETE AN ITEM
    app.delete("/api/delete/:id", async (req,res)=>{
          Item.findByIdAndRemove(req.body.itemId, (err,item)=>{
            if(err){throw err , console.log("Something is wrong") }

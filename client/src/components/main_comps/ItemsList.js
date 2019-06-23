@@ -6,10 +6,10 @@ import {connect} from 'react-redux';
 // import {addToCart} from '../../actions';
 import {Link} from 'react-router-dom';
 import {selectedItem,deleteItem,retrieveItemToEdit,addToCart} from '../../actions'
- 
+
 class ItemsList extends React.Component {
-  
-     
+
+
     editButtonRender(itemId){
       if(this.props.store.auth && this.props.store.auth.admin){
        return(
@@ -28,7 +28,7 @@ class ItemsList extends React.Component {
         return  <Link to='/login' className="btn btn-danger"> Add </Link>
       }
   }
-  
+
   render(){
       return(
             this.props.store.items.map(item => {
@@ -39,9 +39,9 @@ class ItemsList extends React.Component {
                           <h5 className="card-title">{item.name}</h5>
                           <p className="card-text">
                             {item.description}
-                          </p> 
+                          </p>
                           <button onClick={ ()=>{this.props.selectedItem(item)} }  data-toggle="modal" data-target="#exampleModalLong" className="btn btn-warning" >Details</button>
-                          {this.renderButton(item)} 
+                          {this.renderButton(item)}
                           {this.editButtonRender(item._id)}
                         </div>
                       </div>
@@ -53,7 +53,7 @@ class ItemsList extends React.Component {
 }
 
 
-const mapDispatchToProps = (dispatch)=>{ 
+const mapDispatchToProps = (dispatch)=>{
   return {
      selectedItem: (item) => {
         dispatch(selectedItem(item))
@@ -68,8 +68,8 @@ const mapDispatchToProps = (dispatch)=>{
      deleteItem: (itemId)=>{
          dispatch(deleteItem(itemId) )
      }
-     
-  } 
+
+  }
 }
 
       const mapStateToProps = (store) => ({store})

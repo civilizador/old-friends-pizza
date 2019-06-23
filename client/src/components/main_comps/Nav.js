@@ -1,26 +1,12 @@
 import React from 'react';
 import {Link}  from 'react-router-dom';
 import {connect} from 'react-redux';
-import {logoutAction} from '../../actions';
+import {logoutAction,searchAction} from '../../actions';
 import Cart from './Cart'
 
 
  class Nav extends React.Component {
-   
-  // countItemsInCart(){
-  //   if(this.props.store.auth)
-  //   return this.props.store.auth.cart.length
-  // }
-  // renderCartItems(){
-  //   if(this.props.store.auth)
-  //   return(
-  //         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-  //             <Link to='/'  className="dropdown-item">My Cart </Link>
-  //         </div>
-  //     )
-  // }
-  
-  
+state = {searchValue: 'Pepperoni'}
   renderAuthItems=()=>{
       switch(this.props.store.logedIN ){
         case null:
@@ -40,12 +26,17 @@ import Cart from './Cart'
 
   onSearchSubmit=(e)=>{
     e.preventDefault();
+    console.log('Search for: ',this.state.searchValue)
+    this.props.searchAction(this.state.searchValue)
+    this.setState({searchValue:''})
+
   }
 
   componentDidMount(){
         this.renderAuthItems();
   }
   render(){
+    console.log(this.state.searchValue)
     return (
       <nav className="navbar navbar-expand-lg navbar-light">
           <Link  className="navbar-brand" to="/">
@@ -67,7 +58,10 @@ import Cart from './Cart'
               (215) 638-8082 <br/> 3665 Hulmeville Rd, Bensalem, PA 19020
             </div>
             <form className="form-inline my-2 my-lg-0" onSubmit={this.onSearchSubmit}>
-              <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+              <input
+                className="form-control mr-sm-2"
+                onChange = {  (e)=>{  this.setState({searchValue:e.target.value}) }  }
+                value = { this.state.searchValue } />
               <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
             </form>
 
@@ -90,4 +84,4 @@ import Cart from './Cart'
 const mapStateToProps = (store) => ({store})
 
 
-export default connect(mapStateToProps,{logoutAction})(Nav);
+export default connect(mapStateToProps,{logoutAction,searchAction})(Nav);
