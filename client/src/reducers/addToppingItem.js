@@ -1,8 +1,8 @@
-export default (selectedItem={},action)=>{
+export default (addintToppingToItemIndex={},action)=>{
     switch (action.type) {
-    case 'ITEM_TO_ADD_TOPPINGS':
+    case 'CURRENTLY_ADDING_TOPPING_TO':
           return action.payload
     default:
-          return selectedItem;
-  }    
+          return addintToppingToItemIndex;
+  }
 }

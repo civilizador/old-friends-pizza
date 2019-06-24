@@ -10,14 +10,18 @@ class Cart extends React.Component {
         this.props.getUser()
         console.log(this.props)
     }
-   
+
   countItemsInCart(){
-    if(this.props.store.auth)
-    return this.props.store.auth.cart.length
+    if(this.props.store.auth && this.props.store.auth.cart ){
+      return this.props.store.auth.cart.length
+    }else {
+      return 0
+    }
+
   }
-  
+
   renderCartItems(){
-    if(this.props.store.auth){
+    if(this.props.store.auth && this.props.store.auth.cart){
         return(
             this.props.store.auth.cart.map((cartItem, index)=>{
                 return (
@@ -29,23 +33,23 @@ class Cart extends React.Component {
                         </div>
                     </li>)
             })
-            
+
         )
     }else{
        return(
-          <div className='mx-auto'> 
+          <div className='mx-auto'>
             <hr />
             <p>Your Cart is Empty</p>
-        </div>    
-        ) 
+        </div>
+        )
     }
   }
-  
+
   removeCartItem(itemIndex){
       console.log('Cart.js line 26', itemIndex)
     this.props.removeFromCart(itemIndex)
   }
-  
+
   render(){
       console.log(this.props.store)
       return(
@@ -62,12 +66,12 @@ class Cart extends React.Component {
             </li>
           )
   }
-    
+
 }
 
 
 const mapStateToProps = (store) => ({store})
-const mapDispatchToProps = (dispatch)=>{ 
+const mapDispatchToProps = (dispatch)=>{
   return {
      removeFromCart: (index) => {
         dispatch(removeFromCart(index))
@@ -75,8 +79,8 @@ const mapDispatchToProps = (dispatch)=>{
     //   passing zipcode value to zipcode action
      getUser: () => {
        dispatch(getCurrentUser() )
-     } 
-  } 
+     }
+  }
 }
 
 

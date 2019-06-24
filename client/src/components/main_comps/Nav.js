@@ -6,17 +6,17 @@ import Cart from './Cart'
 
 
  class Nav extends React.Component {
-state = {searchValue: 'Pepperoni'}
+
+   state = {searchValue: 'Pepperoni'}
+
   renderAuthItems=()=>{
-      switch(this.props.store.logedIN ){
-        case null:
-          return
-        case false:
+    // console.log('Render Auth items function',this.props.store.auth)
+      if( !this.props.store.auth ){
           return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <Link to='/login'  className="dropdown-item">Login </Link>
                         <Link to='/register'  className="dropdown-item">Register </Link>
                   </div>  )
-        default:
+      }else{
           return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <Link to='/profile'  className="dropdown-item">Profile </Link>
                         <p onClick={ ()=>{this.props.logoutAction()} }  className="dropdown-item"> SignOut </p>
@@ -29,12 +29,9 @@ state = {searchValue: 'Pepperoni'}
     console.log('Search for: ',this.state.searchValue)
     this.props.searchAction(this.state.searchValue)
     this.setState({searchValue:''})
-
   }
 
-  componentDidMount(){
-        this.renderAuthItems();
-  }
+
   render(){
     console.log(this.state.searchValue)
     return (

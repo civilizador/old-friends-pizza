@@ -103,11 +103,21 @@ let wrongPass = false;
       await dispatch( {type: "ITEM_SELECTED", payload: item} )
     }
 
-    export const addingToppingToItem = (item,index) => async (dispatch) => {
-      const newItem = item
-      newItem.index = index
-      console.log('selectedItem action triggered, FOLOWING ITEM WAS SELECTED FOR DETAILS: ',item)
-      await dispatch( {type: "ITEM_TO_ADD_TOPPINGS", payload: newItem} )
+    export const addToppToItem = (toping,index,cart) => async (dispatch) => {
+      // await console.log(toping,index,cart)
+       cart[index].toppings.push(toping)
+      console.log('Cart with updated toppings: ',cart)
+      const response = axios.post('/api/addTopping/', cart)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+    export const currentlyAddingToppingTo = (index) => async (dispatch) => {
+       await dispatch( {type: "CURRENTLY_ADDING_TOPPING_TO", payload: index} )
     }
 
     export const retrieveItemToEdit = (item_id) => async (dispatch) => {

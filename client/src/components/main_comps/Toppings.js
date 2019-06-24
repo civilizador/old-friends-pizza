@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
+import {addToppToItem} from '../../actions'
 const toppings1=[
   {name:'Steak',price:1.5,img:'https://images.pexels.com/photos/1881336/pexels-photo-1881336.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'},
   {name:'Cheese',price:1.5,img:'https://images.pexels.com/photos/1435184/pexels-photo-1435184.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'},
@@ -24,7 +24,7 @@ class Toppings extends React.Component{
                 <div className="modal-content">
                   <div className="modal-header">
                     <h5 className="modal-title" id="exampleModalLongTitle">
-                      Add extra to {this.props.store.addToppingItem.name}
+                      Add extra
                     </h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true"></span>
@@ -34,12 +34,19 @@ class Toppings extends React.Component{
                      <div className='row'>
                         { toppings1.map( (topping)=>{
                             return (
-                              <div class="card" style={{width: '10rem'}}>
-                                <img src={topping.img} class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                  <p class="card-text">
-                                   the bulk of the card's content.
-                                  </p>
+                              <div key={topping.name} className="card" style={{width: '10rem'}}>
+                                <img
+                                  src={topping.img}
+                                  onClick={()=>{
+                                      console.log(topping,this.props.store.addToppingItem)
+                                      this.props.addToppToItem(topping,this.props.store.addToppingItem,this.props.store.auth.cart)
+                                    }
+                                  }
+                                  className="card-img-top" alt="..." />
+                                <div className="card-body">
+                                  <div className="card-text">
+                                   {topping.name}
+                                  </div>
                                 </div>
                               </div>
                              )
@@ -57,4 +64,4 @@ class Toppings extends React.Component{
     }
 }
 const mapStateToProps=(store)=>({store})
-export default connect(mapStateToProps,null)(Toppings)
+export default connect(mapStateToProps,{addToppToItem})(Toppings)

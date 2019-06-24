@@ -24,6 +24,21 @@ module.exports = (app) => {
       )
 
    })
+
+
+   app.post('/api/addTopping/',async(req,res)=>{
+     if(req.user){
+         console.log('Some One is trying to add Topping  ', req.body)
+            User.findByIdAndUpdate(req.user._id,
+             {"$set":  { "cart": req.body } } ,
+             function(err) {
+                 if (err) throw err;
+                 console.log( "updated n docs: %s" );
+             });
+     }else{
+         res.send('noUserLoggedIn')
+     }
+   })
 // CART
 
 // Get All Items in the User's Cart
