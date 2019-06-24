@@ -9,8 +9,8 @@ const toppings1=[
   {name:'Onions',price:0,img:'https://images.unsplash.com/photo-1518977956812-cd3dbadaaf31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'},
   {name:'Bacon',price:1.5,img:'https://images.pexels.com/photos/1930760/pexels-photo-1930760.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'},
   {name:'Sausage',price:1.5,img:'https://images.pexels.com/photos/929137/pexels-photo-929137.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'},
-  {name:'Black Olives',price:1.5,img:'https://images.pexels.com/photos/415340/pexels-photo-415340.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'},
-  {name:'Green Peppers',price:1.5,img:'https://images.pexels.com/photos/1434254/pexels-photo-1434254.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'},
+  {name:'Black-Olives',price:1.5,img:'https://images.pexels.com/photos/415340/pexels-photo-415340.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'},
+  {name:'Green-Peppers',price:1.5,img:'https://images.pexels.com/photos/1434254/pexels-photo-1434254.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'},
 ]
 
 

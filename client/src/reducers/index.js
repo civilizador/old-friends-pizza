@@ -2,10 +2,11 @@ import {combineReducers} from 'redux';
 import authReducer from  './auth_reducer' ;
 import itemsReducer from './displayAll.js';
 import loginStatus from  './user_loged_in.js' ;
-import addToCart from './addToCart.js';
-import cartItems from './cartItems.js';
+import cart from './cart.js';
+// import cartItems from './cartItems.js';
 import selectedItem from './selectedItem.js';
 import itemToEdit from './itemToEdit.js';
+// import cartTotal from './cartTotal.js';
 import addToppingItem from './addToppingItem.js';
  // importing redux-form library and use name formReducer for reference
 import {reducer as formReducer} from 'redux-form';
@@ -15,8 +16,8 @@ export default combineReducers({
   auth: authReducer,
   logedIN: loginStatus,
   items:  itemsReducer,
-  addToCart: addToCart,
-  cartItems: cartItems,
+  // cartItems: cartItems,
+  cart: cart,
   selectedItem: selectedItem,
   itemToEdit: itemToEdit,
   addToppingItem: addToppingItem,

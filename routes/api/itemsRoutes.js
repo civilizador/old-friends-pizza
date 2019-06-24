@@ -55,10 +55,14 @@ module.exports = (app) => {
     app.post('/api/addToCart', async(req,res)=>{
         if(req.user){
             console.log('Some One is trying to add to Cart ', req.body)
+            const newCart = [...req.user.cart,req.body.item];
                User.findByIdAndUpdate(req.user._id,
-                { "$set": { "cart": [...req.user.cart,req.body] } },
+                { "$set": { "cart": newCart } },
                 function(err) {
                     if (err) throw err;
+                    res.status(200)
+                    
+                    res.send(newCart);
                     console.log( "updated n docs: %s" );
                 });
         }else{

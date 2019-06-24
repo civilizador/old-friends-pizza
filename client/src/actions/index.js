@@ -108,8 +108,7 @@ let wrongPass = false;
        cart[index].toppings.push(toping)
       console.log('Cart with updated toppings: ',cart)
       const response = axios.post('/api/addTopping/', cart)
-        .then(function (response) {
-          console.log(response);
+        .then(async function (response) {
         })
         .catch(function (error) {
           console.log(error);
@@ -148,21 +147,13 @@ let wrongPass = false;
         });
 
     }
-
+    
     export const addToCart = (item) => async (dispatch) => {
-       try {
-          const response = await axios({
-            method:"post",
-            url:"/api/addToCart",
-            data: item
-          })
-          if (response.status === 200) {
-              console.log('addToCart action triggered')
-          }
-        }
-        catch (e) {
-          console.error(e);
-        }
+        const { data: cart } = await axios.post('/api/addToCart', {
+          item: item,
+         })
+         
+        dispatch({type: 'CART',payload: cart})
     }
 
 

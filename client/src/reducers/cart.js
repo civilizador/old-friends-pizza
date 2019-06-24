@@ -1,6 +1,6 @@
 export default (allCartItems=[],action)=>{
   switch (action.type) {
-    case 'ADD_TO_CART':
+    case 'CART':
       return action.payload
     default:
       return allCartItems

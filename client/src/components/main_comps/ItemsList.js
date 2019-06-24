@@ -59,8 +59,8 @@ const mapDispatchToProps = (dispatch)=>{
         dispatch(selectedItem(item))
       },
     //   passing zipcode value to zipcode action
-     addToCart: (item) => {
-       dispatch(addToCart(item) )
+     addToCart: (item,cartTotal) => {
+       dispatch(addToCart(item,cartTotal) )
      },
      retrieveItemToEdit: (item)=> {
        dispatch(retrieveItemToEdit(item) )
