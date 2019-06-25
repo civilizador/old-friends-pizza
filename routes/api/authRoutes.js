@@ -20,7 +20,7 @@ module.exports = (app) => {
           	});
       	    await User.createUser(newUser, function(err, user){
           		if(err) throw err;
-          		res.redirect('/')
+          		 res.send(200)
           	})
         } else{
           	console.log("Passwords don't match");

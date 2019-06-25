@@ -39,7 +39,7 @@ class Toppings extends React.Component{
                                   src={topping.img}
                                   onClick={()=>{
                                       console.log(topping,this.props.store.addToppingItem)
-                                      this.props.addToppToItem(topping,this.props.store.addToppingItem,this.props.store.auth.cart)
+                                      this.props.addToppToItem(topping,this.props.store.addToppingItem)
                                     }
                                   }
                                   className="card-img-top" alt="..." />

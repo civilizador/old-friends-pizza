@@ -102,6 +102,18 @@ let wrongPass = false;
 
      }
 
+// TOPPINGS ACTIONS
+
+    export const addToppToItem = (topping,index) => async (dispatch) => {
+      // console.log('Cart with updated toppings: ',cart)
+      const response = await axios.post('/api/addToppingToItem/'+index, {topping} )
+        await dispatch({type: "TOPPING_ADDED", payload: response.data})
+    }
+
+    export const currentlyAddingToppingTo = (index) => async (dispatch) => {
+       await dispatch( {type: "CURRENTLY_ADDING_TOPPING_TO", payload: index} )
+    }
+
 // ADD / UPDATE /  REMOVE ITEMS
 
      // CREATE ITEM
@@ -159,20 +171,7 @@ let wrongPass = false;
       await dispatch( {type: "ITEM_SELECTED", payload: item} )
     }
 
-// TOPPINGS ACTIONS
 
-    export const addToppToItem = (topping,index,cart) => async (dispatch) => {
-      // console.log('Cart with updated toppings: ',cart)
-      const {data:cart} = axios.post('/api/addTopping', {
-          topping : topping,
-          index: index
-      })
-        await dispatch({type: "TOPPING_ADDED", payload: cart})
-    }
-
-    export const currentlyAddingToppingTo = (index) => async (dispatch) => {
-       await dispatch( {type: "CURRENTLY_ADDING_TOPPING_TO", payload: index} )
-    }
 
 // ADD REMOVE UPDATE CART
 

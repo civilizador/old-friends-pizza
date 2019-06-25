@@ -25,22 +25,8 @@ module.exports = (app) => {
 
    })
 
-   app.post('/api/addTopping',async(req,res)=>{
-     if(req.user){
-       const newCart =  req.user.cart
-        await newCart[req.body.index].toppings.push(req.body.topping)
-         // console.log('Some One is trying to add Topping  ', req.body)
-           User.findByIdAndUpdate(req.user._id,
-             {"$set":  { "cart": newCart} } ,
-             function(err) {
-                 if (err) throw err;
-                 res.send(200)
-                 res.send(newCart)
-             });
-     }else{
-         res.send('noUserLoggedIn')
-     }
-   })
+    
+   
 // CART
 
 // Get All Items in the User's Cart
@@ -137,6 +123,23 @@ module.exports = (app) => {
               res.send("created");}
          });
    });
+   
+   app.post("/api/addToppingToItem/:id",async(req,res)=>{
+     if(req.user){
+       const newCart =  req.user.cart
+        await newCart[req.params.id].toppings.push(req.body.topping)
+         // console.log('Some One is trying to add Topping  ', req.body)
+           User.findByIdAndUpdate(req.user._id,
+             {"$set":  { "cart": newCart} } ,
+             function(err) {
+                 if (err) throw err;
+                 res.send(200)
+                 res.send(newCart)
+             });
+     }else{
+         res.send('noUserLoggedIn')
+     }
+   })
 
    // POST DELETE AN ITEM
    app.delete("/api/delete/:id", async (req,res)=>{

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Link} from "react-router-dom";
+import { Redirect } from "react-router-dom";
+
 import axios from 'axios';
 
 class Register extends Component {
   state = {
       name: "", email: "", password: "", password2: "", username: "",
-      addr: "", phone: "", errors: {}
+      addr: "", phone: "", errors: {}, submitted:false 
     };
   constructor(props){
     super(props)
@@ -13,13 +15,25 @@ class Register extends Component {
       this.addr = React.createRef(); this.password2 = React.createRef();
       this.email = React.createRef(); this.password = React.createRef(); this.submit = React.createRef();
   }
-    componentDidMount() {
-
+  
+  renderHeader = ()=>{
+    switch(this.state.submitted){
+      case true:
+         return <Redirect to='/login'/>;
+      case false:
+         return 'Please Register bellow'
+      default:
+         return <Redirect to='/login'/>;
+        
+        
+    }
   }
+  
   onChange = e => {
       this.setState({ [e.target.id]: e.target.value });
     };
-  onSubmit =  e => {
+  onSubmit = async(e) => {
+    
       e.preventDefault()
        const newUser =  {
             name:       this.state.name,
@@ -31,19 +45,17 @@ class Register extends Component {
             phone:      this.state.phone
       };
       console.log(newUser)
-
-  axios({
-      method: 'post',
-      url: 'api/register',
-      data: newUser
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    this.setState({errors:error})
-    console.log(error);
-  });
+  
+      const response = await axios({
+            method: 'post',
+            url: 'api/register',
+            data: newUser
+        })
+        if(response.status ==200){
+           this.setState({submitted:true});
+           console.log(' Registered successfully')
+        }
+       
 
   }
   onKeyUp = (e,target) => {
@@ -85,7 +97,7 @@ class Register extends Component {
 
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4>
-                <b>Register</b> below
+                <b>{this.renderHeader()}</b> below
               </h4>
               <p className="grey-text text-darken-1">
                 Already have an account? <Link to="/login">Log in</Link>

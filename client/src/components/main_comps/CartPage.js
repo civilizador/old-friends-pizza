@@ -17,7 +17,7 @@ class CartPage extends React.Component{
       return(
          this.props.store.auth.cart[index].toppings.map((topping)=>{
           return (
-            <span>{topping.name} , </span>
+            <span  key={index + Math.random()*155}>{topping.name} , </span>
           )
           })
         )
@@ -29,7 +29,7 @@ class CartPage extends React.Component{
         return(
             this.props.store.auth.cart.map((cartItem, index)=>{
                 return (
-                  <li  key={index} className="list-group-item">
+                  <li  key={cartItem.name + Math.random()*55} className="list-group-item">
                     <div className='row'>
                       <div className="col-sm-2 col-xs-2 col-md-2">
                         <img src={cartItem.image} className='cartItemImage' alt="" />
