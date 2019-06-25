@@ -6,18 +6,22 @@ import {getCurrentUser} from '../../actions';
 
 class Cart extends React.Component {
 
-    componentDidMount(){
+  componentDidMount(){
         this.props.getUser()
         console.log(this.props)
-    }
+      }
 
   countItemsInCart(){
-    if(this.props.store.auth && this.props.store.auth.cart ){
-      return this.props.store.auth.cart.length
-    }else {
-      return 0
-    }
+      if(this.props.store.auth && this.props.store.auth.cart ){
+        return this.props.store.auth.cart.length
+      }else {
+        return 0
+      }
+  }
 
+  removeCartItem(itemIndex){
+      // console.log('Cart.js line 26', itemIndex)
+    this.props.removeFromCart(itemIndex)
   }
 
   renderCartItems(){
@@ -45,10 +49,7 @@ class Cart extends React.Component {
     }
   }
 
-  removeCartItem(itemIndex){
-      console.log('Cart.js line 26', itemIndex)
-    this.props.removeFromCart(itemIndex)
-  }
+
 
   render(){
       console.log(this.props.store)

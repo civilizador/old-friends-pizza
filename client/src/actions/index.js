@@ -1,7 +1,6 @@
 import axios from 'axios'
 let wrongPass = false;
 
-
 // USER LOGIN ACTIONS
 
   // Get Current User Data ACTION
@@ -67,6 +66,8 @@ let wrongPass = false;
 
 // ITEMS ACTIONS
 
+  // FETCHING ITEMS
+
     export const fetchItemsByCat = (category) => async (dispatch,getState) => {
        const res = await axios.get("/api/getAll")
          const categorySelected = res.data.filter((items)=>{return items.category===category})
@@ -83,6 +84,9 @@ let wrongPass = false;
        console.log('fetch acart items ',res)
           dispatch( {type: "GET_CART_ITEMS", payload: res} )
      }
+
+     // SEARCH ITEM actions
+
     export const searchAction = (searchValue) => async (dispatch) => {
       // console.log('This is Search Action speaking, You searching for : ' , searchValue)
       const response = await axios.get("/api/search/"+searchValue)
@@ -97,6 +101,7 @@ let wrongPass = false;
         }
 
      }
+     // ADD / UPDATE /  REMOVE ITEMS
 
     export const selectedItem = (item) =>  async (dispatch) => {
       console.log('selectedItem action triggered, FOLOWING ITEM WAS SELECTED FOR DETAILS: ',item)
@@ -147,27 +152,24 @@ let wrongPass = false;
         });
 
     }
-    
+// ADD REMOVE UPDATE CART
+
+   // ADD TO CART
     export const addToCart = (item) => async (dispatch) => {
         const { data: cart } = await axios.post('/api/addToCart', {
           item: item,
          })
-         
+
         dispatch({type: 'CART',payload: cart})
     }
 
+    // REMOVE FROM CART
 
     export const removeFromCart = (index) => async (dispatch) => {
-      console.log('remove action dispatched for ID ', index)
-        axios.post('/api/removeFromCart', {
+        const { data: cart }  = await axios.post('/api/removeFromCart', {
           index: index,
          })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+         dispatch({type: 'REMOVED_FROM_CART',payload: cart})
     }
 
       //  This helper will send Axios call to backend api and add new item into DB. \

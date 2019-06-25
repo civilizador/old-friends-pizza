@@ -54,16 +54,14 @@ module.exports = (app) => {
 // Add Items to Cart
     app.post('/api/addToCart', async(req,res)=>{
         if(req.user){
-            console.log('Some One is trying to add to Cart ', req.body)
+            // console.log('Some One is trying to add to Cart ', req.body)
             const newCart = [...req.user.cart,req.body.item];
                User.findByIdAndUpdate(req.user._id,
                 { "$set": { "cart": newCart } },
                 function(err) {
                     if (err) throw err;
                     res.status(200)
-                    
                     res.send(newCart);
-                    console.log( "updated n docs: %s" );
                 });
         }else{
             res.send('noUserLoggedIn')
@@ -74,18 +72,21 @@ module.exports = (app) => {
 // Remove Items from Cart
     app.post('/api/removeFromCart', async(req,res)=>{
         if(req.user){
-            console.log('Some One is trying to remove from Cart ', req.body.index)
-            const cart = req.user.cart.filter(function(elem, _index){return req.body.index != _index})
+            // console.log('Some One is trying to remove from Cart ', req.body.index)
+            const newCart = req.user.cart.filter(function(elem, _index){return req.body.index != _index})
                User.findByIdAndUpdate(req.user._id,
-                { "$set": { "cart": cart } },
+                { "$set": { "cart": newCart } },
                 function(err) {
                     if (err) throw err;
-                    console.log( "updated n docs: %s" );
+                    res.status(200)
+                    res.send(newCart);
                 });
         }else{
             res.send('noUserLoggedIn')
         }
     })
+
+
 // GET ITEM EDIT
   app.get('/api/edit/:id',async(req,res)=>{
     if(req.user && req.user.admin){

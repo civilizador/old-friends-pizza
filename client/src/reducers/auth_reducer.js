@@ -7,6 +7,11 @@ export default (activeUser=null, action)=>{
         ...activeUser,
         cart: action.payload,
       }
+      case 'REMOVED_FROM_CART':
+      return {
+        ...activeUser,
+        cart: action.payload,
+      }
     case 'WRONG_PASSWORD':
           return action.payload
     default:
