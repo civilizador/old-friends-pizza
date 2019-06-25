@@ -11,22 +11,21 @@ class CartPage extends React.Component{
     if(this.props.store.auth)
     return this.props.store.auth.cart.length
   }
-  
-  renderToppings(cartItem){
-    console.log(cartItem)
-    if(this.props.store.auth && this.props.store.auth.cart ){
+
+  renderToppings(index){
+    if(this.props.store.auth && this.props.store.auth.cart[index].toppings.length > 0 ){
       return(
-         cartItem.toppings.map((topping)=>{
+         this.props.store.auth.cart[index].toppings.map((topping)=>{
           return (
             <span>{topping.name} , </span>
           )
           })
         )
-      
+
     }
   }
   renderCartItems(){
-    if(this.props.store.auth){
+    if(this.props.store.auth.cart){
         return(
             this.props.store.auth.cart.map((cartItem, index)=>{
                 return (
@@ -39,7 +38,7 @@ class CartPage extends React.Component{
                          <p className='CartPageText'> {cartItem.name} </p>
                       </div>
                       <div className="col-xs-3 col-sm-3  col-md-3">
-                          <p className='CartPageText'> {this.renderToppings(cartItem)}</p>
+                          <p className='CartPageText'> {this.renderToppings(index)}</p>
                           <button className='btn btn-sm btn-outline-danger'  data-toggle="modal" data-target="#exampleModalLong"
                                   onClick={() => {  this.props.currentlyAddingToppingTo(index) } } >
                             Addons

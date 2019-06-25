@@ -25,15 +25,17 @@ module.exports = (app) => {
 
    })
 
-
-   app.post('/api/addTopping/',async(req,res)=>{
+   app.post('/api/addTopping',async(req,res)=>{
      if(req.user){
-         console.log('Some One is trying to add Topping  ', req.body)
-            User.findByIdAndUpdate(req.user._id,
-             {"$set":  { "cart": req.body } } ,
+       const newCart =  req.user.cart
+        await newCart[req.body.index].toppings.push(req.body.topping)
+         // console.log('Some One is trying to add Topping  ', req.body)
+           User.findByIdAndUpdate(req.user._id,
+             {"$set":  { "cart": newCart} } ,
              function(err) {
                  if (err) throw err;
-                 console.log( "updated n docs: %s" );
+                 res.send(200)
+                 res.send(newCart)
              });
      }else{
          res.send('noUserLoggedIn')

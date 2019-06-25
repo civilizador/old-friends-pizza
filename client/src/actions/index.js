@@ -43,7 +43,7 @@ let wrongPass = false;
           dispatch({ type: 'WRONG_PASSWORD',  payload: 'wrong_password' }) }
       }
     }
-
+    // LOGIN
      export const login = ({ username, password }) => async (dispatch) => {
         await axios({
           method:"post",
@@ -101,57 +101,79 @@ let wrongPass = false;
         }
 
      }
-     // ADD / UPDATE /  REMOVE ITEMS
 
+// ADD / UPDATE /  REMOVE ITEMS
+
+     // CREATE ITEM
+
+     export const createItem = (itemObject) => async (dispatch) => {
+
+         const response = await axios({
+           method:"post",
+           url:"/api/addItem",
+           data: itemObject
+         })
+         if (response.status === 200) {
+             console.log("Success");
+             dispatch(fetchItemsByCat('Pizza'))
+         }
+     }
+
+     // GETTING ITEM DATA TO EDIT
+
+     export const retrieveItemToEdit = (item_id) => async (dispatch) => {
+       const res = await axios.get("/api/edit/"+item_id);
+       await dispatch({type: 'ITEM_TO_EDIT',payload: res.data})
+     }
+
+     // UPDATE ITEM
+
+     export const updateItem = (item) => async (dispatch) => {
+         axios.post("/api/edit/"+item._id, {
+           item: item,
+          })
+         .then(function (response) {
+           console.log(response);
+         })
+         .catch(function (error) {
+           console.log(error);
+         });
+     }
+
+     // DELETE ITEM
+
+     export const deleteItem = (itemId) => async(dispatch) => {
+       axios.delete("/api/delete/"+itemId,{data:{itemId}})
+         .then(function async(response) {
+           console.log('deleted');
+          })
+         .catch(function (error) {
+           console.log(error);
+         });
+
+     }
+
+     // SHOW ITEM DETAILS in MODAL WINDOW
     export const selectedItem = (item) =>  async (dispatch) => {
       console.log('selectedItem action triggered, FOLOWING ITEM WAS SELECTED FOR DETAILS: ',item)
       await dispatch( {type: "ITEM_SELECTED", payload: item} )
     }
 
-    export const addToppToItem = (toping,index,cart) => async (dispatch) => {
-      // await console.log(toping,index,cart)
-       cart[index].toppings.push(toping)
-      console.log('Cart with updated toppings: ',cart)
-      const response = axios.post('/api/addTopping/', cart)
-        .then(async function (response) {
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+// TOPPINGS ACTIONS
+
+    export const addToppToItem = (topping,index,cart) => async (dispatch) => {
+      // console.log('Cart with updated toppings: ',cart)
+      const {data:cart} = axios.post('/api/addTopping', {
+          topping : topping,
+          index: index
+      })
+        await dispatch({type: "TOPPING_ADDED", payload: cart})
     }
 
     export const currentlyAddingToppingTo = (index) => async (dispatch) => {
        await dispatch( {type: "CURRENTLY_ADDING_TOPPING_TO", payload: index} )
     }
 
-    export const retrieveItemToEdit = (item_id) => async (dispatch) => {
-      const res = await axios.get("/api/edit/"+item_id);
-      await dispatch({type: 'ITEM_TO_EDIT',payload: res.data})
-    }
-
-
-    export const updateItem = (item) => async (dispatch) => {
-        axios.post("/api/edit/"+item._id, {
-          item: item,
-         })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-
-    export const deleteItem = (itemId) => async(dispatch) => {
-      axios.delete("/api/delete/"+itemId,{data:{itemId}})
-        .then(function async(response) {
-          console.log('deleted');
-         })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-    }
 // ADD REMOVE UPDATE CART
 
    // ADD TO CART
@@ -171,19 +193,3 @@ let wrongPass = false;
          })
          dispatch({type: 'REMOVED_FROM_CART',payload: cart})
     }
-
-      //  This helper will send Axios call to backend api and add new item into DB. \
-      //  If scuccessful it will dispatch action and update store.
-
-      export const createItem = (itemObject) => async (dispatch) => {
-
-          const response = await axios({
-            method:"post",
-            url:"/api/addItem",
-            data: itemObject
-          })
-          if (response.status === 200) {
-              console.log("Success");
-              dispatch(fetchItemsByCat('Pizza'))
-          }
-      }
