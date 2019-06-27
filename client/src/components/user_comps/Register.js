@@ -7,12 +7,12 @@ import axios from 'axios';
 class Register extends Component {
   state = {
       name: "", email: "", password: "", password2: "", username: "", phone: "",
-      addr: "", phone: "", errors: {}, submitted:false
+      address: "", phone: "", errors: {}, submitted:false
     };
   constructor(props){
     super(props)
       this.name = React.createRef(); this.phone= React.createRef();  this.username = React.createRef();
-      this.addr = React.createRef(); this.password2 = React.createRef();  this.phone = React.createRef();
+      this.address = React.createRef(); this.password2 = React.createRef();  this.phone = React.createRef();
       this.email = React.createRef(); this.password = React.createRef(); this.submit = React.createRef();
   }
 
@@ -45,7 +45,7 @@ class Register extends Component {
            console.log(' Registered successfully')
         }
   }
-  
+
   onKeyUp = (e,target) => {
     if(e.keyCode === 13){
       switch (target) {
@@ -53,7 +53,7 @@ class Register extends Component {
           this.name.current.focus();
           break;
         case 'name' :
-          this.addr.current.focus();
+          this.address.current.focus();
           break;
         case 'addr' :
           this.phone.current.focus();
@@ -121,15 +121,15 @@ class Register extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="addr">Address</label>
+                <label htmlFor="address">Address</label>
                 <input
                 required
                   className='form-control'
-                  ref={this.addr}
-                  onKeyUp={(e)=>{this.onKeyUp(e,'addr')}}
-                   onChange={this.onChange}
-                  value={this.state.addr}
-                  id="addr"
+                  ref={this.address}
+                  onKeyUp={(e)=>{this.onKeyUp(e,'address')}}
+                  onChange={this.onChange}
+                  value={this.state.address}
+                  id="address"
                   type="text"
                 />
               </div>
@@ -211,7 +211,7 @@ class Register extends Component {
                   type="submit"
                   className="btn btn-lg btn-outline-warning"
                 >
-                  Update
+                  Sign Up
                 </button>
               </div>
             </form>

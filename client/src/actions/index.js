@@ -14,6 +14,24 @@ let wrongPass = false;
                 else dispatch({ type: 'GET_USER_DATA',  payload: 'no user_logged_in' })
        }
   }
+
+  // Update User Information
+  export const updateUser = (updatedUser) => {
+    return async(dispatch)=>{
+        const response = await  axios.put("/api/update_user", {
+           updatedUser
+          })
+         .then(function (response) {
+           console.log('User updated as following: ' , response.data);
+         })
+         .catch(function (error) {
+           console.log(error);
+         });
+     }
+  }
+
+
+
   // Get current User DATA helper function
   async function getProfileData() {
        const data =  await axios.get(`/api/current_user`)

@@ -17,20 +17,24 @@ class Cart extends React.Component {
             return 0
           }
     }
-    // Calculating cart total . 
-    
+    // Calculating cart total .
+
     getCartTotal(){
         if(this.props.store.auth){
-            const cart1 = this.props.store.auth.cart
-            // First lets calculate summary of the main dishes 
-            const totalItemsPrice = cart1.reduce((sum,items) => sum + items.price, 0)
-            // Then We can calculate toppings summarry by looping though cart and then once again looping through toppings for each of the cart Items
-                let toppingSum=0
-                let totalToppings   =  cart1.forEach((item)=>{
-                    toppingSum      += item.toppings.reduce((sum,items) => sum + items.price, 0)
-                })
-                console.log(totalItemsPrice,toppingSum) 
-                return totalItemsPrice + toppingSum
+            if(this.props.store.auth.cart){
+              const cart1 = this.props.store.auth.cart
+              // First lets calculate summary of the main dishes
+              const totalItemsPrice = cart1.reduce((sum,items) => sum + items.price, 0)
+              // Then We can calculate toppings summarry by looping though cart and then once again looping through toppings for each of the cart Items
+                  let toppingSum=0
+                  let totalToppings   =  cart1.forEach((item)=>{
+                      toppingSum      += item.toppings.reduce((sum,items) => sum + items.price, 0)
+                  })
+                  console.log(totalItemsPrice,toppingSum)
+                  return totalItemsPrice + toppingSum
+                }else{
+                    return 0
+                }
             }
              else{
                  return 0

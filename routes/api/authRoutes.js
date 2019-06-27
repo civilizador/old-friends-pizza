@@ -3,7 +3,7 @@ const mongoose  = require("mongoose");
 const User      = require("../../models/User");
 const flash     = require("connect-flash");
 const middleware = require("./middleware.js");
-
+const bcrypt = require('bcryptjs');
 // Passing express to our routes function
 
 module.exports = (app) => {
@@ -16,7 +16,7 @@ module.exports = (app) => {
             const newUser = await new User({
           		name: req.body.name, email: req.body.email,
           		username: req.body.username,password: req.body.password,
-          		address: req.body.addr,phone: req.body.phone
+          		address: req.body.address,phone: req.body.phone
           	});
       	    await User.createUser(newUser, function(err, user){
           		if(err) throw err;
@@ -61,6 +61,26 @@ module.exports = (app) => {
       console.log('api/current_user called')
           if(req.user) {res.send(req.user)}
           else{res.send(false)}
-      })
+    })
+
+
+
+    app.put('/api/update_user', async (req,res) => {
+      let password = req.body.password
+            if(req.user) {
+                bcrypt.hash(password, (hash) => {
+                  req.body.password = hash
+                   User.findByIdAndUpdate(req.user._id,req.body.updatedUser,(err, user)=>{
+                         if(err) {throw err}
+                         else{ res.send(req.user) }
+                     })
+                  })
+            }
+            else{res.send(false)}
+    })
+
+
+
+
 
 }

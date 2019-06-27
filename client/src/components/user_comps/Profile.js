@@ -2,25 +2,25 @@ import React, { Component } from 'react';
 import './user_comps.css';
  import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-
+import {updateUser} from '../../actions'
 
 
 class Profile extends Component {
   state = {
       name: this.props.store.auth.name, email: this.props.store.auth.email, password: "", password2: "", username: this.props.store.auth.username,
-      addr: this.props.store.auth.address, phone: this.props.store.auth.phone, errors: {}, submitted:false
+      address: this.props.store.auth.address, phone: this.props.store.auth.phone, errors: {}, submitted:false
     };
   constructor(props){
     super(props)
       this.name = React.createRef(); this.phone= React.createRef();  this.username = React.createRef();
-      this.addr = React.createRef(); this.password2 = React.createRef();
+      this.address = React.createRef(); this.password2 = React.createRef();
       this.email = React.createRef(); this.password = React.createRef(); this.submit = React.createRef();
   }
   onSubmit=(e)=>{
     e.preventDefault()
-    const updatedUser = this.state
-    console.log(updatedUser)
-    
+    const updatedUser1 = this.state
+    console.log(updatedUser1)
+    this.props.updateUser(updatedUser1)
   }
   onChange=(e)=>{
         this.setState({ [e.target.id]: e.target.value });
@@ -72,14 +72,14 @@ class Profile extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="addr">Address</label>
+                <label htmlFor="address">Address</label>
                 <input
                   className='form-control'
-                  ref={this.addr}
+                  ref={this.address}
                   // onKeyUp={(e)=>{this.onKeyUp(e,'addr')}}
                    onChange={this.onChange}
-                  value={this.state.addr}
-                  id="addr"
+                  value={this.state.address}
+                  id="address"
                   type="text"
                 />
               </div>
@@ -144,7 +144,7 @@ class Profile extends Component {
                   type="submit"
                   className="btn btn-lg btn-outline-success"
                 >
-                  Sign up
+                  Update
                 </button>
               </div>
               </form>
@@ -161,4 +161,4 @@ class Profile extends Component {
 
 const mapStateToProps = (store) => ({store})
 
-export default connect(mapStateToProps, null)(Profile)
+export default connect(mapStateToProps, {updateUser})(Profile)
