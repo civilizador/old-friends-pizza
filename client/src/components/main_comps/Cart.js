@@ -6,23 +6,40 @@ import {getCurrentUser} from '../../actions';
 
 class Cart extends React.Component {
 
-  componentDidMount(){
-        this.props.getUser()
-        console.log(this.props)
-      }
+    componentDidMount(){
+            this.props.getUser()
+    }
 
-  countItemsInCart(){
-      if(this.props.store.auth && this.props.store.auth.cart ){
-        return this.props.store.auth.cart.length
-      }else {
-        return 0
-      }
-  }
-
-  removeCartItem(itemIndex){
-      // console.log('Cart.js line 26', itemIndex)
-    this.props.removeFromCart(itemIndex)
-  }
+    countItemsInCart(){
+          if(this.props.store.auth && this.props.store.auth.cart ){
+            return this.props.store.auth.cart.length
+          }else {
+            return 0
+          }
+    }
+    // Calculating cart total . 
+    
+    getCartTotal(){
+        if(this.props.store.auth){
+            const cart1 = this.props.store.auth.cart
+            // First lets calculate summary of the main dishes 
+            const totalItemsPrice = cart1.reduce((sum,items) => sum + items.price, 0)
+            // Then We can calculate toppings summarry by looping though cart and then once again looping through toppings for each of the cart Items
+                let toppingSum=0
+                let totalToppings   =  cart1.forEach((item)=>{
+                    toppingSum      += item.toppings.reduce((sum,items) => sum + items.price, 0)
+                })
+                console.log(totalItemsPrice,toppingSum) 
+                return totalItemsPrice + toppingSum
+            }
+             else{
+                 return 0
+             }
+    }
+    removeCartItem(itemIndex){
+          // console.log('Cart.js line 26', itemIndex)
+        this.props.removeFromCart(itemIndex)
+    }
 
   renderCartItems(){
     if(this.props.store.auth && this.props.store.auth.cart){
@@ -61,7 +78,9 @@ class Cart extends React.Component {
                 <div className="dropdown-menu text-center" aria-labelledby="navbarDropdown">
                     <ul className="list-group">
                         {this.renderCartItems()}
-                    </ul><br/>
+                    </ul><br/> <hr/>
+                 <h3>Total: ${this.getCartTotal()}   </h3>
+                 <hr/> <br/>
                 <Link to='/cart'  className='btn btn-lg btn-outline-info' > Go to Cart </Link>
                 </div>
             </li>
