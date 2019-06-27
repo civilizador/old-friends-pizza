@@ -27,7 +27,7 @@ module.exports = (app) => {
             res.send("Passwords don't match")
         }
     });
-    
+
 // FACEBOOK AUTH ROUTES
     // app.get("/api/facebook/login", passport.authenticate('facebook', {
     //     scope : ['email'] }));
@@ -57,7 +57,7 @@ module.exports = (app) => {
 
 // Endpoint to get current user
   	app.get('/api/current_user', (req,res) => {
-  	    
+
       console.log('api/current_user called')
           if(req.user) {res.send(req.user)}
           else{res.send(false)}

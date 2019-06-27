@@ -23,6 +23,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    phone:{
+        type: Number,
+        required: true
+    },
     joined: {
         type: Date,
         default: Date.now
