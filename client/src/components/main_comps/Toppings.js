@@ -38,7 +38,8 @@ class Toppings extends React.Component{
                                 <img
                                   src={topping.img}
                                   onClick={()=>{
-                                      console.log(topping,this.props.store.addToppingItem)
+                                      console.log(topping,this.props.store.addToppingItem, typeof this.props.store.addToppingItem)
+
                                       this.props.addToppToItem(topping,this.props.store.addToppingItem)
                                     }
                                   }

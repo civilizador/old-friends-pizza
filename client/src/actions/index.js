@@ -96,7 +96,7 @@ let wrongPass = false;
       const res = await axios.get("/api/getAll")
         const idSelected = res.data.filter((items)=>{return items._id===id})
        dispatch( {type: "GET_ITEMS_BY_ID", payload: idSelected} )
-   }
+     }
     export const fetchCartItems = () => async (dispatch,getState) => {
        const res = await axios.get("/api/getCartItems")
        console.log('fetch acart items ',res)
@@ -123,8 +123,8 @@ let wrongPass = false;
 // TOPPINGS ACTIONS
 
     export const addToppToItem = (topping,index) => async (dispatch) => {
-      // console.log('Cart with updated toppings: ',cart)
-      const response = await axios.post('/api/addToppingToItem/'+index, {topping} )
+      console.log('Cart item index is : ',index )
+      const response = await axios.post(`/api/addToppingToItem`, {topping,index} )
         await dispatch({type: "TOPPING_ADDED", payload: response.data})
     }
 
