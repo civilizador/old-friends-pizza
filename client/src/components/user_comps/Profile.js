@@ -4,7 +4,7 @@ import './user_comps.css';
 import {Redirect} from 'react-router-dom'
 import {updateUser} from '../../actions'
 import Map from './Gmaps.js'
-
+import StaticMap from './GmapStatic.js'
 
 class Profile extends Component {
   state = {
@@ -22,21 +22,23 @@ class Profile extends Component {
   profileComponent=()=>{
     return(
       <div className="row container mx-auto" style={{ padding: "120px"  }}>
-
-      <div className="btn-toolbar mb-3" role="toolbar" style={{ position: "fixed", left:"10px", top: "120px"  }}>
-        <div className="btn-group-vertical mr-2" role="group" aria-label="First group">
-          <button onClick={()=>{this.onLeftMenuClick('profile')}}    className="btn btn-lg btn-secondary">Profile Info</button>
-          <button onClick={()=>{this.onLeftMenuClick('orders')}}    className="btn btn-lg btn-secondary">My Orders</button>
-          <button onClick={()=>{this.onLeftMenuClick('contact')}}    className="btn btn-lg btn-secondary">Contact Us</button>
+         <div className="btn-toolbar mb-3" role="toolbar" style={{ position: "fixed", left:"10px", top: "120px"  }}>
+          <div className="btn-group-vertical mr-2" role="group" aria-label="First group">
+            <button onClick={()=>{this.onLeftMenuClick('profile')}}    className="btn btn-lg btn-secondary">Profile Info</button>
+            <button onClick={()=>{this.onLeftMenuClick('orders')}}    className="btn btn-lg btn-secondary">My Orders</button>
+            <button onClick={()=>{this.onLeftMenuClick('contact')}}    className="btn btn-lg btn-secondary">Contact Us</button>
+          </div>
         </div>
-      </div>
-
-       <div className='col-7'>
-
-             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-               <h4> <b><h2> {this.renderHeader()} </h2></b> </h4>
-             </div>
-              <form  onSubmit={this.onSubmit} >
+        
+      <div className='col-7'>
+          
+          {this.renderHeader()} 
+          
+          <div className="col mb-10" style={{ paddingLeft: "11.250px" }}>
+            <h1>My Profile</h1> <hr/>
+          </div>
+          
+          <form  onSubmit={this.onSubmit} >
               <div className="form-group">
                 <label htmlFor="username">User Name</label>
                 <input
@@ -62,18 +64,7 @@ class Profile extends Component {
                   type="text"
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="address">Address</label>
-                <input
-                  className='form-control'
-                  ref={this.address}
-                  // onKeyUp={(e)=>{this.onKeyUp(e,'addr')}}
-                   onChange={this.onChange}
-                  value={this.state.address}
-                  id="address"
-                  type="text"
-                />
-              </div>
+               
               <div className="form-group">
                 <label htmlFor="phone">Phone number</label>
                 <input
@@ -138,14 +129,28 @@ class Profile extends Component {
                   Update
                 </button>
               </div>
-              </form>
-      </div>
+          </form>
+    </div>
 
 
-     <div className="col-5" style={{ marginTop: "20vh" , float: "left" }}>
+    <div className="col-5 float-left" >
         <Map/>
-      </div>
-   </div>
+        
+        <div className="form-group" style={{marginTop: '22rem'}}>
+                <label htmlFor="address">Address</label>
+                <input
+                  className='form-control'
+                  ref={this.address}
+                  // onKeyUp={(e)=>{this.onKeyUp(e,'addr')}}
+                   onChange={this.onChange}
+                  value={this.state.address}
+                  id="address"
+                  type="text"
+                />
+              </div>
+    </div>
+   
+  </div>
         )
   }
 
@@ -160,10 +165,23 @@ class Profile extends Component {
                 <button onClick={()=>{this.onLeftMenuClick('contact')}}    className="btn btn-lg btn-secondary">Contact Us</button>
               </div>
             </div>
-             <div className='col-7'>
-               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+             <div className='col-12'>
+                <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                  <h4> <b><h2> {this.renderHeader()} </h2></b> </h4>
-               </div>
+                </div>
+                <div className="col mb-10" style={{ paddingLeft: "11.250px" }}>
+                  <h1>Contact Us</h1> <hr/>
+                </div>
+                <div className="row">
+                  <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                   
+                  </div>
+                  <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
+                    <StaticMap/>
+                  </div>
+                  
+                </div>
+                
              </div>
 
           </div>
@@ -206,7 +224,7 @@ class Profile extends Component {
       case true:
          return <Redirect to='/'/>;
       case false:
-         return this.state.currentSection
+         return  
       default:
          return <Redirect to='/'/>;
     }
