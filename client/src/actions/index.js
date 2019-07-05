@@ -210,3 +210,25 @@ let wrongPass = false;
          })
          dispatch({type: 'REMOVED_FROM_CART',payload: cart})
     }
+
+
+// ORDERS ACTIONS
+
+    // GET ALL ORDERS
+    
+    
+    
+    // ADD ORDER
+    
+    export const addOrder = (orderItems, total) =>async (dispatch) => {
+        const order = {
+            orderItems: orderItems,
+            total: total
+        }
+        const response = await axios.post('/api/newOrder',{
+            order
+        })
+        if (response.status = 200) {
+             dispatch({type: 'ORDER_ADDED',payload: response.data})
+        }
+    }

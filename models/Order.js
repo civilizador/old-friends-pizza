@@ -1,34 +1,14 @@
-const mongoose  = require("mongoose");
+var mongoose =  require("mongoose");
 
-const ItemSchema = new mongoose.Schema({
-  total: {
-      type: Number,
-      required: true
-  },
-  items: {
-      type: Array,
-      default: [],
-      required: true
-  },
-  status: {
-      type: Boolean,
-      default: false
-  },
- Address: {
-      type: String,
-      required: false
-  },
-  placed: {
-      type: Date,
-      default: Date.now
-  },
-  discounts: {
-      type: String
-  } ,
-  toppings: {
-      type: Array,
-      default: []
-  }
-})
+   var OrderSchema = new mongoose.Schema({
+   totalPrice: Number,
+   status: String,
+   completedAt: String,
+   orderOwner: String, 
+   orderItems: Array,
+   created: {type: String, default: Date.now  }
+      });
 
-let Item = module.exports = mongoose.model('Item', ItemSchema);
+module.exports = mongoose.model("Order", OrderSchema);
+   
+   

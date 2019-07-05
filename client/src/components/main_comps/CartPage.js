@@ -5,13 +5,31 @@ import {removeFromCart,currentlyAddingToppingTo} from '../../actions';
 import Toppings from './Toppings'
 
 class CartPage extends React.Component{
-
+state={tips:0,tax:0}
 
   countItemsInCart(){
     if(this.props.store.auth)
     return this.props.store.auth.cart.length
   }
-
+  getCartTotal(){
+        if(this.props.store.auth){
+            if(this.props.store.auth.cart){
+              const cart1 = this.props.store.auth.cart
+              const totalItemsPrice = cart1.reduce((sum,items) => sum + items.price, 0)
+                  let toppingSum=0
+                  cart1.forEach((item)=>{ 
+                    toppingSum += item.toppings.reduce((sum,items) => sum + items.price, 0)
+                  })
+                  console.log(totalItemsPrice,toppingSum)
+                  return parseInt(totalItemsPrice) + parseInt(toppingSum) + parseInt(this.state.tips)
+                }else{
+                    return 0
+                }
+            }
+             else{
+                 return 0
+             }
+    }
   renderToppings(index){
     if(this.props.store.auth && this.props.store.auth.cart[index].toppings.length > 0 ){
       return(
@@ -94,8 +112,22 @@ class CartPage extends React.Component{
                         </div>
                     </li>
                         {this.renderCartItems()}
+                        <hr/>
+                      <div className='bottomLineTotalCartPage' >
+                        <p>Taxes: </p>
+                         Tips: 
+                          <input
+                              style={{width:'45px'}}
+                              type='number'
+                              onChange={ (e)=>{this.setState({tips:e.target.value})}  }
+                              value={this.state.tips}/> 
+                          <h2 className='float-right'>Total : {this.getCartTotal()}</h2>  
+                      <hr/>
+                      </div>
+                      
                     </ul><br/>
                     <Toppings />
+                    <button className='btn btn-lg btn-outline-danger float-right'> Checkout </button>
                  </div>
 
           )
