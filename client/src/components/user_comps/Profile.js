@@ -29,15 +29,15 @@ class Profile extends Component {
             <button onClick={()=>{this.onLeftMenuClick('contact')}}    className="btn btn-lg btn-secondary">Contact Us</button>
           </div>
         </div>
-        
+
       <div className='col-7'>
-          
-          {this.renderHeader()} 
-          
+
+          {this.renderHeader()}
+
           <div className="col mb-10" style={{ paddingLeft: "11.250px" }}>
             <h1>My Profile</h1> <hr/>
           </div>
-          
+
           <form  onSubmit={this.onSubmit} >
               <div className="form-group">
                 <label htmlFor="username">User Name</label>
@@ -64,7 +64,7 @@ class Profile extends Component {
                   type="text"
                 />
               </div>
-               
+
               <div className="form-group">
                 <label htmlFor="phone">Phone number</label>
                 <input
@@ -135,7 +135,7 @@ class Profile extends Component {
 
     <div className="col-5 float-left" >
         <Map/>
-        
+
         <div className="form-group" style={{marginTop: '22rem'}}>
                 <label htmlFor="address">Address</label>
                 <input
@@ -149,7 +149,7 @@ class Profile extends Component {
                 />
               </div>
     </div>
-   
+
   </div>
         )
   }
@@ -173,15 +173,30 @@ class Profile extends Component {
                   <h1>Contact Us</h1> <hr/>
                 </div>
                 <div className="row">
-                  <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-                   
-                  </div>
+                    <div  className='col-xs-12 col-sm-12 col-md-6 col-lg-6 constactLeftside'>
+                      <p>OLD FRIENDS PIZZA<br/>
+                        3665 Hulmeville Rd, Bensalem, PA 19020</p>
+                        <div class="row" style={{height:'50%'}}>
+                            <div className="col-lg-10 col-md-10 col-sm-10 col-xs-10 mx-auto contactUsDiv">
+                							<a className="contactCircles" href="tel:+1-265-638-8082"><i className="fas fa-phone"></i></a>
+                              <span>(215) 638-8082</span>
+                						</div>
+                            <div className="col-lg-10 col-md-10 col-sm-10 col-xs-10 mx-auto contactUsDiv">
+                            <a className="contactCircles" href="tel:+1-265-638-8082"><i className="fas fa-phone"></i></a>
+                            <span>(215) 638-8082</span>
+                						</div>
+                            <div className="col-lg-10 col-md-10 col-sm-10 col-xs-10 mx-auto contactUsDiv" style={{textAlign:'center'}}>
+                              Sunday-Thursday 11AM–9:30PM <br/>
+                              Friday-Saturday	11AM–11:30PM
+                            </div>
+                        </div>
+                      </div>
                   <div className='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
                     <StaticMap/>
                   </div>
-                  
+
                 </div>
-                
+
              </div>
 
           </div>
@@ -224,7 +239,7 @@ class Profile extends Component {
       case true:
          return <Redirect to='/'/>;
       case false:
-         return  
+         return
       default:
          return <Redirect to='/'/>;
     }

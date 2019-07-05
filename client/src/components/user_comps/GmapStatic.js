@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 const mapStyles = {
   width: '100%',
-  height: '20rem',
+  height: '25rem',
 };
 
 export class MapContainer extends Component {
@@ -15,12 +15,12 @@ export class MapContainer extends Component {
           center={ { lat:  40.105334, lng: -74.937721} }
           initialCenter={{ lat:  40.105334, lng: -74.937721}}
       >
-     
+
          <Marker
             title={'The marker`s title will appear as a tooltip.'}
             name={'SOMA'}
-            position={{ lat:   40.105334, lng: -74.937721}} />  
-            
+            position={{ lat:   40.105334, lng: -74.937721}} />
+
         </Map>
 
     );

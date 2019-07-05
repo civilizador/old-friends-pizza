@@ -1,6 +1,6 @@
 .profilePageContainer {
   margin-top: 120px;
-  
+
 }
 /* Profile container */
 .profile {
@@ -99,9 +99,22 @@
   margin-left: -2px;
 }
 
-/* Profile Content */
-.profile-content {
-  padding: 20px;
-  background: #fff;
-  min-height: 460px;
+
+ a.contactCircles {
+   background: white;
+   padding: 10px;
+   border: 3px solid white;
+   border-radius: 50%;
+ }
+.constactLeftside{
+    height: 25rem;
+    background:rgba(190,190,190,0.8);
+    text-align: center;
+    padding-top: 5%;
+    color: white;
+    font-size: 1em;
+}
+div.contactUsDiv {
+  margin-top: 3%;
+  height: 40%
 }

@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import Geocode from "react-geocode";
+
 const mapStyles = {
   width: '100%',
   height: '20rem',
 };
 
+// set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+Geocode.setApiKey("AIzaSyAmIxdgqzElIEOahqjr7x-K7YWcnWbozPU");
+
+
 export class MapContainer extends Component {
+  state={lat:'',lng:''}
+  getLatLng=()=>{
+    Geocode.fromAddress("Eiffel Tower").then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        console.log(lat, lng);
+        this.setState({lat,lng})
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
   render() {
+    this.getLatLng()
     return (
       <Map
        google={this.props.google}
