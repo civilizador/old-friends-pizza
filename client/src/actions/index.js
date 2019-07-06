@@ -215,16 +215,24 @@ let wrongPass = false;
 // ORDERS ACTIONS
 
     // GET ALL ORDERS
-    
-    
-    
+    export const getAllOrders = (orderOwner) => async (dispatch) => {
+      const allOrders = await axios.get('/api/getAllOrders')
+      if (allOrders.status = 200) {
+           dispatch({type: 'ALL_ORDERS',payload: allOrders.data})
+      }
+
+    }
+
+
     // ADD ORDER
-    
-    export const addOrder = (orderItems, total) =>async (dispatch) => {
+
+    export const addOrder = (orderItems, total,owner) =>async (dispatch) => {
         const order = {
             orderItems: orderItems,
-            total: total
+            total: total,
+            orderOwner:owner
         }
+        console.log('addOrder Action   ', order)
         const response = await axios.post('/api/newOrder',{
             order
         })

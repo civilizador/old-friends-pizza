@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './user_comps.css';
  import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {updateUser} from '../../actions'
+import {updateUser,getAllOrders} from '../../actions'
 import Map from './Gmaps.js'
 import StaticMap from './GmapStatic.js'
 
@@ -18,7 +18,10 @@ class Profile extends Component {
       this.address = React.createRef(); this.password2 = React.createRef();
       this.email = React.createRef(); this.password = React.createRef(); this.submit = React.createRef();
   }
-
+  componentDidMount(){
+    this.props.getAllOrders()
+    console.log(this.props.store)
+  }
   profileComponent=()=>{
     return(
       <div className="row container mx-auto" style={{ padding: "120px"  }}>
@@ -219,6 +222,11 @@ class Profile extends Component {
                  </div>
                  <div className="col mb-10" style={{ paddingLeft: "11.250px" }}>
                   <h1>My Orders</h1> <hr/>
+                  <ul>
+                    {this.props.store.allOrders.map((order)=>{
+                      return (<h1>order.total</h1>)
+                    })}
+                  </ul>
                  </div>
                </div>
 
@@ -264,4 +272,4 @@ class Profile extends Component {
 
 const mapStateToProps = (store) => ({store})
 
-export default connect(mapStateToProps, {updateUser})(Profile)
+export default connect(mapStateToProps, {updateUser,getAllOrders})(Profile)

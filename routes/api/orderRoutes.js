@@ -15,7 +15,13 @@ module.exports = (app) => {
 
 // POST ADD NEW ITEM
    app.post("/api/newOrder", async (req,res)=>{
-     const newOrder =  req.body.order
+     const newOrder = {
+       orderItems: req.body.order.orderItems,
+       totalPrice: req.body.order.total,
+       orderOwner: req.body.order.orderOwner,
+       completedAt: 'not_completed',
+
+     }
          Order.create(newOrder, (err,order)=>{
            if(err){throw err , console.log("Something is wrong") }
      //redirect back
@@ -25,6 +31,6 @@ module.exports = (app) => {
          });
    });
 
-   
+
 
 }

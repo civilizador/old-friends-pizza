@@ -1,14 +1,12 @@
-var mongoose =  require("mongoose");
+const mongoose =  require("mongoose");
 
-   var OrderSchema = new mongoose.Schema({
-   totalPrice: Number,
-   status: String,
-   completedAt: String,
-   orderOwner: String, 
-   orderItems: Array,
-   created: {type: String, default: Date.now  }
-      });
+   const OrderSchema = new mongoose.Schema({
+       totalPrice: Number,
+       completedAt: String,
+       orderItems: Array,
+       status: {type: String, default: 'created'  },
+       orderOwner: {type: String },
+       created: {type: String, default: Date.now  }
+  });
 
 module.exports = mongoose.model("Order", OrderSchema);
-   
-   

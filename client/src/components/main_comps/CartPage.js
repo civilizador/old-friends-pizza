@@ -1,12 +1,23 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {removeFromCart,currentlyAddingToppingTo} from '../../actions';
+import {Link,Redirect} from 'react-router-dom'
+import {removeFromCart,currentlyAddingToppingTo,addOrder} from '../../actions';
 import Toppings from './Toppings'
 
 class CartPage extends React.Component{
-state={tips:0,tax:0}
+state={tips:0,tax:0,orderSubmitted:false}
 
+  redirectOnSubmit(){
+    switch (this.state.orderSubmitted) {
+      case false:
+          return(<hr/>)
+       case true:
+          return(<Redirect to='/profile/orderConf'/>)
+      default:
+          return(<hr/>)
+
+    }
+  }
   countItemsInCart(){
     if(this.props.store.auth)
     return this.props.store.auth.cart.length
@@ -17,7 +28,7 @@ state={tips:0,tax:0}
               const cart1 = this.props.store.auth.cart
               const totalItemsPrice = cart1.reduce((sum,items) => sum + items.price, 0)
                   let toppingSum=0
-                  cart1.forEach((item)=>{ 
+                  cart1.forEach((item)=>{
                     toppingSum += item.toppings.reduce((sum,items) => sum + items.price, 0)
                   })
                   console.log(totalItemsPrice,toppingSum)
@@ -88,6 +99,15 @@ state={tips:0,tax:0}
     this.props.removeFromCart(itemIndex)
   }
 
+  createOrder=async()=>{
+     let grandTotal = await this.getCartTotal()
+     let tax = grandTotal*0.06
+     grandTotal = grandTotal + tax + this.state.tips
+
+        this.props.addOrder(this.props.store.auth.cart, grandTotal, this.props.store.auth._id )
+        this.setState({orderSubmitted:true})
+  }
+
   render(){
       return(
                 <div className="container" style={{marginTop: "15rem"}} aria-labelledby="navbarDropdown">
@@ -112,22 +132,22 @@ state={tips:0,tax:0}
                         </div>
                     </li>
                         {this.renderCartItems()}
-                        <hr/>
+                        {this.redirectOnSubmit()}
                       <div className='bottomLineTotalCartPage' >
                         <p>Taxes: </p>
-                         Tips: 
+                         Tips:
                           <input
                               style={{width:'45px'}}
                               type='number'
                               onChange={ (e)=>{this.setState({tips:e.target.value})}  }
-                              value={this.state.tips}/> 
-                          <h2 className='float-right'>Total : {this.getCartTotal()}</h2>  
+                              value={this.state.tips}/>
+                          <h2 className='float-right'>Total : {this.getCartTotal()}</h2>
                       <hr/>
                       </div>
-                      
+
                     </ul><br/>
                     <Toppings />
-                    <button className='btn btn-lg btn-outline-danger float-right'> Checkout </button>
+                    <button onClick={this.createOrder} className='btn btn-lg btn-outline-danger float-right'> Checkout </button>
                  </div>
 
           )
@@ -135,4 +155,4 @@ state={tips:0,tax:0}
 
 }
 const mapStateToProps = (store)=>({store})
-export default connect(mapStateToProps,{removeFromCart,currentlyAddingToppingTo})(CartPage)
+export default connect(mapStateToProps,{removeFromCart,currentlyAddingToppingTo,addOrder})(CartPage)

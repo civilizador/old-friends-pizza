@@ -57,7 +57,7 @@
 //CRUD ROUTES
     require('./routes/api/authRoutes')(app);
     require('./routes/api/itemsRoutes')(app);
-
+    require('./routes/api/orderRoutes')(app);
 //  PASSPORT.js CONFIGURATION IMPORT
     require("./services/passportConfig")
 
