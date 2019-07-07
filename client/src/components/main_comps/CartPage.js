@@ -12,7 +12,7 @@ state={tips:0,tax:0,orderSubmitted:false}
       case false:
           return(<hr/>)
        case true:
-          return(<Redirect to='/profile/orderConf'/>)
+          return(<Redirect to='/cart/orderConf'/>)
       default:
           return(<hr/>)
 
