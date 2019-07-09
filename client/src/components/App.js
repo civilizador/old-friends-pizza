@@ -13,7 +13,7 @@ import Create from './crud_comps/Create';
 import Edit from './crud_comps/Edit';
 import Show from './crud_comps/Show';
 import OrderConf from './main_comps/OrderConf';
-
+import OrderShow from './main_comps/OrderShow'
 
 class App extends React.Component {
 
@@ -31,6 +31,7 @@ renderEditRoutes(){
           <Route path='/show' exact component={Show} />
           <Route path='/cart' exact component={CartPage} />
           <Route path='/cart/orderConf' exact component={OrderConf} />
+          <Route path='/order/:id' exact component={OrderShow} />
         </BrowserRouter>
           )
   }else if(this.props.store.auth){
@@ -43,6 +44,8 @@ renderEditRoutes(){
            <Route path='/show' exact component={Show} />
            <Route path='/cart' exact component={CartPage} />
            <Route path='/profile' exact component={Profile} />
+            <Route path='/cart/orderConf' exact component={OrderConf} />
+           <Route path='/order/:id' exact component={OrderShow} />
         </BrowserRouter>
           )
   }else{

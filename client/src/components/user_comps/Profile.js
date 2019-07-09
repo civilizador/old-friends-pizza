@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './user_comps.css';
  import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
+import {Redirect,Link} from 'react-router-dom'
 import {updateUser,getAllOrders} from '../../actions'
 import Map from './Gmaps.js'
 import StaticMap from './GmapStatic.js'
@@ -28,7 +28,7 @@ class Profile extends Component {
          <div className="btn-toolbar mb-3" role="toolbar" style={{ position: "fixed", left:"10px", top: "120px"  }}>
           <div className="btn-group-vertical mr-2" role="group" aria-label="First group">
             <button onClick={()=>{this.onLeftMenuClick('profile')}}    className="btn btn-lg btn-secondary">Profile Info</button>
-            <button onClick={()=>{this.onLeftMenuClick('orders')}}    className="btn btn-lg btn-secondary">My Orders</button>
+            <button onClick={()=>{this.onLeftMenuClick('orders')}}     className="btn btn-lg btn-secondary">My Orders</button>
             <button onClick={()=>{this.onLeftMenuClick('contact')}}    className="btn btn-lg btn-secondary">Contact Us</button>
           </div>
         </div>
@@ -224,7 +224,7 @@ class Profile extends Component {
                   <h1>My Orders</h1> <hr/>
                   <ul>
                     {this.props.store.allOrders.map((order)=>{
-                      return (<h1>order.total</h1>)
+                      return (<Link to={"/order/"+order._id} > Order # {order._id}</Link>)
                     })}
                   </ul>
                  </div>

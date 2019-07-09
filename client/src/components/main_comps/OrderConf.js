@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default class OrderConf extends React.Component {
+class OrderConf extends React.Component {
   componentDidMount(){
     console.log('Order Confirmation')
   }
@@ -14,3 +14,6 @@ export default class OrderConf extends React.Component {
     )
   }
 }
+
+
+export default OrderConf
