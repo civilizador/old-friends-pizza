@@ -8,7 +8,7 @@ const mapStyles = {
 };
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-Geocode.setApiKey("AIzaSyAmIxdgqzElIEOahqjr7x-K7YWcnWbozPU");
+Geocode.setApiKey(process.env.REACT_APP_GMAPS);
 
 
 export class MapContainer extends Component {
