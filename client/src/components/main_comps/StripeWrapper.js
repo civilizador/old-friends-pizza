@@ -5,7 +5,7 @@ class StripeWrapper extends React.Component{
   render() {
     return(
       <StripeCheckout  
-          amount={500}
+          amount={this.props.cartTotal}
           token ={token=>console.log(token)}
           stripeKey = {process.env.REACT_APP_STRIPE_PUBLIC_KEY}/>
     )

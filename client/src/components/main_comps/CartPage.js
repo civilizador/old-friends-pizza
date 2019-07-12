@@ -12,7 +12,7 @@ state={tips:0,tax:0,orderSubmitted:false}
     if(this.props.store.auth){
       return(
           <div>
-              <StripeWrapper/>
+              <StripeWrapper cartTotal={stripeTotal} />
               <button
                 style={{height:'32px'}}
                 onClick={this.createOrder}
