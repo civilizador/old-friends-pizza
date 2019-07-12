@@ -8,14 +8,11 @@ class CartPage extends React.Component{
 state={tips:0,tax:0,orderSubmitted:false}
 
   returnPaymentButtons(){
+   const stripeTotal = this.getCartTotal()*100
     if(this.props.store.auth){
       return(
           <div>
-              <StripeWrapper
-                  amount={this.getCartTotal()*100}
-                  token ={token=>console.log(token)}
-                  stripeKey = {process.env.REACT_APP_STRIPE_PUBLIC_KEY}
-              />
+              <StripeWrapper/>
               <button
                 style={{height:'32px'}}
                 onClick={this.createOrder}
