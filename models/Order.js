@@ -6,7 +6,7 @@ const mongoose =  require("mongoose");
        orderItems: Array,
        status: {type: String, default: 'created'  },
        orderOwner: {type: String },
-       created: {type: String, default: Date.now  }
+       created: {type: Date, default: Date.now  }
   });
 
 module.exports = mongoose.model("Order", OrderSchema);

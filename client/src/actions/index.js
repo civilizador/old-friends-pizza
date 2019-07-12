@@ -227,6 +227,7 @@ let wrongPass = false;
     // ADD ORDER
 
     export const addOrder = (orderItems, total,owner) =>async (dispatch) => {
+ 
         const order = {
             orderItems: orderItems,
             total: total,

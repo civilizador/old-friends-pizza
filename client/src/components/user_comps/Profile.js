@@ -216,15 +216,25 @@ class Profile extends Component {
                   <button onClick={()=>{this.onLeftMenuClick('contact')}}    className="btn btn-lg btn-secondary">Contact Us</button>
                 </div>
               </div>
-               <div className='col-7'>
+               <div className='col-10'>
                  <div className="col mb-12" style={{ paddingLeft: "11.250px" }}>
                    <h4> <b><h2> {this.renderHeader()} </h2></b> </h4>
                  </div>
-                 <div className="col mb-10" style={{ paddingLeft: "11.250px" }}>
+                 <div className="col mb-12" style={{ paddingLeft: "11.250px" }}>
                   <h1>My Orders</h1> <hr/>
                   <ul>
                     {this.props.store.allOrders.map((order)=>{
-                      return (<Link to={"/order/"+order._id} > Order # {order._id}</Link>)
+                      return (
+                        <div key={order._id} className='row'>
+                          <div className='col-md-8'>
+                            <Link to={"/order/"+order._id} > Order # :{order._id}</Link>
+                          </div>
+                          <div className='col-md-4'>
+                             {order.created}
+                          </div>
+                          <hr/> <br/>
+                        </div>
+                      )
                     })}
                   </ul>
                  </div>
