@@ -3,10 +3,29 @@ import {connect} from 'react-redux'
 import {Link,Redirect} from 'react-router-dom'
 import {removeFromCart,currentlyAddingToppingTo,addOrder} from '../../actions';
 import Toppings from './Toppings'
-
+import StripeWrapper from './StripeWrapper'
 class CartPage extends React.Component{
 state={tips:0,tax:0,orderSubmitted:false}
 
+  returnPaymentButtons(){
+    if(this.props.store.auth){
+      return(
+          <div>
+              <StripeWrapper
+                  amount={this.getCartTotal()*100}
+                  token ={token=>console.log(token)}
+                  stripeKey = {process.env.REACT_APP_STRIPE_PUBLIC_KEY}
+              />
+              <button
+                style={{height:'32px'}}
+                onClick={this.createOrder}
+                className='btn btn-sm btn-success float-left'>
+                Pay Cash
+              </button>
+          </div>
+        )
+    }
+  }
   redirectOnSubmit(){
     switch (this.state.orderSubmitted) {
       case false:
@@ -147,7 +166,7 @@ state={tips:0,tax:0,orderSubmitted:false}
 
                     </ul><br/>
                     <Toppings />
-                    <button onClick={this.createOrder} className='btn btn-lg btn-outline-danger float-right'> Checkout </button>
+                    {this.returnPaymentButtons()}
                  </div>
 
           )
