@@ -73,7 +73,15 @@ module.exports = (app) => {
             res.send('noUserLoggedIn')
         }
     })
-
+    app.get('/api/emptyCart', (req, res)=>{
+      User.findByIdAndUpdate(req.user._id,
+        { "$set": { "cart": [] } },
+        function(err) {
+            if (err) throw err;
+            res.status(200)
+            res.send(req.user.cart);
+        });
+    });
 
 // GET ITEM EDIT
   app.get('/api/edit/:id',async(req,res)=>{

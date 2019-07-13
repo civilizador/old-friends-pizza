@@ -239,5 +239,8 @@ let wrongPass = false;
         })
         if (response.status = 200) {
              dispatch({type: 'ORDER_ADDED',payload: response.data})
+             const cartResponse = await axios.get('/api/emptyCart')
+             console.log('CART EMPTY API RESPONSE',cartResponse)
+             dispatch({type: 'CART_EMPTY',payload: cartResponse.data})
         }
     }
