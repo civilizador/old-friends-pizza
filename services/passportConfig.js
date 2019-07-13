@@ -33,23 +33,23 @@
         }
       ));
 
-    //  PASSPORT FACEBOOK LOGIN CONFIGURATION
-
-    passport.use(new FacebookStrategy({
-    	clientID: process.env.FB_ID,
-    	clientSecret: process.env.FB_SECRET,
-    	callbackURL: 'api/auth/facebook/callback',
-    	profileFields: ['id', 'emails', 'name'],
-    	proxy:true
-    }, async (accessToken, refreshToken, profile, done) => {
-    	// console.log(accessToken, refreshToken, profile)
-    	const existingUser = await User.findOne({fbId: profile.id});
-    		if (existingUser) {
-    			console.log('User exist with following FBID: ' + existingUser)
-    			done(null, existingUser)
-    		} else {
-    			console.log('User was created with following FBID: ' + profile.id)
-    			const user = await new User({fbId: profile.id}).save()
-    			done(null, user)
-    		}
-    }));
+    // //  PASSPORT FACEBOOK LOGIN CONFIGURATION
+    //
+    // passport.use(new FacebookStrategy({
+    // 	clientID: process.env.FB_ID,
+    // 	clientSecret: process.env.FB_SECRET,
+    // 	callbackURL: 'api/auth/facebook/callback',
+    // 	profileFields: ['id', 'emails', 'name'],
+    // 	proxy:true
+    // }, async (accessToken, refreshToken, profile, done) => {
+    // 	// console.log(accessToken, refreshToken, profile)
+    // 	const existingUser = await User.findOne({fbId: profile.id});
+    // 		if (existingUser) {
+    // 			console.log('User exist with following FBID: ' + existingUser)
+    // 			done(null, existingUser)
+    // 		} else {
+    // 			console.log('User was created with following FBID: ' + profile.id)
+    // 			const user = await new User({fbId: profile.id}).save()
+    // 			done(null, user)
+    // 		}
+    // }));

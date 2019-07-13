@@ -179,7 +179,7 @@ class Profile extends Component {
                     <div  className='col-xs-12 col-sm-12 col-md-6 col-lg-6 constactLeftside'>
                       <p>OLD FRIENDS PIZZA<br/>
                         3665 Hulmeville Rd, Bensalem, PA 19020</p>
-                        <div class="row" style={{height:'50%'}}>
+                        <div className="row" style={{height:'50%'}}>
                             <div className="col-lg-10 col-md-10 col-sm-10 col-xs-10 mx-auto contactUsDiv">
                 							<a className="contactCircles" href="tel:+1-265-638-8082"><i className="fas fa-phone"></i></a>
                               <span>(215) 638-8082</span>

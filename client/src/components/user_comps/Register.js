@@ -40,7 +40,7 @@ class Register extends Component {
             url: 'api/register',
             data: newUser
         })
-        if(response.status ==200){
+        if(response.status === 200){
            this.setState({submitted:true});
            console.log(' Registered successfully')
         }
