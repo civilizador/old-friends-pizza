@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Link} from "react-router-dom";
-import { Redirect } from "react-router-dom";
+import {connect} from 'react-redux';
+import { Link,Redirect } from "react-router-dom";
+import {registerAction} from "../../actions";
 
 import axios from 'axios';
 
@@ -15,35 +16,44 @@ class Register extends Component {
       this.address = React.createRef(); this.password2 = React.createRef();  this.phone = React.createRef();
       this.email = React.createRef(); this.password = React.createRef(); this.submit = React.createRef();
   }
-
-  renderHeader = ()=>{
-    switch(this.state.submitted){
-      case true:
-         return <Redirect to='/login'/>;
-      case false:
-         return 'Please Register bellow'
-      default:
-         return <Redirect to='/login'/>;
-    }
-  }
+ 
 
   onChange = e => {
       this.setState({ [e.target.id]: e.target.value });
     };
-
+  
+  
   onSubmit = async(e) => {
       e.preventDefault()
-       const newUser =  this.state;
-       console.log(newUser)
-       const response = await axios({
-            method: 'post',
-            url: 'api/register',
-            data: newUser
-        })
-        if(response.status === 200){
-           this.setState({submitted:true});
+        if(  document.getElementById("password").value != document.getElementById("password2").value  ){
+           this.setState({submitted:"password_mismatch"});
            console.log(' Registered successfully')
+        }else{
+           const newUser =  this.state;
+           console.log(newUser)
+           let response = await this.props.registerAction(newUser)
+           if(response.status === 200){
+               console.log(' Registered successfully here is response ',response)
+               this.setState({submitted:true})
+            }else{console.log('error ',response)}
         }
+  }
+  
+  passwordMismatchMessage = ()=>{
+    if(this.state.submitted === "password_mismatch"){
+      return(<div class="alert alert-danger" role="alert">
+              Passwords Do not match !
+            </div>)
+    }else if(this.state.submitted){
+       return <Redirect to='/'/>;
+    }else{
+      return(
+            <div class="alert alert-danger" role="alert">
+             Please register Bellow ! All Fields are mandatory.
+            </div>
+            )
+            
+    }
   }
 
   onKeyUp = (e,target) => {
@@ -84,15 +94,13 @@ class Register extends Component {
           <div className="col s8 offset-s2">
 
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-              <h4>
-                <b>{this.renderHeader()}</b> below
-              </h4>
+             
               <p className="grey-text text-darken-1">
                 Already have an account? <Link to="/login">Log in</Link>
               </p>
             </div>
             <form onSubmit={this.onSubmit}>
-
+              {this.passwordMismatchMessage()}
               <div className="form-group">
                 <label htmlFor="username">User Name</label>
                 <input
@@ -217,9 +225,11 @@ class Register extends Component {
             </form>
           </div>
         </div>
+        
       </div>
     );
   }
 }
+const mapStateToProps = (store) => ({store})
+export default connect(mapStateToProps, { registerAction })(Register)
 
-export default  Register ;

@@ -11,7 +11,7 @@ import Cart from './Cart'
 
   renderAuthItems=()=>{
     // console.log('Render Auth items function',this.props.store.auth)
-      if( !this.props.store.auth ){
+      if( !this.props.store.auth || this.props.store.auth === "wrong_password" ){
           return (<div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         <Link to='/login'  className="dropdown-item">Login </Link>
                         <Link to='/register'  className="dropdown-item">Register </Link>

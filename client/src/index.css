@@ -88,6 +88,13 @@ img.carousel_pizza{
   background: #1669F2;
 }
 
+/*------------ LOGIN PAGE -----------------*/
+
+.alert.alert-primary{
+  margin-top: 2vh!important;
+}
+
+/*------------ LOGIN PAGE -----------------*/
 /*///// NavBar //////*/
 
 div#address{
@@ -119,6 +126,7 @@ i.far.fa-times-circle {
 }
 
 /* Home Page */
+
 #homePage_sec2{
   height: 100vh;
   width: 100%;

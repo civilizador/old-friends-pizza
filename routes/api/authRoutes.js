@@ -28,15 +28,6 @@ module.exports = (app) => {
         }
     });
 
-// FACEBOOK AUTH ROUTES
-    // app.get("/api/facebook/login", passport.authenticate('facebook', {
-    //     scope : ['email'] }));
-
-    // app.get('/api/auth/facebook/callback',passport.authenticate('facebook', {
-    //     successRedirect: '/',
-    //     failureRedirect: '/login'
-    // }));
-
 // When submitting a form on Login page , we pass values from inputs to passport local strategy.
   	app.post('/api/login',
   	  passport.authenticate('local'),

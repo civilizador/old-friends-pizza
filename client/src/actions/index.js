@@ -29,7 +29,18 @@ let wrongPass = false;
          });
      }
   }
-
+  //    REGISTER ACTION
+    export const registerAction = (newUser) => {
+      return async function() {
+        console.log('this message from action REGISTER_ACTION');
+         const response = await axios({
+                method: 'post',
+                url: 'api/register',
+                data: newUser
+            })
+            return response
+        }
+    }
 
 
   // Get current User DATA helper function
