@@ -11,7 +11,7 @@
     const   cookieParser =     require('cookie-parser');
     const   cookieSession   =  require("cookie-session");
     const   path =             require("path")
-
+    const   NodeGeocoder =     require('node-geocoder');
 //  Connecting to DB
     mongoose.connect(process.env.MONGO_URI)
         .then(() => console.log("MongoDB successfully connected"))
@@ -64,6 +64,21 @@
     app.get("*", (req, res) => {
         res.sendFile(path.join(__dirname, "client", "build", "index.html"));
     });
+    
+
+ 
+    var options = {
+      provider: 'mapquest',
+      apiKey: process.env.MAPQUEST, // for Mapquest, OpenCage, Google Premier
+     };
+     
+    var geocoder = NodeGeocoder(options);
+     
+    // Using callback
+    geocoder.geocode('3733 Vader Dr. #A', function(err, res) {
+      console.log("Result is ", res);
+    });
+    
     if(process.env.NODE_ENV!='production'){
       process.env.PORT=5000
     }

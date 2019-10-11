@@ -67,7 +67,17 @@ class Profile extends Component {
                   type="text"
                 />
               </div>
-
+              <div className="form-group">
+                <label htmlFor="name">Address</label>
+                <input
+                  className='form-control'
+                  ref={this.address}
+                  onChange={this.onChange}
+                  value={this.state.address}
+                  id="address"
+                  type="text"
+                />
+              </div>
               <div className="form-group">
                 <label htmlFor="phone">Phone number</label>
                 <input
@@ -138,19 +148,6 @@ class Profile extends Component {
 
     <div className="col-5 float-left" >
         <Map/>
-
-        <div className="form-group" style={{marginTop: '22rem'}}>
-                <label htmlFor="address">Address</label>
-                <input
-                  className='form-control'
-                  ref={this.address}
-                  // onKeyUp={(e)=>{this.onKeyUp(e,'addr')}}
-                   onChange={this.onChange}
-                  value={this.state.address}
-                  id="address"
-                  type="text"
-                />
-              </div>
     </div>
 
   </div>

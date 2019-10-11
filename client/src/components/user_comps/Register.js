@@ -7,14 +7,15 @@ import axios from 'axios';
 
 class Register extends Component {
   state = {
-      name: "", email: "", password: "", password2: "", username: "", phone: "",
-      address: "", phone: "", errors: {}, submitted:false
+      name: "", email: "", password: "", password2: "", username: "", phone: "",state:"", city:"",
+      address: "",address2:"", phone: "", zipCode:"", errors: {}, submitted:false
     };
   constructor(props){
     super(props)
       this.name = React.createRef(); this.phone= React.createRef();  this.username = React.createRef();
-      this.address = React.createRef(); this.password2 = React.createRef();  this.phone = React.createRef();
-      this.email = React.createRef(); this.password = React.createRef(); this.submit = React.createRef();
+      this.address = React.createRef();this.city = React.createRef(); this.address2 = React.createRef(); 
+      this.zipCode = React.createRef();  this.password2 = React.createRef();  this.phone = React.createRef();
+      this.email = React.createRef(); this.password = React.createRef(); this.submit = React.createRef(); 
   }
  
 
@@ -129,7 +130,7 @@ class Register extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="address">Address</label>
+                <label htmlFor="address">Street Name</label>
                 <input
                 required
                   className='form-control'
@@ -142,15 +143,41 @@ class Register extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="phone">Phone</label>
+                <label htmlFor="address">Unit/Apt number</label>
                 <input
                 required
                   className='form-control'
-                  ref={this.phone}
-                  onKeyUp={(e)=>{this.onKeyUp(e,'phone')}}
-                   onChange={this.onChange}
-                  value={this.state.phone}
-                  id="phone"
+                  ref={this.address2}
+                  onKeyUp={(e)=>{this.onKeyUp(e,'address2')}}
+                  onChange={this.onChange}
+                  value={this.state.address2}
+                  id="address2"
+                  type="text"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="city">City</label>
+                <input
+                required
+                  className='form-control'
+                  ref={this.city}
+                  onKeyUp={(e)=>{this.onKeyUp(e,'city')}}
+                  onChange={this.onChange}
+                  value={this.state.city}
+                  id="city"
+                  type="text"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="address">Zip code</label>
+                <input
+                required
+                  className='form-control'
+                  ref={this.zipCode}
+                  onKeyUp={(e)=>{this.onKeyUp(e,'zipCode')}}
+                  onChange={this.onChange}
+                  value={this.state.zipCode}
+                  id="zipCode"
                   type="text"
                 />
               </div>
@@ -168,7 +195,7 @@ class Register extends Component {
                 />
               </div>
                <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Email (for order confirmation only. No promotions ever!)</label>
                 <input
                 required
                   className='form-control'

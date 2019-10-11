@@ -13,10 +13,11 @@ module.exports = (app) => {
 	    const password = req.body.password;
 	    const password2 = req.body.password2;
         if (password == password2){
+            const fullAddress = req.body.address  + " " + req.body.address2 + ", " + req.body.city +", PA, " + req.body.zipCode
             const newUser = await new User({
           		name: req.body.name, email: req.body.email,
           		username: req.body.username,password: req.body.password,
-          		address: req.body.address,phone: req.body.phone
+          		address: fullAddress ,phone: req.body.phone
           	});
       	    await User.createUser(newUser, function(err, user){
           		if(err) throw err;
