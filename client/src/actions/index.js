@@ -30,6 +30,7 @@ let wrongPass = false;
      }
   }
   //    REGISTER ACTION
+  
     export const registerAction = (newUser) => {
       return async function() {
         console.log('this message from action REGISTER_ACTION');
@@ -134,9 +135,21 @@ let wrongPass = false;
 // TOPPINGS ACTIONS
 
     export const addToppToItem = (topping,index) => async (dispatch) => {
-      console.log('Cart item index is : ',index )
-      const response = await axios.post(`/api/addToppingToItem`, {topping,index} )
-        await dispatch({type: "TOPPING_ADDED", payload: response.data})
+        const cartITEMS = await axios.get("/api/getCartItems")
+        const currentToppings = cartITEMS.data[0].toppings
+        console.log('CURRENT TOPPINGS in CART!: ', currentToppings)
+        
+        console.log('Currently trying to add topping: ', topping.name)
+        let checkResult =  currentToppings.find( ({name})=>{return name === topping.name} )
+          console.log('CHECK RESULTS: ', checkResult)
+        if(checkResult){
+            //  "remove that topping" code should go here
+            console.log('This Item is already in cart ')
+            return
+        }else{
+            const response = await axios.post(`/api/addToppingToItem`, {topping,index} )
+            await dispatch({type: "TOPPING_ADDED", payload: response.data})  
+        }
     }
 
     export const currentlyAddingToppingTo = (index) => async (dispatch) => {

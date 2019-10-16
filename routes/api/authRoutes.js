@@ -5,14 +5,17 @@ const flash     = require("connect-flash");
 const middleware = require("./middleware.js");
 const bcrypt = require('bcryptjs');
 // Passing express to our routes function
-
+let dublicate;
 module.exports = (app) => {
 
 // When submitting a form on register page we create a new entry in DB.
     app.post('/api/register', async (req, res)=>{
-	    const password = req.body.password;
-	    const password2 = req.body.password2;
-        if (password == password2){
+	  await User.find({username:req.body.username},(err,dublicateUser)=>{
+ 	       if (dublicateUser){
+	           dublicate = true;
+	       }
+	  })
+        if (!dublicate){
             const fullAddress = req.body.address  + " " + req.body.address2 + ", " + req.body.city +", PA, " + req.body.zipCode
             const newUser = await new User({
           		name: req.body.name, email: req.body.email,
@@ -24,8 +27,8 @@ module.exports = (app) => {
           		 res.send(200)
           	})
         } else{
-          	console.log("Passwords don't match");
-            res.send("Passwords don't match")
+          	console.log("User name already exists for user ", req.body.username);
+            res.send("dublicateUser")
         }
     });
 

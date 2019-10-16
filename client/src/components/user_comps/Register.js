@@ -36,7 +36,20 @@ class Register extends Component {
            if(response.status === 200){
                console.log(' Registered successfully here is response ',response)
                this.setState({submitted:true})
-            }else{console.log('error ',response)}
+            }else{
+              switch(response){
+                case 'dublicateUser':
+                  {console.log("Username already exist")}
+                default: {
+                  console.log("Some other error")
+                }  
+              
+                
+              }
+          
+              console.log('error ',response)
+              
+            }
         }
   }
   
