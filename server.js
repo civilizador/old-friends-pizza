@@ -67,9 +67,9 @@
     
 
  
-    var options = {
+   var options = {
       provider: 'mapquest',
-      apiKey: process.env.MAPQUEST, // for Mapquest, OpenCage, Google Premier
+      apiKey: 'JVZEUsR7HV0EjtZXjvADqRdxCCkGsyGq'
      };
      
     var geocoder = NodeGeocoder(options);

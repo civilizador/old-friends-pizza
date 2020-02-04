@@ -34,12 +34,7 @@ module.exports = (app) => {
 
 // When submitting a form on Login page , we pass values from inputs to passport local strategy.
   	app.post('/api/login',
-  	  passport.authenticate('local'),
-    	  function(req, res, err){
-    	      console.log(req.user)
-            if(err){res.send(err)}
-            else{ res.send("success")}
-    	  }
+  	  passport.authenticate('local',{successRedirect: '/', successRedirect: '/'})
   	);
 
     app.get('/api/logout',
