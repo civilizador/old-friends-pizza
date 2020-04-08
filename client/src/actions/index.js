@@ -241,10 +241,20 @@ let wrongPass = false;
     // GET ALL ORDERS
     export const getAllOrders = (orderOwner) => async (dispatch) => {
       const allOrders = await axios.get('/api/getAllOrders')
-      if (allOrders.status = 200) {
+      if (allOrders.status == 200) {
            dispatch({type: 'ALL_ORDERS',payload: allOrders.data})
       }
+    }
 
+    // GET ONE ORDER 
+    export const getOneOrder = (orderId) => {
+       return async (dispatch) => {
+        const orderById = await axios.get(`/api/getOneOrder/${orderId}`)
+        if (orderById.status == 200) {
+            console.log('One order called: ',orderById.data)
+            dispatch({type: 'ONE_ORDER', payload: orderById.data})
+        }
+      }
     }
 
 

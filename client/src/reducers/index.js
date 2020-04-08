@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import authReducer from  './auth_reducer' ;
 import itemsReducer from './displayAll.js';
+import oneOrder from './oneOrder.js'
 import getAllOrders from './getAllOrders.js';
 import loginStatus from  './user_loged_in.js' ;
 import cart from './cart.js';
@@ -22,6 +23,7 @@ export default combineReducers({
   itemToEdit: itemToEdit,
   addToppingItem: addToppingItem,
   allOrders: getAllOrders,
+  oneOrder: oneOrder,
    // adding additional state - form to our store. SO we can manage form data through redux.
   form: formReducer
 })

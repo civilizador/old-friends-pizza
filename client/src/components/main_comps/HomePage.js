@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {fetchItemsByCat} from '../../actions'
 import ItemsList from './ItemsList'
 import Details from './Details';
+import Footer from './Footer';
 
 class HomePage extends React.Component {
 
@@ -58,7 +59,7 @@ class HomePage extends React.Component {
              </div>
 
           </ScrollableAnchor>
-
+          <Footer/>
        </div>
     );
   }

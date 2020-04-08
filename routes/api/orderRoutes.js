@@ -13,6 +13,18 @@ module.exports = (app) => {
         })
    });
 
+// GET INDIVIDUAL ORDER ROUTE
+app.get('/api/getOneOrder/:id', async (req, res)=>{
+  const orderID = req.params.id
+  const query = await Order.findById(
+    orderID, (err, item)=>{
+        if(err) {res.send('NothingFound')}
+        else { console.log(item); res.send( item ) }
+    }
+  )
+
+})
+
 // POST ADD NEW ITEM
    app.post("/api/newOrder", async (req,res)=>{
      const newOrder = {

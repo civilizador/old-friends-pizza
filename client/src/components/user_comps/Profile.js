@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './user_comps.css';
- import {connect} from 'react-redux'
+import {connect} from 'react-redux'
 import {Redirect,Link} from 'react-router-dom'
-import {updateUser,getAllOrders} from '../../actions'
+import {updateUser,getAllOrders,getOneOrder} from '../../actions'
 import Map from './Gmaps.js'
 import StaticMap from './GmapStatic.js'
+import OrderShow from '../main_comps/OrderShow'
 
 class Profile extends Component {
   state = {
@@ -20,6 +21,7 @@ class Profile extends Component {
   }
   componentDidMount(){
     this.props.getAllOrders()
+    
     console.log(this.props.store)
   }
   profileComponent=()=>{
@@ -204,7 +206,7 @@ class Profile extends Component {
     }
     myOrdersRender=()=>{
         return(
-            <div className="row container mx-auto" style={{ padding: "120px"  }}>
+            <div className="row container mx-auto" style={{ padding: "20px"  }}>
 
               <div className="btn-toolbar mb-3" role="toolbar" style={{ position: "fixed", left:"10px", top: "120px"  }}>
                 <div className="btn-group-vertical mr-2" role="group" aria-label="First group">
@@ -213,29 +215,55 @@ class Profile extends Component {
                   <button onClick={()=>{this.onLeftMenuClick('contact')}}    className="btn btn-lg btn-secondary">Contact Us</button>
                 </div>
               </div>
-               <div className='col-10'>
-                 <div className="col mb-12" style={{ paddingLeft: "11.250px" }}>
-                   <h4> <b><h2> {this.renderHeader()} </h2></b> </h4>
-                 </div>
-                 <div className="col mb-12" style={{ paddingLeft: "11.250px" }}>
+               
+ 
+                 <div className="col-7" style={{ paddingTop: "160px" , paddingLeft:"0px"}}>
+                   
                   <h1>My Orders</h1> <hr/>
-                  <ul>
+                  <ul className="list-group">
                     {this.props.store.allOrders.map((order)=>{
                       return (
                         <div key={order._id} className='row'>
-                          <div className='col-md-8'>
-                            <Link to={"/order/"+order._id} > Order # :{order._id}</Link>
-                          </div>
-                          <div className='col-md-4'>
-                             {order.created}
-                          </div>
+                            <li 
+                              className="list-group-item d-flex justify-content-between align-items-center" 
+                              style={{width:'100%'}}
+                              onClick={()=>{this.props.getOneOrder(order._id)}}
+                              >
+                                  <span className="btn btn-sm btn-warning" style={{float:'right'}}>
+                                       {order.created.split('T')[0]}
+                                     </span>  <br/>
+                              <div className="card"   >
+                                <div className="card-body">
+                                  <h5 className="card-title">
+                                      Order # :{order._id}  
+                                  </h5>
+                                  <div className="card-text">
+                                  {order.orderItems.map((item)=>{
+                                      return(
+                                        <div key={item.name+Math.random()*1000} style={{display:'block'}}>
+                                          <img style={{width:'100px'}} src={item.image}/> {item.name}
+                                        </div>
+                                        )
+                                    })}
+                                  </div>
+                                  <a href="#" className="btn btn-primary">View Order Details</a>
+                                </div>
+                              </div>
+
+                            </li>
+                            
+
                           <hr/> <br/>
                         </div>
                       )
                     })}
                   </ul>
                  </div>
-               </div>
+                 <div className="col-5" style={{ paddingTop: "160px" , paddingLeft:"0px",float:"left"}}>
+                 <h1  style={{ MarginLeft: "30px"}}>Order Details</h1> <hr/>
+                  <OrderShow />
+                 </div>
+        
 
             </div>
           )
@@ -279,4 +307,4 @@ class Profile extends Component {
 
 const mapStateToProps = (store) => ({store})
 
-export default connect(mapStateToProps, {updateUser,getAllOrders})(Profile)
+export default connect(mapStateToProps, {updateUser,getAllOrders,getOneOrder})(Profile)
